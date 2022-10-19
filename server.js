@@ -4,7 +4,9 @@ var dotenv = require('dotenv');
 
 var indexRouter = require('./routes/indexRouter');
 var genresRouter = require('./routes/genresRouter');
-
+var publisherRouter = require('./routes/publisherRouter');
+var technicalBookRouter = require('./routes/technicalBookRouter');
+var personalRouter = require('./routes/personal');
 
 var app = express();
 
@@ -30,10 +32,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + '/public')));
 
 
-
+/*
 app.get('/', function(req, res) {  
-  res.render('home');
+  res.render('home');  
 });
+*/
 
 
 
@@ -41,8 +44,12 @@ const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
-app.use('/home', indexRouter);
+app.use('/', indexRouter);
 app.use('/genres', genresRouter);
+app.use('/publisher', publisherRouter);
+app.use('/technicalBook', technicalBookRouter);
+app.use('/personal', personalRouter);
+
 
 
 module.exports = app;
