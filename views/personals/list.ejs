@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+	<div class="card mt-2">
+		
+		<div class="card-header">
+	     <h5 class="card-title">Llistat del personal</h5>
+	  </div>
+
+    <div class="card-body">
+	    
+			<table class="table table-striped">
+		  		<thead>
+				    <tr>		      
+				      <th scope="col">Nom</th>
+				      <th scope="col">Cognoms</th>
+				      <th scope="col">Carrec</th>
+				      <th scope="col">Gmail</th>
+				      <th scope="col">
+				      	<a href="/personals/create" class="btn btn-primary">New</a>
+				      </th>
+				    </tr>
+		  		</thead>
+					<tbody>
+			  		<% list.forEach( function(Personal) { %>
+					    <tr>		      
+					      <td><%= Personal.Nom %></td>
+					      <td><%= Personal.Cognoms %></td>
+					      <td><%= Personal.Carrec %></td>
+					      <td><%= Personal.Gmail %></td>
+					      <td>					      	
+					      	<a class="btn btn-secondary" href="/personals/update/<%=Personal._id%>" class="card-link">Edit</a>
+					      </td>		      
+					    </tr>
+			   		<% }); %>	     
+			    </tbody>
+		  </table>	     
+	    
+		</div>
+		
+	</div>
+ 
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>
