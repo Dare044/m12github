@@ -7,7 +7,7 @@ const personal_controller = require("../controllers/personalController");
 
 router.get("/", personal_controller.list);
 
-/*
+
 router.get("/create", personal_controller.create_get);
 router.post("/create", personal_controller.create_post);
 
@@ -16,6 +16,6 @@ router.post("/delete/:id", personal_controller.delete_post);
 
 router.get("/update/:id", personal_controller.update_get);
 router.post("/update/:id", personal_controller.update_post);
-*/
+
 
 module.exports = router;
