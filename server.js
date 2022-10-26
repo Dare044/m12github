@@ -6,7 +6,7 @@ var indexRouter = require('./routes/indexRouter');
 var genresRouter = require('./routes/genresRouter');
 var publisherRouter = require('./routes/publisherRouter');
 var technicalBookRouter = require('./routes/technicalBookRouter');
-var personalRouter = require('./routes/personal');
+var personalRouter = require('./routes/personalRouter');
 
 var app = express();
 

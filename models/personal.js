@@ -5,10 +5,10 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var PersonalSchema = new Schema({
-  Nom: { type: String, required: true},
-  Cognoms: { type: String, required: true},
-  Gmail: { type: String, required: true},
-  Carrec: { type: String, required: true}
+  Nom: { type: String},
+  Cognoms: { type: String},
+  Gmail: { type: String},
+  Carrec: { type: String}
   });
 
 
