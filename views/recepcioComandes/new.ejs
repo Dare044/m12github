@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+
+	<div class="card mt-4">
+	  <div class="card-header">
+	     <h5 class="card-title">Nova recepció</h5>
+	  </div>
+	  <div class="card-body">
+
+	   	<form method="POST" action="/recepcioComanda/create">
+				<div class="form-group">
+					 <label for="estatRecepcio">Estat de recepció</label>
+                     <select name="estatRecepcio" class="form-control">
+                        <option value="TotDeCop">Tot de cop</option>
+                        <option value="EnDiferentsLliuraments">En diferents lliuraments</option>
+                     </select>
+				</div>
+                <div class="form-group">
+                    <label for="dateRecepcio">Data de recepció</label>
+                    <input type="date" name="dateRecepcio" class="form-control">
+               </div>
+               <div class="form-group">
+                <label for="llocRecepcio">Lloc de recepció</label>
+                <input type="text" name="llocRecepcio" class="form-control">
+               </div>
+               <div class="form-group">
+                <label for="tempsRebuda">Temps de rebuda</label>
+                <input type="text" name="tempsRebuda" class="form-control">
+               </div>
+               <div class="form-group">
+                    <label for="idPersonalRecepcio">Persona recepció</label>
+                    <select name="idPersonalRecepcio" id="idPersonalRecepcio" class="form-control">
+                        <% personal_list.forEach( function(personal) { %>
+                                  <option value="<%= personal.id %>"><%= personal.Nom %></option>
+                           <% }); %>	
+                           </select>
+                </div>
+                <div class="form-group">
+                    <label for="valoracio">Valoracio</label>
+                    <select name="valoracio" class="form-control">
+                       <option value="A"> A (BONA)</option>
+                       <option value="B"> B (DEFICIENT)</option>
+                       <option value="C"> C (INCORRECTE)</option>
+                    </select>
+               </div>
+                <div class="form-group">
+                    <label for="observacio">Observació</label>
+                    <textarea name="observacio" class="form-control"> </textarea>
+                </div>
+				<button type="submit" class="btn btn-primary">Save
+				</button>
+			</form>
+
+			<% if (typeof error !== "undefined") { %>
+				<div class="alert alert-primary mt-2" role="alert">   <p><%= error %></p>
+				</div>
+			<% } %>
+
+	  </div>
+	</div>
+	
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

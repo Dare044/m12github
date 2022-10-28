@@ -7,10 +7,10 @@ const recepcioComanda_controller = require("../controllers/recepcioComandaContro
 
 router.get("/", recepcioComanda_controller.list);
 
-/*
+
 router.get("/create", recepcioComanda_controller.create_get);
 router.post("/create", recepcioComanda_controller.create_post);
-
+/*
 router.get("/delete/:id", recepcioComanda_controller.delete_get);
 router.post("/delete/:id", recepcioComanda_controller.delete_post);
 

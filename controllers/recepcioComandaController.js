@@ -7,15 +7,21 @@ class RecepcioComandaController {
   static async list(req,res,next) {
     try {
       var list_RecepcioComandes = await RecepcioComanda.find();
-      res.render('recepcioComandes/list',{list:list_RecepcioComandes})   
+      res.render('recepcioComandes/list',{list:list_RecepcioComandes});   
     }
     catch(e) {
       res.send('Error!');
     }          
   }
-/*
-  static create_get(req, res, next) {
-    res.render('recepcioComandes/new');
+
+  static async create_get(req, res, next) {
+    try {
+      var list_Personal = await Personal.find();
+      res.render('recepcioComandes/new',{personal_list:list_Personal});   
+    }
+    catch(e) {
+      res.send('Error!');
+    }
   }
 
   static create_post(req, res) {
@@ -30,6 +36,7 @@ class RecepcioComandaController {
     })    
   }
 
+  /*
   static update_get(req, res, next) {
     RecepcioComanda.findById(req.params.id, function (err, recepcioComanda) {
         if (err) {

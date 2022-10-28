@@ -21,16 +21,28 @@
 			<table class="table table-striped">
 		  		<thead>
 				    <tr>		      
-				      <th scope="col">Name</th>
+				      <th scope="col">Estat de recepció</th>
+					  <th scope="col">Data de recepció</th>
+					  <th scope="col">Lloc de recepció</th>
+					  <th scope="col">Id de la persona recepció</th>
+					  <th scope="col">Temps de rebuda</th>
+					  <th scope="col">Valoració</th>
+					  <th scope="col">Observació</th>
 				      <th scope="col">
-				      	<a href="/recepcioComandes/create" class="btn btn-primary">New</a>
+				      	<a href="/recepcioComanda/create" class="btn btn-primary">New</a>
 				      </th>
 				    </tr>
 		  		</thead>
 			  	<tbody>
 			  		<% list.forEach( function(recepcioComanda) { %>
 					    <tr>		      
-					      <td><%= recepcioComanda.name %></td>
+					      <td><%= recepcioComanda.estatRecepcio %></td>
+						  <td><%= recepcioComanda.dateRecepcio %></td>
+						  <td><%= recepcioComanda.llocRecepcio %></td>
+						  <td><%= recepcioComanda.idPersonalRecepcio %></td>
+						  <td><%= recepcioComanda.tempsRebuda %></td>
+						  <td><%= recepcioComanda.valoracio %></td>
+						  <td><%= recepcioComanda.observacio %></td>
 					      <td>					      	
 					      	<a class="btn btn-secondary" href="/recepcioComanda/update/<%=recepcioComanda._id%>" class="card-link">Edit</a>
 					      </td>		      

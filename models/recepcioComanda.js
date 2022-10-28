@@ -5,7 +5,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var RecepcioComandaSchema = new Schema({
-  estatRecepcio:  [ "Tot de cop", "En diferents lliuraments"],
+  estatRecepcio:  [ "TotDeCop", "EnDiferentsLliuraments"],
   dateRecepcio: { type: Date},
   llocRecepcio: { type: String},
   idPersonalRecepcio: { type: Schema.ObjectId, ref:"Personal" },
