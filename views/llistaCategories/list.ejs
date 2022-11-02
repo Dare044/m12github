@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+	<div class="card mt-2">
+		
+		<div class="card-header">
+	     <h5 class="card-title">Llista de categories</h5>
+	  </div>
+
+    <div class="card-body">
+	    
+			<table class="table table-striped">
+		  		<thead>
+				    <tr>		      
+                        <th scope="col">Concepte</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Descripcio</th>
+                        <th scope="col">Quantitat demanat</th>
+				      <th scope="col">
+				      	<a href="/llistaCategoria/create" class="btn btn-primary">New</a>
+				      </th>
+				    </tr>
+		  		</thead>
+			  	<tbody>
+			  		<% list.forEach( function(llistaCategoria) { %>
+					    <tr>		      
+					      <td><%= llistaCategoria.concepte %></td>
+                          <td><%= llistaCategoria.nom %></td>
+                          <td><%= llistaCategoria.descripcio %></td>
+                          <td><%= llistaCategoria.numDemanats %></td>
+					      <td>					      	
+					      	<a class="btn btn-secondary" href="/llistaCategoria/update/<%=llistaCategoria._id%>" class="card-link">Edit</a>
+					      </td>		      
+					    </tr>
+			   		<% }); %>	     
+			    </tbody>
+		  </table>	     
+	    
+		</div>
+		
+	</div>
+ 
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>
