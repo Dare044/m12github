@@ -36,6 +36,21 @@ class RecepcioComandaController {
     })    
   }
 
+  static async delete_get(req, res, next) {
+    res.render('recepcioComandes/delete',{id: req.params.id})
+  }
+
+  static async delete_post(req, res, next) {
+   
+   RecepcioComanda.findByIdAndRemove(req.params.id, function (error) {
+     if(error){
+       res.redirect('/recepcioComanda')
+     }else{
+       res.redirect('/recepcioComanda')
+     }
+   }) 
+  }
+
   /*
   static update_get(req, res, next) {
     RecepcioComanda.findById(req.params.id, function (err, recepcioComanda) {
@@ -81,21 +96,6 @@ class RecepcioComandaController {
         }
       );
   }
-
-  static async delete_get(req, res, next) {
-    res.render('recepcioComandes/delete',{id: req.params.id})
- }
-
- static async delete_post(req, res, next) {
-   
-   Personal.findByIdAndRemove(req.params.id, function (error) {
-     if(error){
-       res.redirect('/recepcioComanda')
-     }else{
-       res.redirect('/recepcioComanda')
-     }
-   }) 
- }
 
   
 */
