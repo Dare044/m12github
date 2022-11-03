@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+
+	<div class="card mt-4">
+	  <div class="card-header">
+	     <h5 class="card-title">Nova Proposta de Pressupost</h5>
+	  </div>
+	  <div class="card-body">
+
+	   	<form method="POST" action="/propostaPressupost/create">
+				
+            <div class="form-group">
+                <label for="idConcepte">Concepte</label>
+                <select name="idConcepte" id="idConcepte" class="form-control">
+                    <% llistaCategoriaList.forEach( function(llistaCategoria) { %>
+                              <option value="<%= llistaCategoria.id %>"><%= llistaCategoria.concepte %></option>
+                       <% }); %>	
+                       </select>
+            </div>
+            <div class="form-group">
+                <label for="idFullComanda">Full de Comanda</label>
+                <input type="text" name="idFullComanda" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="descripcio">Descripció</label>
+                <input type="text" name="descripcio" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="objectiu">Objectiu</label>
+                <input type="text" name="objectiu" class="form-control">
+           </div>
+           <div class="form-group">
+                <label for="valor">Valor</label>
+                <input type="text" name="valor" class="form-control">
+           </div>
+            <div class="form-group">
+                <label for="prioritat">Prioritat</label>
+                <input type="text" name="prioritat" class="form-control">
+            </div>
+				<button type="submit" class="btn btn-primary">Save
+				</button>
+			</form>
+
+			<% if (typeof error !== "undefined") { %>
+				<div class="alert alert-primary mt-2" role="alert">   <p><%= error %></p>
+				</div>
+			<% } %>
+
+	  </div>
+	</div>
+	
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>
