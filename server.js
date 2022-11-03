@@ -8,7 +8,9 @@ var publisherRouter = require('./routes/publisherRouter');
 var technicalBookRouter = require('./routes/technicalBookRouter');
 var personalRouter = require('./routes/personalRouter');
 var recepcioComandaRouter = require('./routes/recepcioComandaRouter');
-var llistaCategoriaRouter = require ('./routes/llistaCategoriaRouter')
+var llistaCategoriaRouter = require ('./routes/llistaCategoriaRouter');
+var propostaPressupostRouter = require ('./routes/propostaPressupostRouter');
+
 
 var app = express();
 
@@ -53,6 +55,7 @@ app.use('/technicalBook', technicalBookRouter);
 app.use('/personal', personalRouter);
 app.use('/recepcioComanda', recepcioComandaRouter);
 app.use('/llistaCategoria', llistaCategoriaRouter);
+app.use('/propostaPressupost', propostaPressupostRouter);
 
 
 

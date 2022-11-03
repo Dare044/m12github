@@ -8,7 +8,7 @@ var LlistaCategoriaSchema = new Schema({
   concepte: { type: String},
   nom: { type: String},
   descripcio: { type: String },
-  numDemanats: { type: String}
+  numDemanats: { type: Number}
   });
 
 

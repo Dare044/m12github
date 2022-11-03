@@ -4,15 +4,15 @@ var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
-var RecepcioComandaSchema = new Schema({
+var PropostaPressupostSchema = new Schema({
   idConcepte:  { type: Schema.ObjectId, ref:"LlistaCategoria" },
   idFullComanda: { type: Schema.ObjectId, ref:"FullComanda" },
   descripcio: { type: String },
   objectiu: { type: String },
-  valor: { type: String},
+  valor: { type: Number},
   prioritat: { type: Number}
   });
 
 
 // Export model.
-module.exports = mongoose.model("RecepcioComanda", RecepcioComandaSchema);
+module.exports = mongoose.model("PropostaPressupost", PropostaPressupostSchema);
