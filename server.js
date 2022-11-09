@@ -10,6 +10,8 @@ var personalRouter = require('./routes/personalRouter');
 var recepcioComandaRouter = require('./routes/recepcioComandaRouter');
 var llistaCategoriaRouter = require ('./routes/llistaCategoriaRouter');
 var propostaPressupostRouter = require ('./routes/propostaPressupostRouter');
+var fullComandaRouter = require ('./routes/fullComandaRouter');
+var propostaNecessitatRouter = require ('./routes/propostaNecessitatRouter');
 
 
 var app = express();
@@ -56,6 +58,8 @@ app.use('/personal', personalRouter);
 app.use('/recepcioComanda', recepcioComandaRouter);
 app.use('/llistaCategoria', llistaCategoriaRouter);
 app.use('/propostaPressupost', propostaPressupostRouter);
+app.use('/fullComanda', fullComandaRouter);
+app.use('/propostaNecessitat', propostaNecessitatRouter);
 
 
 

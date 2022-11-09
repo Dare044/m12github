@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+	<div class="card mt-2">
+		
+		<div class="card-header">
+	     <h5 class="card-title">Proposta de Necessitat</h5>
+	  </div>
+
+    <div class="card-body">
+	    
+			<table class="table table-striped">
+		  		<thead>
+				    <tr>		      
+                        <th scope="col">ID</th>
+                        <th scope="col">Full Comanda</th>
+                        <th scope="col">Material</th>
+                        <th scope="col">Quantitat</th>
+                        <th scope="col">Preu</th>
+
+				      <th scope="col">
+				      	<a href="/propostaNecessitat/create" class="btn btn-primary">New</a>
+				      </th>
+				    </tr>
+		  		</thead>
+			  	<tbody>
+			  		<% list.forEach( function(propostaNecessitat) {%>
+					    <tr>		
+                          <td><%= propostaNecessitat.id %></td>
+                          <td><%= propostaNecessitat.idFullComanda %></td>
+                          <td><%= propostaNecessitat.material%></td>
+                          <td><%= propostaNecessitat.quantitat %></td>
+                          <td><%= propostaNecessitat.preu %>€</td>
+					      <td>					      	
+					      	<a class="btn btn-danger" href="/propostaNecessitat/delete/<%=propostaNecessitat._id%>" class="card-link">Delete</a>
+					      </td>		      
+					    </tr>
+			   		<% }); %>	     
+			    </tbody>
+		  </table>	     
+	    
+		</div>
+		
+	</div>
+ 
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

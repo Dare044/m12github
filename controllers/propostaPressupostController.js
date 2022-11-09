@@ -7,7 +7,8 @@ class PropostaPressupostController {
   static async list(req,res,next) {
     try {
       var list_PropostesPressupost = await PropostaPressupost.find();
-      res.render('propostesPressupost/list',{list:list_PropostesPressupost})      
+      var list_LlistaCategoria = await LlistaCategoria.find();
+      res.render('propostesPressupost/list',{list:list_PropostesPressupost, list_LlistaCategoria:list_LlistaCategoria})      
     }
     catch(e) {
       res.send('Error!');

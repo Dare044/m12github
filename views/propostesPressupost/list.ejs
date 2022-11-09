@@ -34,9 +34,11 @@
 				    </tr>
 		  		</thead>
 			  	<tbody>
-			  		<% list.forEach( function(propostaPressupost) { %>
-					    <tr>		      
-					      <td><%= propostaPressupost.idConcepte %></td>
+			  		<% list.forEach( function(propostaPressupost) { list_LlistaCategoria.forEach ( function(llistaCategoria) {%>
+					    <tr>		
+							<% if (propostaPressupost.idConcepte == llistaCategoria.id ) { %>
+					      <td><%= llistaCategoria.concepte%></td>
+							<% } }); %>
                           <td><%= propostaPressupost.idFullComanda %></td>
                           <td><%= propostaPressupost.descripcio %></td>
                           <td><%= propostaPressupost.objectiu %></td>
