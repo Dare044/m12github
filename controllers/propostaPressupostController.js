@@ -1,5 +1,7 @@
 var PropostaPressupost = require("../models/propostaPressupost");
 var LlistaCategoria = require("../models/llistaCategoria");
+var FullComanda = require("../models/fullComanda");
+
 
 class PropostaPressupostController {
 
@@ -27,6 +29,8 @@ class PropostaPressupostController {
 
   static create_post(req, res) {
     // console.log(req.body)
+    FullComanda.create(req.body);
+
     PropostaPressupost.create(req.body, function (error, newPropostaPressupost)  {
         if(error){
             //console.log(error)
