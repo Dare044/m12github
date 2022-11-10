@@ -35,16 +35,16 @@
 				    </tr>
 		  		</thead>
 			  	<tbody>
-			  		<% list.forEach( function(recepcioComanda) { %>
+			  		<% list.forEach( function(llistatProveidor) { %>
 					    <tr>		      
-					      <td><%= recepcioComanda.Cif %></td>
-						  <td><%= recepcioComanda.idActivitat %></td>
-						  <td><%= recepcioComanda.nom %></td>
-						  <td><%= recepcioComanda.ubicacio %></td>
-						  <td><%= recepcioComanda.contacte %></td>
-						  <td><%= recepcioComanda.email %></td>
-						  <td><%= recepcioComanda.numDeficiencies %></td>
-                          <td><%= recepcioComanda.numIncorreccions %></td>
+					      <td><%= llistatProveidor.Cif %></td>
+						  <td><%= llistatProveidor.idActivitat %></td>
+						  <td><%= llistatProveidor.nom %></td>
+						  <td><%= llistatProveidor.ubicacio %></td>
+						  <td><%= llistatProveidor.contacte %></td>
+						  <td><%= llistatProveidor.email %></td>
+						  <td><%= llistatProveidor.numDeficiencies %></td>
+                          <td><%= llistatProveidor.numIncorreccions %></td>
 					      <td>					      	
 					      	<a class="btn btn-danger" href="/llistatProveidor/delete/<%= llistatProveidor._id %>" class="card-link">Delete</a>
 					      </td>		      

@@ -4,7 +4,7 @@ var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
-var LlistatProveidorsSchema = new Schema({
+var LlistatProveidorSchema = new Schema({
   Cif: { type: Number},
   nom: { type: String},
   idActivitat: { type: Schema.ObjectId, ref:"Activitat" },
@@ -17,4 +17,4 @@ var LlistatProveidorsSchema = new Schema({
 
 
 // Export model.
-module.exports = mongoose.model("LlistatProveidor", LlistatProveidorSchema);
+module.exports = mongoose.model("llistatProveidor", LlistatProveidorSchema );

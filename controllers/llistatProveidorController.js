@@ -7,7 +7,7 @@ class LlistatProveidorController {
   static async list(req,res,next) {
     try {
       var list_llistatProveidors = await LlistatProveidor.find();
-      res.render('LlistatProveidors/list',{list:list_LlistatProveidors});   
+      res.render('llistatProveidors/list',{list:list_llistatProveidors});   
     }
     catch(e) {
       res.send('Error!');

@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 
 var ActivitatSchema = new Schema({
   nom: { type: String},
-  descripció: { type: String, maxLength: 20},
+  descripcio: { type: String, maxLength: 20},
   });
 
 
