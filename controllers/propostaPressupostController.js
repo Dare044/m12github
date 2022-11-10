@@ -8,7 +8,7 @@ class PropostaPressupostController {
   // Version 1
   static async list(req,res,next) {
     try {
-      var list_PropostesPressupost = await PropostaPressupost.find();
+      var list_PropostesPressupost = await PropostaPressupost.find().sort('prioritat');
       var list_LlistaCategoria = await LlistaCategoria.find();
       res.render('propostesPressupost/list',{list:list_PropostesPressupost, list_LlistaCategoria:list_LlistaCategoria})      
     }
@@ -55,6 +55,47 @@ class PropostaPressupostController {
      }
    }) 
   }
+
+  static update_get(req, res, next) {
+    PropostaPressupost.findById(req.params.id, function (err, propostaPressupost) {
+        if (err) {
+          return next(err);
+        }
+        if (propostaPressupost == null) {
+          // No results.
+          var err = new Error("Proposta de Pressupost not found");
+          err.status = 404;
+          return next(err);
+        }
+        // Success.
+        res.render("propostesPressupost/update", { propostaPressupost: propostaPressupost });
+    });
+      
+  }  
+
+  static update_post(req, res, next) {
+      var propostaPressupost = new PropostaPressupost ({
+        prioritat: req.body.prioritat,
+        _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
+      });    
+    
+      PropostaPressupost.findByIdAndUpdate(
+        req.params.id,
+        propostaPressupost,
+        {runValidators: true}, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
+        function (err, propostaPressupostFound) {
+          if (err) {
+            //return next(err);
+            res.render("propostesPressupost/update", { propostaPressupost: propostaPressupost, error: err.message });
+
+          }          
+          //res.redirect('/genres/update/'+ genreFound._id);
+          res.render("propostesPressupost/update", { propostaPressupost: propostaPressupost, message: 'Personal Updated'});
+        }
+      );
+  }
+
+
 
   
 }

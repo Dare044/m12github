@@ -9,6 +9,7 @@ var PropostaPressupostSchema = new Schema({
   idFullComanda: { type: Schema.ObjectId, ref:"FullComanda" },
   descripcio: { type: String },
   objectiu: { type: String },
+  quantitat: { type: Number},
   valor: { type: Number},
   prioritat: { type: Number}
   });
