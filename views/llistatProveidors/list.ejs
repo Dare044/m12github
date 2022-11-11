@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+	<div class="card mt-2">
+		
+		<div class="card-header">
+	     <h5 class="card-title">Llista de Proveidor</h5>
+	  </div>
+
+    <div class="card-body">
+	    
+			<table class="table table-striped">
+		  		<thead>
+				    <tr>		      
+				      <th scope="col">Cif</th>
+					  <th scope="col">Id Activitat</th>
+					  <th scope="col">Nom</th>
+					  <th scope="col">Ubicació</th>
+					  <th scope="col">Contacte</th>
+					  <th scope="col">Email</th>
+					  <th scope="col">Numero de Deficiencies</th>
+                      <th scope="col">Numero de Incorreccions</th>
+				      <th scope="col">
+				      	<a href="/llistatProveidor/create" class="btn btn-primary">New</a>
+				      </th>
+				    </tr>
+		  		</thead>
+			  	<tbody>
+			  		<% list.forEach( function(llistatProveidor) { %>
+					    <tr>		      
+					      <td><%= llistatProveidor.Cif %></td>
+						  <td><%= llistatProveidor.idActivitat %></td>
+						  <td><%= llistatProveidor.nom %></td>
+						  <td><%= llistatProveidor.ubicacio %></td>
+						  <td><%= llistatProveidor.contacte %></td>
+						  <td><%= llistatProveidor.email %></td>
+						  <td><%= llistatProveidor.numDeficiencies %></td>
+                          <td><%= llistatProveidor.numIncorreccions %></td>
+					      <td>					      	
+					      	<a class="btn btn-danger" href="/llistatProveidor/delete/<%= llistatProveidor._id %>" class="card-link">Delete</a>
+					      </td>		      
+					    </tr>
+			   		<% }); %>	     
+			    </tbody>
+		  </table>	     
+	    
+		</div>
+		
+	</div>
+ 
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>
