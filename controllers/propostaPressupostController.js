@@ -95,6 +95,45 @@ class PropostaPressupostController {
       );
   }
 
+  static updateEstat_get(req, res, next) {
+    PropostaPressupost.findById(req.params.id, function (err, propostaPressupost) {
+        if (err) {
+          return next(err);
+        }
+        if (propostaPressupost == null) {
+          // No results.
+          var err = new Error("Proposta de Pressupost not found");
+          err.status = 404;
+          return next(err);
+        }
+        // Success.
+        res.render("propostesPressupost/updateEstat", { propostaPressupost: propostaPressupost });
+    });
+      
+  }  
+
+  static updateEstat_post(req, res, next) {
+      var propostaPressupost = new PropostaPressupost ({
+        estat: req.body.estat,
+        _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
+      });    
+    
+      PropostaPressupost.findByIdAndUpdate(
+        req.params.id,
+        propostaPressupost,
+        {runValidators: true}, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
+        function (err, propostaPressupostFound) {
+          if (err) {
+            //return next(err);
+            res.render("propostesPressupost/updateEstat", { propostaPressupost: propostaPressupost, error: err.message });
+
+          }          
+          //res.redirect('/genres/update/'+ genreFound._id);
+          res.render("propostesPressupost/updateEstat", { propostaPressupost: propostaPressupost, message: 'Personal Updated'});
+        }
+      );
+  }
+
 
 
   

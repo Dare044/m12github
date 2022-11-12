@@ -26,6 +26,7 @@
                         <th scope="col">Material</th>
                         <th scope="col">Quantitat</th>
                         <th scope="col">Preu</th>
+						<th scope="col">Estat</th>
 
 				      <th scope="col">
 				      	<a href="/propostaNecessitat/create" class="btn btn-primary">New</a>
@@ -40,6 +41,7 @@
                           <td><%= propostaNecessitat.material%></td>
                           <td><%= propostaNecessitat.quantitat %></td>
                           <td><%= propostaNecessitat.preu %>€</td>
+						  <td><%= propostaNecessitat.estat %>€</td>
 					      <td>					      	
 					      	<a class="btn btn-danger" href="/propostaNecessitat/delete/<%=propostaNecessitat._id%>" class="card-link">Delete</a>
 					      </td>		      

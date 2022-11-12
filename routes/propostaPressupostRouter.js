@@ -17,5 +17,8 @@ router.post("/delete/:id", propostaPressupost_controller.delete_post);
 router.get("/update/:id", propostaPressupost_controller.update_get);
 router.post("/update/:id", propostaPressupost_controller.update_post);
 
+router.get("/updateEstat/:id", propostaPressupost_controller.updateEstat_get);
+router.post("/updateEstat/:id", propostaPressupost_controller.updateEstat_post);
+
 
 module.exports = router;

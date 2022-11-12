@@ -8,7 +8,8 @@ var PropostaNecessitatSchema = new Schema({
   idFullComanda: { type: Schema.ObjectId, ref:"FullComanda" },
   material: { type: String},
   preu: { type: Number },
-  quantitat: { type: Number }
+  quantitat: { type: Number },
+  estat: ["EnProces", "Aprovada"]
   });
 
 
