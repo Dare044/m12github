@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 var LlistatProveidorSchema = new Schema({
   Cif: { type: Number},
   nom: { type: String},
-  idActivitat: { type: Schema.ObjectId, ref:"Activitat" },
+  idActivitat: [{type: Schema.ObjectId, ref:"Activitat"}],
   ubicacio: { type: String},
   contacte: { type: String},
   email: { type: String},
