@@ -1,5 +1,5 @@
 var PropostaNecessitat = require("../models/propostaNecessitat");
-
+var FullComanda = require("../models/fullComanda");
 
 class PropostaNecessitatController {
 
@@ -22,16 +22,22 @@ class PropostaNecessitatController {
     }
   }
 
-  static create_post(req, res) {
+  static async create_post(req, res) {
     // console.log(req.body)
-    PropostaNecessitat.create(req.body, function (error, newPropostaNecessitat)  {
+    var FullComandaCreat = await FullComanda.create(req.body);
+    await PropostaNecessitat.create(
+      ({idFullComanda: (FullComandaCreat._id),
+        material: req.body.material,
+        preu: req.body.preu,
+        quantitat: req.body.quantitat,
+        estat: req.body.estat}), 
+      function (error, newPropostaPressupost)  {
         if(error){
-            //console.log(error)
             res.render('propostesNecessitat/new',{error:error.message})
         }else{             
             res.redirect('/propostaNecessitat')
         }
-    })    
+        })   
   }
 
   static async delete_get(req, res, next) {
@@ -47,6 +53,45 @@ class PropostaNecessitatController {
        res.redirect('/propostaNecessitat')
      }
    }) 
+  }
+
+  static updateEstat_get(req, res, next) {
+    PropostaNecessitat.findById(req.params.id, function (err, propostaNecessitat) {
+        if (err) {
+          return next(err);
+        }
+        if (propostaNecessitat == null) {
+          // No results.
+          var err = new Error("Proposta de Necessitat not found");
+          err.status = 404;
+          return next(err);
+        }
+        // Success.
+        res.render("propostesNecessitat/updateEstat", { propostaNecessitat: propostaNecessitat });
+    });
+      
+  }  
+
+  static updateEstat_post(req, res, next) {
+      var propostaNecessitat = new PropostaNecessitat ({
+        estat: req.body.estat,
+        _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
+      });    
+    
+      PropostaNecessitat.findByIdAndUpdate(
+        req.params.id,
+        propostaNecessitat,
+        {runValidators: true}, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
+        function (err, propostaNecessitatFound) {
+          if (err) {
+            //return next(err);
+            res.render("propostesNecessitat/updateEstat", { propostaNecessitat: propostaNecessitat, error: err.message });
+
+          }          
+          //res.redirect('/genres/update/'+ genreFound._id);
+          res.render("propostesNecessitat/updateEstat", { propostaNecessitat: propostaNecessitat, message: 'Personal Updated'});
+        }
+      );
   }
 
   

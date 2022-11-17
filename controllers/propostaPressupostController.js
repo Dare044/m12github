@@ -1,6 +1,7 @@
 var PropostaPressupost = require("../models/propostaPressupost");
 var LlistaCategoria = require("../models/llistaCategoria");
 var FullComanda = require("../models/fullComanda");
+var LlistatProveidor = require("../models/llistatProveidor");
 
 
 class PropostaPressupostController {
@@ -20,26 +21,33 @@ class PropostaPressupostController {
   static async create_get(req, res, next) {
     try {
       var list_LlistaCategoria = await LlistaCategoria.find();
-      res.render('propostesPressupost/new',{llistaCategoriaList:list_LlistaCategoria});   
+      var list_LlistaProveidor = await LlistatProveidor.find();
+      res.render('propostesPressupost/new',{list_LlistaCategoria:list_LlistaCategoria, list_LlistaProveidor:list_LlistaProveidor});   
     }
     catch(e) {
       res.send('Error!');
     }
   }
 
-  static create_post(req, res) {
-    // console.log(req.body)
-    FullComanda.create(req.body);
-
-    PropostaPressupost.create(req.body, function (error, newPropostaPressupost)  {
+  static async create_post(req, res) {
+    var FullComandaCreat = await FullComanda.create(req.body);
+    await PropostaPressupost.create(
+      ({idConcepte: req.body.idConcepte, 
+        idFullComanda: (FullComandaCreat._id),
+        descripcio: req.body.descripcio,
+        objectiu: req.body.objectiu,
+        quantitat: req.body.quantitat,
+        valor: req.body.valor,
+        prioritat: req.body.prioritat,
+        estat: req.body.estat}), 
+      function (error, newPropostaPressupost)  {
         if(error){
-            //console.log(error)
             res.render('propostesPressupost/new',{error:error.message})
         }else{             
             res.redirect('/propostaPressupost')
         }
-    })    
-  }
+        })
+    } 
 
   static async delete_get(req, res, next) {
     res.render('propostesPressupost/delete',{id: req.params.id})

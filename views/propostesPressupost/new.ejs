@@ -22,7 +22,7 @@
             <div class="form-group">
                 <label for="idConcepte">Concepte</label>
                 <select name="idConcepte" id="idConcepte" class="form-control">
-                  <% llistaCategoriaList.forEach( function(llistaCategoria) { %>
+                  <% list_LlistaCategoria.forEach( function(llistaCategoria) { %>
                     <option value="<%= llistaCategoria.id %>"><%= llistaCategoria.concepte %> -> <%= llistaCategoria.nom %> -> <%= llistaCategoria.descripcio%></option>
                   <% }); %>	
                 </select>
@@ -44,6 +44,15 @@
            <div class="form-group">
                 <label for="valor">Valor</label>
                 <input type="text" name="valor" class="form-control">
+           </div>
+           
+           <div class="form-group">
+            <label for="idProveidor">Proveidor</label>
+            <select name="idProveidor" id="idProveidor" class="form-control">
+              <% list_LlistaProveidor.forEach( function(llistaProveidor) { %>
+                <option value="<%= llistaProveidor.id %>"><%= llistaProveidor.nom %></option>
+              <% }); %>	
+            </select>
            </div>
             <div class="form-group">
                 <label for="prioritat">Prioritat</label>

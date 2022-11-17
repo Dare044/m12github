@@ -22,7 +22,7 @@
 		  		<thead>
 				    <tr>		      
 				      <th scope="col">ID</th>
-                      <th scope="col">ID Proveidor</th>
+                      <th scope="col">Proveidor</th>
                       <th scope="col">Data generació</th>
 				      <th scope="col">
 				      	<!-- <a href="/fullComandes/create" class="btn btn-primary">New</a> -->
@@ -31,12 +31,17 @@
 		  		</thead>
 			  	<tbody>
 			  		<% list.forEach( function(fullComanda) { %>
-					    <tr>		      
-					      <td><%= fullComanda.id %></td>
-                          <td><%= fullComanda.idProveidor %></td>
+					    <tr>
+						  <td><%= fullComanda.id %></td>
+						  <% list_ProveidorsLlista.forEach(function(llistatProveidor) { if ( llistatProveidor.id == fullComanda.idProveidor) { %>
+								<td><%= llistatProveidor.nom %></td>
+						  <% } else { %>
+								<td> No hi ha Proveidor <br> (Requereix aprovació)</td>
+						<% }}); %>		      
+                          
                           <td><%= fullComanda._id.getTimestamp() %></td>
 					      <td>					      	
-					      	<a class="btn btn-secondary" href="/fullComandes/update/<%=fullComanda._id%>" class="card-link">Edit</a>
+					      	<a class="btn btn-danger" href="/fullComanda/delete/<%=fullComanda._id%>" class="card-link">Delete</a>
 					      </td>		      
 					    </tr>
 			   		<% }); %>	     
