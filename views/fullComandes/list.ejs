@@ -24,7 +24,8 @@
 				      <th scope="col">ID</th>
                       <th scope="col">Proveidor</th>
                       <th scope="col">Data generació</th>
-				      <th scope="col">
+					  <th scope="col">Cost Final</th>
+				      <th scope="col"> Operacions
 				      	<!-- <a href="/fullComandes/create" class="btn btn-primary">New</a> -->
 				      </th>
 				    </tr>
@@ -35,11 +36,14 @@
 						  <td><%= fullComanda.id %></td>
 						  <% list_ProveidorsLlista.forEach(function(llistatProveidor) { if ( llistatProveidor.id == fullComanda.idProveidor) { %>
 								<td><%= llistatProveidor.nom %></td>
-						  <% } else { %>
-								<td> No hi ha Proveidor <br> (Requereix aprovació)</td>
 						<% }}); %>		      
+
+						<% if (fullComanda.idProveidor == null) { %>
+							<td> No hi ha Proveidor <br> (Requereix aprovació)</td>
+						<% }; %>
                           
                           <td><%= fullComanda._id.getTimestamp() %></td>
+						  <td><%= fullComanda.costFinal %></td>
 					      <td>					      	
 					      	<a class="btn btn-danger" href="/fullComanda/delete/<%=fullComanda._id%>" class="card-link">Delete</a>
 					      </td>		      

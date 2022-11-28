@@ -1,5 +1,6 @@
 var PropostaNecessitat = require("../models/propostaNecessitat");
 var FullComanda = require("../models/fullComanda");
+var LlistatProveidor = require("../models/llistatProveidor");
 
 class PropostaNecessitatController {
 
@@ -15,7 +16,9 @@ class PropostaNecessitatController {
 
   static async create_get(req, res, next) {
     try {
-      res.render('propostesNecessitat/new');   
+      var list_LlistaProveidor = await LlistatProveidor.find();
+      res.render('propostesNecessitat/new',{list_LlistaProveidor:list_LlistaProveidor});   
+
     }
     catch(e) {
       res.send('Error!');
@@ -40,6 +43,7 @@ class PropostaNecessitatController {
         })   
   }
 
+  
   static async delete_get(req, res, next) {
     res.render('propostesNecessitat/delete',{id: req.params.id})
   }

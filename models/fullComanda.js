@@ -5,6 +5,8 @@ var Schema = mongoose.Schema;
 var FullComandaSchema = new Schema({
   dataGeneracio: { type: String},
   idProveidor: { type: Schema.ObjectId, ref:"llistatProveidor" },
+  costFinal: { type: Number},
+  
 });
 
 

@@ -51,6 +51,7 @@ class PersonalController {
         Nom: req.body.Nom,
         Cognoms: req.body.Cognoms,
         Carrec: req.body.Carrec,
+        contrasenya: req.body.contrasenya,
         Gmail: req.body.Gmail,
         _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
       });    

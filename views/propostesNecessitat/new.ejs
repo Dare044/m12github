@@ -28,6 +28,14 @@
                 <input type="text" name="quantitat" class="form-control">
             </div>
             <div class="form-group">
+              <label for="idProveidor">Proveidor</label>
+              <select name="idProveidor" id="idProveidor" class="form-control">
+                <% list_LlistaProveidor.forEach( function(llistaProveidor) { %>
+                  <option value="<%= llistaProveidor.id %>"><%= llistaProveidor.nom %></option>
+                <% }); %>	
+              </select>
+             </div>
+            <div class="form-group">
                 <label for="preu">Preu</label>
                 <input type="text" name="preu" class="form-control">
            </div>

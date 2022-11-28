@@ -49,6 +49,37 @@ class PropostaPressupostController {
         })
     } 
 
+    static async create_getMore(req, res, next) {
+      try {
+        var list_LlistaCategoria = await LlistaCategoria.find();
+        var list_LlistaProveidor = await LlistatProveidor.find();
+        res.render('propostesPressupost/new',{list_LlistaCategoria:list_LlistaCategoria, list_LlistaProveidor:list_LlistaProveidor});   
+      }
+      catch(e) {
+        res.send('Error!');
+      }
+    }
+  
+    static async create_postMore(req, res) {
+      var FullComandaCreat = await FullComanda.create(req.body);
+      await PropostaPressupost.create(
+        ({idConcepte: req.body.idConcepte, 
+          idFullComanda: (FullComandaCreat._id),
+          descripcio: req.body.descripcio,
+          objectiu: req.body.objectiu,
+          quantitat: req.body.quantitat,
+          valor: req.body.valor,
+          prioritat: req.body.prioritat,
+          estat: req.body.estat}), 
+        function (error, newPropostaPressupost)  {
+          if(error){
+              res.render('propostesPressupost/new',{error:error.message})
+          }else{             
+              res.redirect('/propostaPressupost')
+          }
+          })
+      } 
+  
   static async delete_get(req, res, next) {
     res.render('propostesPressupost/delete',{id: req.params.id})
   }
