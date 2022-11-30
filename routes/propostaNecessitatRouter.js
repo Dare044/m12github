@@ -10,6 +10,7 @@ router.get("/", propostaNecessitat_controller.list);
 
 router.get("/create", propostaNecessitat_controller.create_get);
 router.post("/create", propostaNecessitat_controller.create_post);
+router.post("/createMore", propostaNecessitat_controller.create_postMore);
 
 router.get("/delete/:id", propostaNecessitat_controller.delete_get);
 router.post("/delete/:id", propostaNecessitat_controller.delete_post);

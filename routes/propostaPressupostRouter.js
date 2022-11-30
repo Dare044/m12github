@@ -10,9 +10,7 @@ router.get("/", propostaPressupost_controller.list);
 
 router.get("/create", propostaPressupost_controller.create_get);
 router.post("/create", propostaPressupost_controller.create_post);
-
-router.get("/createMore", propostaPressupost_controller.create_get);
-router.post("/createMore", propostaPressupost_controller.create_post);
+router.post("/createMore", propostaPressupost_controller.create_postMore);
 
 router.get("/delete/:id", propostaPressupost_controller.delete_get);
 router.post("/delete/:id", propostaPressupost_controller.delete_post);

@@ -1,6 +1,7 @@
 var PropostaNecessitat = require("../models/propostaNecessitat");
 var FullComanda = require("../models/fullComanda");
 var LlistatProveidor = require("../models/llistatProveidor");
+var idFullComandaGuardat = null;
 
 class PropostaNecessitatController {
 
@@ -26,22 +27,79 @@ class PropostaNecessitatController {
   }
 
   static async create_post(req, res) {
-    // console.log(req.body)
-    var FullComandaCreat = await FullComanda.create(req.body);
-    await PropostaNecessitat.create(
-      ({idFullComanda: (FullComandaCreat._id),
-        material: req.body.material,
-        preu: req.body.preu,
-        quantitat: req.body.quantitat,
-        estat: req.body.estat}), 
-      function (error, newPropostaPressupost)  {
-        if(error){
-            res.render('propostesNecessitat/new',{error:error.message})
-        }else{             
+    if (idFullComandaGuardat == null) {
+      var FullComandaCreat = await FullComanda.create(req.body);
+      idFullComandaGuardat = FullComandaCreat._id
+      await PropostaNecessitat.create(
+        ({idFullComanda: (FullComandaCreat._id),
+          material: req.body.material,
+          preu: req.body.preu,
+          quantitat: req.body.quantitat,
+          estat: req.body.estat}), 
+        function (error, newPropostaNecessitat)  {
+          if(error){
+              res.render('propostesNecessitat/new',{error:error.message})
+          }else{             
+              res.redirect('/propostaNecessitat')
+          }
+          });
+
+    } else {
+      await PropostaNecessitat.create(
+        ({idFullComanda: (idFullComandaGuardat),
+          material: req.body.material,
+          preu: req.body.preu,
+          quantitat: req.body.quantitat,
+          estat: req.body.estat}), 
+        function (error, newPropostaNecessitat)  {
+          if(error){
+              res.render('propostesNecessitat/new',{error:error.message})
+          }else{    
+            idFullComandaGuardat = null;      
             res.redirect('/propostaNecessitat')
-        }
-        })   
-  }
+          }
+          });
+    }
+    } 
+  
+    static async create_postMore(req, res) {
+      
+      if (idFullComandaGuardat == null) {
+        var FullComandaCreat = await FullComanda.create(req.body);
+        idFullComandaGuardat = FullComandaCreat._id
+        await PropostaNecessitat.create(
+          ({idFullComanda: (FullComandaCreat._id),
+            material: req.body.material,
+            preu: req.body.preu,
+            quantitat: req.body.quantitat,
+            estat: req.body.estat}), 
+          async function (error, newPropostaNecessitat)  {
+          if(error){
+              res.render('propostesNecessitat/new',{error:error.message})
+          }else{             
+            var list_LlistaProveidor = await LlistatProveidor.find();
+            res.render('propostesNecessitat/new',{list_LlistaProveidor:list_LlistaProveidor});
+          }
+          });
+
+      } else {
+        await PropostaNecessitat.create(
+          ({idFullComanda: (idFullComandaGuardat),
+            material: req.body.material,
+            preu: req.body.preu,
+            quantitat: req.body.quantitat,
+            estat: req.body.estat}), 
+          async function (error, newPropostaNecessitat)  {
+            if(error){
+                res.render('propostesNecessitat/new',{error:error.message})
+            }else{             
+              var list_LlistaProveidor = await LlistatProveidor.find();
+              res.render('propostesNecessitat/new',{list_LlistaProveidor:list_LlistaProveidor});
+            }
+            });
+      }
+      
+      }
 
   
   static async delete_get(req, res, next) {
