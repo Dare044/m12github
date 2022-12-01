@@ -2,6 +2,8 @@ var express = require('express');
 var path = require('path');
 var dotenv = require('dotenv');
 
+var session = require('express-session');
+
 var indexRouter = require('./routes/indexRouter');
 var personalRouter = require('./routes/personalRouter');
 var recepcioComandaRouter = require('./routes/recepcioComandaRouter');
@@ -27,6 +29,14 @@ mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+// Set up session
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  name: 'M12',
+  saveUninitialized: true,
+  cookie: {masAge: 1000*60*60}
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,6 +44,7 @@ app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + '/public')));
+
 
 
 /*
