@@ -9,7 +9,7 @@ var LlistaCategoriaSchema = new Schema({
   nom: { type: String},
   descripcio: { type: String },
   numDemanats: { type: Number, default: 0},
-  costTotal: {type: Number},
+  costTotal: {type: Number, default: 0},
   });
 
 

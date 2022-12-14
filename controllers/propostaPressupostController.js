@@ -34,8 +34,10 @@ class PropostaPressupostController {
     // Cas on només creas 1 proposta i la guardes
     if (idFullComandaGuardat == null) {
       var FullComandaCreat = await FullComanda.create(req.body);
-      idFullComandaGuardat = FullComandaCreat._id
-      var PropostaCreada = await PropostaPressupost.create(
+      idFullComandaGuardat = FullComandaCreat._id // Puede que esto coja el valor de la anterior
+      var idLlistaCategorias = req.body.idConcepte;
+
+      await PropostaPressupost.create(
       ({idConcepte: req.body.idConcepte, 
         idFullComanda: (FullComandaCreat._id),
         descripcio: req.body.descripcio,
@@ -45,7 +47,7 @@ class PropostaPressupostController {
         prioritat: req.body.prioritat,
         estat: req.body.estat}), 
 
-      async function (error, newPropostaPressupost)  {
+      async function (error)  {
         if(error){
           res.render('propostesPressupost/new',{error:error.message})
         }else{     
@@ -59,7 +61,21 @@ class PropostaPressupostController {
           await FullComanda.findByIdAndUpdate(idFullComandaGuardat, FullComandaPerTransferir);
 
           FullComandaCostFinal = 0;
-          res.redirect('/propostaPressupost')
+          idFullComandaGuardat = null;
+
+          var llistaCategoriaPerActualitzar = await LlistaCategoria.findById(req.body.idConcepte);
+          var calculNumDemanats = Number(llistaCategoriaPerActualitzar.numDemanats) + Number(req.body.quantitat);
+          var calculCostTotal = Number(llistaCategoriaPerActualitzar.costTotal) + Number(req.body.valor);
+
+          var llistaCategoriaPerTransferir = await new LlistaCategoria ({
+            numDemanats: calculNumDemanats,
+            costTotal: calculCostTotal,
+            _id: req.body.idConcepte,  // Necessari per a que sobreescrigui el mateix objecte!
+          });
+
+          await LlistaCategoria.findByIdAndUpdate(req.body.idConcepte, llistaCategoriaPerTransferir);
+          
+          res.redirect('/propostaPressupost');
         }
         });
 
@@ -74,7 +90,7 @@ class PropostaPressupostController {
           valor: req.body.valor,
           prioritat: req.body.prioritat,
           estat: req.body.estat}), 
-        async function (error, newPropostaPressupost)  {
+        async function (error)  {
           if(error){
             res.render('propostesPressupost/new',{error:error.message})
           }else{       
@@ -82,17 +98,28 @@ class PropostaPressupostController {
             var FullComandaPerTransferir = await new FullComanda ({
             costFinal: FullComandaCostFinal,
             _id: idFullComandaGuardat,  // Necessari per a que sobreescrigui el mateix objecte!
-          });    
+          }); 
             
             await FullComanda.findByIdAndUpdate(idFullComandaGuardat, FullComandaPerTransferir);
 
             FullComandaCostFinal = 0;
             idFullComandaGuardat = null;  
+
+            var llistaCategoriaPerActualitzar = await LlistaCategoria.findById(req.body.idConcepte);
+            var calculNumDemanats = Number(llistaCategoriaPerActualitzar.numDemanats) + Number(req.body.quantitat);
+            var calculCostTotal = Number(llistaCategoriaPerActualitzar.costTotal) + Number(req.body.valor);
+  
+            var llistaCategoriaPerTransferir = await new LlistaCategoria ({
+              numDemanats: calculNumDemanats,
+              costTotal: calculCostTotal,
+              _id: req.body.idConcepte,  // Necessari per a que sobreescrigui el mateix objecte!
+            });
+  
+            await LlistaCategoria.findByIdAndUpdate(req.body.idConcepte, llistaCategoriaPerTransferir);
+
             res.redirect('/propostaPressupost');
-          }
-          });
-    }
-    } 
+          }});
+    }}; 
   
     static async create_postMore(req, res) {
       
@@ -117,6 +144,18 @@ class PropostaPressupostController {
             var list_LlistaProveidor = await LlistatProveidor.find();
             FullComandaCostFinal = (FullComandaCostFinal) + Number(parseInt(req.body.valor));
             res.render('propostesPressupost/new',{list_LlistaCategoria:list_LlistaCategoria, list_LlistaProveidor:list_LlistaProveidor});
+            
+            var llistaCategoriaPerActualitzar = await LlistaCategoria.findById(req.body.idConcepte);
+            var calculNumDemanats = Number(llistaCategoriaPerActualitzar.numDemanats) + Number(req.body.quantitat);
+            var calculCostTotal = Number(llistaCategoriaPerActualitzar.costTotal) + Number(req.body.valor);
+  
+            var llistaCategoriaPerTransferir = await new LlistaCategoria ({
+              numDemanats: calculNumDemanats,
+              costTotal: calculCostTotal,
+              _id: req.body.idConcepte,  // Necessari per a que sobreescrigui el mateix objecte!
+            });
+  
+            await LlistaCategoria.findByIdAndUpdate(req.body.idConcepte, llistaCategoriaPerTransferir);
           }
           });
 
@@ -139,6 +178,19 @@ class PropostaPressupostController {
               var list_LlistaProveidor = await LlistatProveidor.find();
               FullComandaCostFinal = (FullComandaCostFinal) + Number(parseInt(req.body.valor));
               res.render('propostesPressupost/new',{list_LlistaCategoria:list_LlistaCategoria, list_LlistaProveidor:list_LlistaProveidor});
+              
+              var llistaCategoriaPerActualitzar = await LlistaCategoria.findById(req.body.idConcepte);
+              var calculNumDemanats = Number(llistaCategoriaPerActualitzar.numDemanats) + Number(req.body.quantitat);
+              var calculCostTotal = Number(llistaCategoriaPerActualitzar.costTotal) + Number(req.body.valor);
+    
+              var llistaCategoriaPerTransferir = await new LlistaCategoria ({
+                numDemanats: calculNumDemanats,
+                costTotal: calculCostTotal,
+                _id: req.body.idConcepte,  // Necessari per a que sobreescrigui el mateix objecte!
+              });
+    
+              await LlistaCategoria.findByIdAndUpdate(req.body.idConcepte, llistaCategoriaPerTransferir);
+
             }
             });
       }
