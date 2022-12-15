@@ -13,31 +13,78 @@
 
 	<div class="card mt-6">
 	  <div class="card-header">
-	     <h5 class="card-title">Material Demanat</h5>
+	     <h5 class="card-title">Full de comanda: <%= id %></h5>
 	  </div>
 
-	  <div class="card-body">				
-                <table class="table table-striped">
-                    <thead>
-                      <tr>		      
-                          <th scope="col">Concepte</th>
-                          <th scope="col">Full Comanda</th>
-                          <th scope="col">Descripcio</th>
-                          <th scope="col">Objectiu</th>
-                          <th scope="col">Quantitat</th>
-                          <th scope="col">Valor</th>
-                          <th scope="col">Estat</th>
-                          <th scope="col">Prioritat</th>
-                      </tr>
-                    </thead>                    
-
+	  <div class="card-body">				   
+      <table class="table table-striped">
+        <% if (tipusProposta == "PropostaDePressupost") { %>
+        <thead>
+          <tr>		      
+              <th scope="col">Concepte</th>
+              <th scope="col">Descripcio</th>
+              <th scope="col">Objectiu</th>
+              <th scope="col">Quantitat</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Estat</th>
+              <th scope="col">Prioritat</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% list_propostaPressupost.forEach( function(propostaPressupost) { %>
+            <% if (propostaPressupost.idFullComanda == id) { %>
+            <tr>
+              <%list_LlistaCategoria.forEach(function(llistaCategoria) { %>
+                <% if (propostaPressupost.idConcepte == llistaCategoria.id ) { %>
+                  <td><%= llistaCategoria.concepte%></td>
+                <% }}); %>
+                <td><%= propostaPressupost.descripcio %></td>
+                <td><%= propostaPressupost.objectiu %></td>
+                <td><%= propostaPressupost.quantitat %></td> 
+                <td><%= propostaPressupost.valor %></td>
+                <td><%= propostaPressupost.estat %> 
+              </td>
+                  <% if (propostaPressupost.prioritat != 0 ) { %>
+                <td><%= propostaPressupost.prioritat %> </td>
+                  <% } else { %>
+                <td> Denegada </td>	
+                  <% }; %>
+            </tr>
+          <% }}); %>
+        </tbody> 
+        <% } else if (tipusProposta == "PropostaDeNecessitat") { %>
+          <thead>
+				    <tr>		      
+              <th scope="col">ID</th>
+              <th scope="col">Full Comanda</th>
+              <th scope="col">Material</th>
+              <th scope="col">Quantitat</th>
+              <th scope="col">Preu</th>
+              <th scope="col">Estat</th>
+				    </tr>
+		  		</thead>
+			  	<tbody>
+			  		<% list_propostaNecessitat.forEach(function(propostaNecessitat) {%>
+              <% if (propostaNecessitat.idFullComanda == id) { %>
+					    <tr>		
+                <td><%= propostaNecessitat.id %></td>
+                <td><%= propostaNecessitat.idFullComanda %></td>
+                <td><%= propostaNecessitat.material%></td>
+                <td><%= propostaNecessitat.quantitat %></td>
+                <td><%= propostaNecessitat.preu %>€</td>
+                <td><%= propostaNecessitat.estat %> </td>
+					    </tr>
+			   		<% }; %>	     
+			    </tbody>
+          <% })}; %>                
+        </table>
 
 	<% if (typeof error !== "undefined") { %>
 		<div class="alert alert-primary mt-2" role="alert">
 		    <p>Form could not be submitted due to the following error:</p>
 		    <p><%= error %></p>
 		</div>
-	<% } %>
+	<% }; %>
 
 	</div>
 		
