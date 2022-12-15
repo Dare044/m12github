@@ -13,8 +13,8 @@ router.get("/", fullComanda_controller.list);
 router.get("/delete/:id", fullComanda_controller.delete_get);
 router.post("/delete/:id", fullComanda_controller.delete_post);
 
-// router.get("/update/:id", fullComanda_controller.update_get);
-// router.post("/update/:id", fullComanda_controller.update_post);
+router.get("/show/:id", fullComanda_controller.show_get);
+router.post("/show/:id", fullComanda_controller.show_post);
 
 
 module.exports = router;

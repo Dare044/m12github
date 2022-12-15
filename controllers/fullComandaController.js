@@ -85,6 +85,23 @@ class FullComandaController {
     }) 
   }
 
+  static async show_get(req, res, next) {
+    res.render('fullComandes/show',{id: req.params.id,})
+    
+    
+ }
+
+ static async show_post(req, res, next) {
+   
+   FullComanda.findByIdAndRemove(req.params.id, function (error) {
+     if(error){
+       res.redirect('/fullComanda')
+     }else{
+       res.redirect('/fullComanda')
+     }
+   }) 
+ }
+
 }
 
 module.exports = FullComandaController;
