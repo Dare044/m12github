@@ -70,4 +70,5 @@ app.use('/activitat', activitatRouter);
 app.use('/llistatProveidor', llistatProveidorRouter);
 
 
+
 module.exports = app;
