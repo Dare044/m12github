@@ -1,4 +1,5 @@
 var LlistaCategoria = require("../models/llistaCategoria");
+var LlistatProveidor = require("../models/llistatProveidor");
 
 class LlistaCategoriaController {
 
@@ -14,7 +15,7 @@ class LlistaCategoriaController {
   }
 
   static create_get(req, res, next) {
-    res.render('llistaCategories/new');
+    res.render('llistaCategories/new',{tipusProposta: "normal"});
   }
 
   static create_post(req, res) {
@@ -27,6 +28,38 @@ class LlistaCategoriaController {
             res.redirect('/llistaCategoria')
         }
     })    
+  }
+
+  static create_getPropostaPressupost (req, res, next ) {
+    res.render('llistaCategories/new',{tipusProposta: "pressupost"});
+  }
+
+  static create_postPropostaPressupost (req, res, next) {
+    LlistaCategoria.create(req.body, async function (error, newLlistaCategoria)  {
+      if(error){
+          //console.log(error)
+          res.render('llistaCategories/new',{error:error.message})
+      }else{             
+        var list_LlistaCategoria = await LlistaCategoria.find();
+        var list_LlistaProveidor = await LlistatProveidor.find();
+        res.render('propostesPressupost/new',{list_LlistaCategoria:list_LlistaCategoria, list_LlistaProveidor:list_LlistaProveidor}); 
+      }
+  })  
+  }
+
+  static create_getPropostaNecessitat (req, res, next ) {
+    res.render('llistaCategories/new',{tipusProposta: "necessitat"});
+  }
+
+  static create_postPropostaNecessitat (req, res, next) {
+    LlistaCategoria.create(req.body, function (error, newLlistaCategoria)  {
+      if(error){
+          //console.log(error)
+          res.render('llistaCategories/new',{error:error.message})
+      }else{             
+          res.render('propostesNecessitat/new')
+      }
+  })  
   }
 
   static async delete_get(req, res, next) {

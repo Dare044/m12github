@@ -21,8 +21,8 @@
 			<table class="table table-striped">
 		  		<thead>
 				    <tr>		      
-				      <th scope="col">Cif</th>
-					  <th scope="col">Id Activitat</th>
+				    <th scope="col">Cif</th>
+					  <th scope="col">Activitat</th>
 					  <th scope="col">Nom</th>
 					  <th scope="col">Ubicació</th>
 					  <th scope="col">Contacte</th>
@@ -38,7 +38,10 @@
 			  		<% list.forEach( function(llistatProveidor) { %>
 					    <tr>		      
 					      <td><%= llistatProveidor.Cif %></td>
-						  <td><%= llistatProveidor.idActivitat %></td>
+						  <td><% (llistatProveidor.idActivitat).forEach (function(Activitat) {%>
+							<% activitat_list.forEach(function(activitatList){ if (Activitat == activitatList.id) { %> 
+							<%=	activitatList.nom %><br>
+							 <%}})});%></td>
 						  <td><%= llistatProveidor.nom %></td>
 						  <td><%= llistatProveidor.ubicacio %></td>
 						  <td><%= llistatProveidor.contacte %></td>

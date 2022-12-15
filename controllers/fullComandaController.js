@@ -1,12 +1,13 @@
 var FullComanda = require("../models/fullComanda");
-
+var LlistatProveidor = require("../models/llistatProveidor");
 class FullComandaController {
 
   // Version 1
   static async list(req,res,next) {
     try {
       var list_fullComandes = await FullComanda.find();
-      res.render('fullComandes/list',{list:list_fullComandes})   
+      var list_ProveidorsLlista = await LlistatProveidor.find();
+      res.render('fullComandes/list',{list:list_fullComandes, list_ProveidorsLlista:list_ProveidorsLlista});   
     }
     catch(e) {
       res.send('Error!');
@@ -69,20 +70,20 @@ class FullComandaController {
 //       );
 //   }
 
-//   static async delete_get(req, res, next) {
-//      res.render('genres/delete',{id: req.params.id})
-//   }
+  static async delete_get(req, res, next) {
+     res.render('fullComandes/delete',{id: req.params.id})
+  }
 
-//   static async delete_post(req, res, next) {
+  static async delete_post(req, res, next) {
     
-//     Genre.findByIdAndRemove(req.params.id, function (error) {
-//       if(error){
-//         res.redirect('/genres')
-//       }else{
-//         res.redirect('/genres')
-//       }
-//     }) 
-//   }
+    FullComanda.findByIdAndRemove(req.params.id, function (error) {
+      if(error){
+        res.redirect('/fullComanda')
+      }else{
+        res.redirect('/fullComanda')
+      }
+    }) 
+  }
 
 }
 

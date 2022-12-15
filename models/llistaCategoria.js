@@ -8,7 +8,8 @@ var LlistaCategoriaSchema = new Schema({
   concepte: { type: String},
   nom: { type: String},
   descripcio: { type: String },
-  numDemanats: { type: Number}
+  numDemanats: { type: Number, default: 0},
+  costTotal: {type: Number, default: 0},
   });
 
 

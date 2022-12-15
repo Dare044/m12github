@@ -25,6 +25,7 @@
                         <th scope="col">Nom</th>
                         <th scope="col">Descripcio</th>
                         <th scope="col">Quantitat demanat</th>
+						<th scope="col">Cost total</th>
 				      <th scope="col">
 				      	<a href="/llistaCategoria/create" class="btn btn-primary">New</a>
 				      </th>
@@ -37,6 +38,7 @@
                           <td><%= llistaCategoria.nom %></td>
                           <td><%= llistaCategoria.descripcio %></td>
                           <td><%= llistaCategoria.numDemanats %></td>
+						  <td><%= llistaCategoria.costTotal %></td>
 					      <td>					      	
 					      	<a class="btn btn-danger" href="/llistaCategoria/delete/<%=llistaCategoria._id%>" class="card-link">Delete</a>
 					      </td>		      

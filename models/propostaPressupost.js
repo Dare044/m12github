@@ -11,7 +11,8 @@ var PropostaPressupostSchema = new Schema({
   objectiu: { type: String },
   quantitat: { type: Number},
   valor: { type: Number},
-  prioritat: { type: Number}
+  prioritat: { type: Number},
+  estat: [ "EnProces", "Aprovada"]
   });
 
 

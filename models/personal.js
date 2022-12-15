@@ -8,6 +8,7 @@ var PersonalSchema = new Schema({
   Nom: { type: String},
   Cognoms: { type: String},
   Gmail: { type: String},
+  contrasenya: {type: String},
   Carrec: { type: String}
   });
 
