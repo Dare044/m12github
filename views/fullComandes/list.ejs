@@ -22,7 +22,6 @@
 		  		<thead>
 				    <tr>		      
 				      <th scope="col">ID</th>
-                      <th scope="col">Proveidor</th>
                       <th scope="col">Data generació</th>
 					  <th scope="col">Cost Final</th>
 				      <th scope="col"> Operacions
@@ -34,31 +33,18 @@
 			  		<% list.forEach( function(fullComanda) { %>
 					    <tr>
 						  <td><%= fullComanda.id %></td>
-						  <% list_ProveidorsLlista.forEach(function(llistatProveidor) { if ( llistatProveidor.id == fullComanda.idProveidor) { %>
-								<td><%= llistatProveidor.nom %></td>
-						<% }}); %>		      
-
-						<% if (fullComanda.idProveidor == null) { %>
-							<td> No hi ha Proveidor <br> (Requereix aprovació)</td>
-						<% }; %>
-                          
                           <td><%= fullComanda._id.getTimestamp() %></td>
 						  <td><%= fullComanda.costFinal %></td>
 					      <td>					      	
-					      	<a class="btn btn-danger" href="/fullComanda/delete/<%=fullComanda._id%>" class="card-link">Delete</a>
-					      </td>
-						  <td>					      	
+					      	<a class="btn btn-danger" id="botones" href="/fullComanda/delete/<%=fullComanda._id%>" class="card-link">Delete</a>
 							<a class="btn btn-info" href="/fullComanda/Show/<%=fullComanda._id%>" class="card-link">Show</a>
-						</td>			      
+					      </td>			      
 					    </tr>
 			   		<% }); %>	     
 			    </tbody>
 		  </table>	     
-	    
 		</div>
-		
 	</div>
- 
 </main>
 
 <footer>
@@ -67,3 +53,9 @@
 
 </body>
 </html>
+
+<style>
+	#botones {
+		margin-bottom: 5px;
+	}
+</style>

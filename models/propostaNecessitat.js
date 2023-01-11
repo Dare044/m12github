@@ -9,6 +9,7 @@ var PropostaNecessitatSchema = new Schema({
   material: { type: String},
   preu: { type: Number },
   quantitat: { type: Number },
+  idProveidor: { type: Schema.ObjectId, ref:"llistatProveidor" },
   estat: ["EnProces", "Aprovada"]
   });
 

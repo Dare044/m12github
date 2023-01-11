@@ -12,7 +12,8 @@ class PropostaPressupostController {
     try {
       var list_PropostesPressupost = await PropostaPressupost.find().sort('prioritat');
       var list_LlistaCategoria = await LlistaCategoria.find();
-      res.render('propostesPressupost/list',{list:list_PropostesPressupost, list_LlistaCategoria:list_LlistaCategoria})      
+      var list_ProveidorsLlista = await LlistatProveidor.find();
+      res.render('propostesPressupost/list',{list:list_PropostesPressupost, list_LlistaCategoria:list_LlistaCategoria, list_ProveidorsLlista:list_ProveidorsLlista})      
     }
     catch(e) {
       res.send('Error!');
@@ -40,6 +41,7 @@ class PropostaPressupostController {
       await PropostaPressupost.create(
       ({idConcepte: req.body.idConcepte, 
         idFullComanda: (FullComandaCreat._id),
+        idProveidor: req.body.idProveidor,
         descripcio: req.body.descripcio,
         objectiu: req.body.objectiu,
         quantitat: req.body.quantitat,
@@ -84,6 +86,7 @@ class PropostaPressupostController {
       var PropostaCreada = await PropostaPressupost.create(
         ({idConcepte: req.body.idConcepte, 
           idFullComanda: (idFullComandaGuardat),
+          idProveidor: req.body.idProveidor,
           descripcio: req.body.descripcio,
           objectiu: req.body.objectiu,
           quantitat: req.body.quantitat,
@@ -130,6 +133,7 @@ class PropostaPressupostController {
         await PropostaPressupost.create(
         ({idConcepte: req.body.idConcepte, 
           idFullComanda: (FullComandaCreat._id),
+          idProveidor: req.body.idProveidor,
           descripcio: req.body.descripcio,
           objectiu: req.body.objectiu,
           quantitat: req.body.quantitat,
@@ -164,6 +168,7 @@ class PropostaPressupostController {
         var PropostaCreada = await PropostaPressupost.create(
           ({idConcepte: req.body.idConcepte, 
             idFullComanda: (idFullComandaGuardat),
+            idProveidor: req.body.idProveidor,
             descripcio: req.body.descripcio,
             objectiu: req.body.objectiu,
             quantitat: req.body.quantitat,

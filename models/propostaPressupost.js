@@ -7,6 +7,7 @@ var Schema = mongoose.Schema;
 var PropostaPressupostSchema = new Schema({
   idConcepte:  { type: Schema.ObjectId, ref:"LlistaCategoria" },
   idFullComanda: { type: Schema.ObjectId, ref:"FullComanda" },
+  idProveidor: { type: Schema.ObjectId, ref:"llistatProveidor" },
   descripcio: { type: String },
   objectiu: { type: String },
   quantitat: { type: Number},
