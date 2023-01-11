@@ -8,7 +8,8 @@ class PropostaNecessitatController {
     static async list(req,res,next) {
         try {
           var list_propostesNecessitat = await PropostaNecessitat.find();
-          res.render('propostesNecessitat/list',{list:list_propostesNecessitat})   
+          var list_ProveidorsLlista = await LlistatProveidor.find();
+          res.render('propostesNecessitat/list',{list:list_propostesNecessitat,list_ProveidorsLlista:list_ProveidorsLlista})   
         }
         catch(e) {
           res.send('Error!');
@@ -32,6 +33,7 @@ class PropostaNecessitatController {
       idFullComandaGuardat = FullComandaCreat._id
       await PropostaNecessitat.create(
         ({idFullComanda: (FullComandaCreat._id),
+          idProveidor: req.body.idProveidor,
           material: req.body.material,
           preu: req.body.preu,
           quantitat: req.body.quantitat,
