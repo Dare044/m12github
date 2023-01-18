@@ -8,6 +8,7 @@ var PropostaPressupostSchema = new Schema({
   idConcepte:  { type: Schema.ObjectId, ref:"LlistaCategoria" },
   idFullComanda: { type: Schema.ObjectId, ref:"FullComanda" },
   idProveidor: { type: Schema.ObjectId, ref:"llistatProveidor" },
+  idPersonalRecepcio: { type: Schema.ObjectId, ref:"Personal" },
   descripcio: { type: String },
   objectiu: { type: String },
   quantitat: { type: Number},

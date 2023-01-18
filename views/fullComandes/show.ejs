@@ -24,6 +24,7 @@
               <th scope="col">Concepte</th>
               <th scope="col">Descripcio</th>
               <th scope="col">Objectiu</th>
+              <th scope="col">Proveidor</th>
               <th scope="col">Quantitat</th>
               <th scope="col">Valor</th>
               <th scope="col">Estat</th>
@@ -40,8 +41,16 @@
                 <% }}); %>
                 <td><%= propostaPressupost.descripcio %></td>
                 <td><%= propostaPressupost.objectiu %></td>
+
+                <% list_ProveidorsLlista.forEach(function(llistatProveidor) { if ( llistatProveidor.id == propostaPressupost.idProveidor) { %>
+                  <td><%= llistatProveidor.nom %></td>
+                  <% }}); %>		      
+                  <% if (propostaPressupost.idProveidor == null) { %>
+                  <td> No hi ha Proveidor <br> (Requereix aprovació)</td>
+                  <% }; %>
+
                 <td><%= propostaPressupost.quantitat %></td> 
-                <td><%= propostaPressupost.valor %></td>
+                <td><%= propostaPressupost.valor %>€</td>
                 <td><%= propostaPressupost.estat %> 
               </td>
                   <% if (propostaPressupost.prioritat != 0 ) { %>
@@ -58,6 +67,7 @@
               <th scope="col">ID</th>
               <th scope="col">Full Comanda</th>
               <th scope="col">Material</th>
+              <th scope="col">Proveidor</th>
               <th scope="col">Quantitat</th>
               <th scope="col">Preu</th>
               <th scope="col">Estat</th>
@@ -70,6 +80,14 @@
                 <td><%= propostaNecessitat.id %></td>
                 <td><%= propostaNecessitat.idFullComanda %></td>
                 <td><%= propostaNecessitat.material%></td>
+
+                <% list_ProveidorsLlista.forEach(function(llistatProveidor) { if ( llistatProveidor.id == propostaNecessitat.idProveidor) { %>
+                  <td><%= llistatProveidor.nom %></td>
+                  <% }}); %>		      
+                  <% if (propostaNecessitat.idProveidor == null) { %>
+                  <td> No hi ha Proveidor <br> (Requereix aprovació)</td>
+                  <% }; %>
+                  
                 <td><%= propostaNecessitat.quantitat %></td>
                 <td><%= propostaNecessitat.preu %>€</td>
                 <td><%= propostaNecessitat.estat %> </td>

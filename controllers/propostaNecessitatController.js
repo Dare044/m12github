@@ -2,6 +2,7 @@ var PropostaNecessitat = require("../models/propostaNecessitat");
 var FullComanda = require("../models/fullComanda");
 var LlistatProveidor = require("../models/llistatProveidor");
 var idFullComandaGuardat = null;
+var FullComandaCostFinal = 0;
 
 class PropostaNecessitatController {
 
@@ -38,10 +39,21 @@ class PropostaNecessitatController {
           preu: req.body.preu,
           quantitat: req.body.quantitat,
           estat: req.body.estat}), 
-        function (error, newPropostaNecessitat)  {
+        async function (error)  {
           if(error){
               res.render('propostesNecessitat/new',{error:error.message})
           }else{             
+              FullComandaCostFinal = (FullComandaCostFinal) + Number(parseInt(req.body.preu));
+              var FullComandaPerTransferir = await new FullComanda ({
+                costFinal: FullComandaCostFinal,
+                _id: idFullComandaGuardat,  // Necessari per a que sobreescrigui el mateix objecte!
+              });    
+              
+              await FullComanda.findByIdAndUpdate(idFullComandaGuardat, FullComandaPerTransferir);
+    
+              FullComandaCostFinal = 0;
+              idFullComandaGuardat = null;
+
               res.redirect('/propostaNecessitat')
           }
           });
@@ -53,11 +65,21 @@ class PropostaNecessitatController {
           preu: req.body.preu,
           quantitat: req.body.quantitat,
           estat: req.body.estat}), 
-        function (error, newPropostaNecessitat)  {
+        async function (error, newPropostaNecessitat)  {
           if(error){
               res.render('propostesNecessitat/new',{error:error.message})
           }else{    
-            idFullComandaGuardat = null;      
+            FullComandaCostFinal = (FullComandaCostFinal) + Number(parseInt(req.body.preu));
+            var FullComandaPerTransferir = await new FullComanda ({
+              costFinal: FullComandaCostFinal,
+              _id: idFullComandaGuardat,  // Necessari per a que sobreescrigui el mateix objecte!
+            });    
+            
+            await FullComanda.findByIdAndUpdate(idFullComandaGuardat, FullComandaPerTransferir);
+  
+            FullComandaCostFinal = 0;
+            idFullComandaGuardat = null;  
+
             res.redirect('/propostaNecessitat')
           }
           });
@@ -80,6 +102,8 @@ class PropostaNecessitatController {
               res.render('propostesNecessitat/new',{error:error.message})
           }else{             
             var list_LlistaProveidor = await LlistatProveidor.find();
+            FullComandaCostFinal = (FullComandaCostFinal) + Number(parseInt(req.body.preu));
+
             res.render('propostesNecessitat/new',{list_LlistaProveidor:list_LlistaProveidor});
           }
           });
@@ -96,6 +120,8 @@ class PropostaNecessitatController {
                 res.render('propostesNecessitat/new',{error:error.message})
             }else{             
               var list_LlistaProveidor = await LlistatProveidor.find();
+              FullComandaCostFinal = (FullComandaCostFinal) + Number(parseInt(req.body.preu));
+              
               res.render('propostesNecessitat/new',{list_LlistaProveidor:list_LlistaProveidor});
             }
             });
