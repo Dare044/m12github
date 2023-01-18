@@ -5,11 +5,11 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var PersonalSchema = new Schema({
-  Nom: { type: String},
-  Cognoms: { type: String},
-  Gmail: { type: String},
+  nom: { type: String},
+  cognoms: { type: String},
+  gmail: { type: String},
   contrasenya: {type: String},
-  Carrec: { type: String}
+  carrec: { type: String}
   });
 
 
