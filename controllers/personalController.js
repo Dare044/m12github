@@ -48,11 +48,11 @@ class PersonalController {
 
   static update_post(req, res, next) {
       var personal = new Personal({
-        Nom: req.body.nom,
-        Cognoms: req.body.cognoms,
-        Carrec: req.body.carrec,
+        nom: req.body.nom,
+        cognoms: req.body.cognoms,
+        carrec: req.body.carrec,
         contrasenya: req.body.contrasenya,
-        Gmail: req.body.gmail,
+        gmail: req.body.gmail,
         _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
       });    
     

@@ -5,12 +5,10 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var PropostaNecessitatSchema = new Schema({
+  idPersonal: { type: Schema.ObjectId, ref:"Personal" },
   idFullComanda: { type: Schema.ObjectId, ref:"FullComanda" },
-  material: { type: String},
-  preu: { type: Number },
-  quantitat: { type: Number },
-  idProveidor: { type: Schema.ObjectId, ref:"llistatProveidor" },
-  estat: ["EnProces", "Aprovada"]
+  costTotal: { type: Number },
+  estat: { type: String, enum: ["EnProces", "Aprovada"]}
   });
 
 
