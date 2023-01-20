@@ -5,16 +5,11 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var PropostaPressupostSchema = new Schema({
-  idConcepte:  { type: Schema.ObjectId, ref:"LlistaCategoria" },
+  idPersonal: { type: Schema.ObjectId, ref:"Personal" },
   idFullComanda: { type: Schema.ObjectId, ref:"FullComanda" },
-  idProveidor: { type: Schema.ObjectId, ref:"llistatProveidor" },
-  idPersonalRecepcio: { type: Schema.ObjectId, ref:"Personal" },
-  descripcio: { type: String },
-  objectiu: { type: String },
-  quantitat: { type: Number},
-  valor: { type: Number},
-  prioritat: { type: Number},
-  estat: [ "EnProces", "Aprovada"]
+  prioritat: { type: Number, default: 1},  
+  costTotal: { type: Number, required: true},
+  estat: { type: String, enum: ["EnProces", "Aprovada"]}
   });
 
 
