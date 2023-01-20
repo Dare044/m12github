@@ -9,7 +9,7 @@ var PersonalSchema = new Schema({
   cognoms: { type: String},
   gmail: { type: String},
   contrasenya: {type: String},
-  carrec: { type: String}
+  familia: { type: String}
   });
 
 
