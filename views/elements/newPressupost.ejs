@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+
+	<div class="card mt-4">
+	  <div class="card-header">
+	     <h5 class="card-title">Nou element</h5>
+	  </div>
+	  <div class="card-body">
+	   	<form method="POST" action="/element/createPropostaPressupost">
+            
+
+            <div class="form-group">
+                <label for="nom">Nom</label>
+                <input type="text" name="nom" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="quantitat">Quantitat</label>
+                <input type="text" name="quantitat" class="form-control">
+           </div>
+           
+           <div class="form-group">
+                <label for="descripcio">Descripció</label>
+                <input type="text" name="descripcio" class="form-control">
+           </div>
+
+           <div class="form-group">
+                <label for="objectiu">Objectiu</label>
+                <input type="text" name="objectiu" class="form-control">
+           </div>
+           
+           <div class="form-group">
+                <label for="valor">Valor</label>
+                <input type="text" name="valor" class="form-control">
+           </div>
+
+          <div class="form-group">
+            <label for="prioritat">Prioritat</label>
+            <input type="text" name="prioritat" class="form-control">
+          </div>
+           
+           <div class="form-group">
+            <label for="idConcepte">Concepte</label>
+            <select name="idConcepte" id="idConcepte" class="form-control">
+              <% list_LlistaCategoria.forEach( function(llistaCategoria) { %>
+                <option value="<%= llistaCategoria.id %>"><%= llistaCategoria.concepte %> -> <%= llistaCategoria.nom %> -> <%= llistaCategoria.descripcio%></option>
+              <% }); %>	
+            </select>
+            <a class="btn btn-info" href="/llistaCategoria/createPropostaPressupost" class="card-link">Crea una categoria</a>
+            </div>
+
+           <div class="form-group">
+            <label for="idProveidor">Proveidor</label>
+            <select name="idProveidor" id="idProveidor" class="form-control">
+              <% list_LlistaProveidor.forEach( function(llistaProveidor) { %>
+                <option value="<%= llistaProveidor.id %>"><%= llistaProveidor.nom %></option>
+              <% }); %>	
+            </select>
+           </div>
+                <input type="hidden" name="estat" value="EnProces">
+				<button type="submit" formaction="/element/createPropostaPressupost" class="btn btn-primary">Guardar & finalitzar
+				</button>
+        <button type="submit" formaction="/element/createMorePropostaPressupost" class="btn btn-secondary">Guardar & fer un altre
+				</button>
+			</form>
+
+			<% if (typeof error !== "undefined") { %>
+				<div class="alert alert-primary mt-2" role="alert">   <p><%= error %></p>
+				</div>
+			<% } %>
+
+	  </div>
+	</div>
+	
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

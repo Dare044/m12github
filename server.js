@@ -13,6 +13,7 @@ var fullComandaRouter = require ('./routes/fullComandaRouter');
 var propostaNecessitatRouter = require ('./routes/propostaNecessitatRouter');
 var activitatRouter = require('./routes/activitatRouter');
 var llistatProveidorRouter = require('./routes/llistatProveidorRouter');
+var elementRouter = require('./routes/elementRouter');
 
 var app = express();
 
@@ -68,6 +69,7 @@ app.use('/fullComanda', fullComandaRouter);
 app.use('/propostaNecessitat', propostaNecessitatRouter);
 app.use('/activitat', activitatRouter);
 app.use('/llistatProveidor', llistatProveidorRouter);
+app.use('/element',elementRouter);
 
 
 
