@@ -9,7 +9,7 @@ var ElementSchema = new Schema({
     idPropostaNecessitat: { type: Schema.ObjectId, ref:"PropostaNecessitat" },
     nom: { type: String},
     quantitat: { type: Number},
-    descripció: { type: String},
+    descripcio: { type: String},
     objectiu: { type: String},
     valor: { type: Number}
   

@@ -21,13 +21,10 @@
 			<table class="table table-striped">
 		  		<thead>
 				    <tr>		      
-                        <th scope="col">ID</th>
-                        <th scope="col">Full Comanda</th>
-                        <th scope="col">Material</th>
-						<th scope="col">Proveidor</th>
-                        <th scope="col">Quantitat</th>
-                        <th scope="col">Preu</th>
-						<th scope="col">Estat</th>
+                        <th scope="col">ID Personal</th>
+                        <th scope="col">ID Full comanda</th>
+						<th scope="col">Cost total</th>
+                        <th scope="col">Estat</th>
 
 				      <th scope="col">
 				      	<a href="/propostaNecessitat/create" class="btn btn-primary">New</a>
@@ -37,19 +34,17 @@
 			  	<tbody>
 			  		<% list.forEach( function(propostaNecessitat) {%>
 					    <tr>		
-                        	<td><%= propostaNecessitat.id %></td>
+                        	<td><%= propostaNecessitat.idPersonal %></td>
 							<td><%= propostaNecessitat.idFullComanda %></td>
-							<td><%= propostaNecessitat.material%></td>
-							
+							<td><%= propostaNecessitat.costTotal%></td>
+<!-- 							
 							<% list_ProveidorsLlista.forEach(function(llistatProveidor) { if ( llistatProveidor.id == propostaNecessitat.idProveidor) { %>
 							<td><%= llistatProveidor.nom %></td>
 							<% }}); %>		      
 							<% if (propostaNecessitat.idProveidor == null) { %>
 							<td> No hi ha Proveidor <br> (Requereix aprovació)</td>
-							<% }; %>
+							<% }; %> -->
 							
-                         	<td><%= propostaNecessitat.quantitat %></td>
-                         	<td><%= propostaNecessitat.preu %>€</td>
 						  	<td><%= propostaNecessitat.estat %>
 							<a href="/propostaNecessitat/updateEstat/<%=propostaNecessitat._id%>"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
 								<path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>

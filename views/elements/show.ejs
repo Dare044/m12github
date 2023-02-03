@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+
+	<div class="card mt-4">
+	  <div class="card-header">
+	     <h5 class="card-title">Element </h5>
+	  </div>
+	  <div class="card-body">
+
+            <div class="form-group">
+                <label for="idConcepte">ID Concepte</label>
+                <input type="text" name="idConcepte" class="form-control" disabled value="<%=element.idConcepte %>">
+            </div>
+
+            <div class="form-group">
+                <label for="idProveidor">ID Proveidor</label>
+                <input type="text" name="idProveidor" class="form-control" disabled value="<%=element.idProveidor %>">
+            </div>
+
+            <div class="form-group">
+                <label for="idPropostaPressupost">ID Proposta Pressupost</label>
+                <input type="text" name="idPropostaPressupost" class="form-control" disabled value="<%=element.idPropostaPressupost %>">
+            </div>
+
+            <div class="form-group">
+                <label for="idPropostaNecessitat">ID Proposta Necessitat</label>
+                <input type="text" name="idPropostaNecessitat" class="form-control" disabled value="<%=element.idPropostaNecessitat %>">
+            </div>
+
+            <div class="form-group">
+                <label for="nom">Nom</label>
+                <input type="text" name="nom" class="form-control" disabled value="<%=element.nom %>">
+            </div>
+
+            <div class="form-group">
+                <label for="quantitat">Quantitat</label>
+                <input type="text" name="quantitat" class="form-control" disabled value="<%=element.quantitat %>">
+            </div>
+
+            <div class="form-group">
+                <label for="descripcio">Descripcio</label>
+                <input type="text" name="descripcio" class="form-control" disabled value="<%=element.descripcio %>">
+            </div>
+
+            <div class="form-group">
+                <label for="objectiu">Objectiu</label>
+                <input type="text" name="objectiu" class="form-control" disabled value="<%=element.objectiu %>">
+            </div>
+
+            <div class="form-group">
+                <label for="valor">Valor</label>
+                <input type="text" name="valor" class="form-control" disabled value="<%=element.valor %>">
+            </div>
+
+			<% if (typeof error !== "undefined") { %>
+				<div class="alert alert-primary mt-2" role="alert">   <p><%= error %></p>
+				</div>
+			<% } %>
+
+	  </div>
+	</div>
+	
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>
