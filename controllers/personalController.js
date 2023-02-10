@@ -1,4 +1,5 @@
 var Personal = require("../models/personal");
+var Carrec = require("../models/carrec");
 
 class PersonalController {
 
@@ -6,15 +7,17 @@ class PersonalController {
   static async list(req,res,next) {
     try {
       var list_Personals = await Personal.find();
-      res.render('personals/list',{list:list_Personals})   
+      var carrec_list = await Carrec.find()
+      res.render('personals/list',{list:list_Personals,carrec_list:carrec_list})   
     }
     catch(e) {
       res.send('Error!');
     }          
   }
 
-  static create_get(req, res, next) {
-    res.render('personals/new');
+  static async create_get(req, res, next) {
+    var carrec_list = await Carrec.find();
+    res.render('personals/new',{carrec_list:carrec_list});
   }
 
   static create_post(req, res) {
@@ -30,7 +33,8 @@ class PersonalController {
   }
 
   static update_get(req, res, next) {
-    Personal.findById(req.params.id, function (err, personal) {
+    try {
+    Personal.findById(req.params.id, async function (err, personal) {
         if (err) {
           return next(err);
         }
@@ -41,18 +45,22 @@ class PersonalController {
           return next(err);
         }
         // Success.
-        res.render("personals/update", { personal: personal });
+        var carrec_list = await Carrec.find()
+        res.render("personals/update", { personal: personal, carrec_list:carrec_list});
     });
-      
-  }  
+    } catch (error){
+    console.log("Error");
+  }}  
 
-  static update_post(req, res, next) {
+  static async update_post(req, res, next) {
+    var carrec_list = await Carrec.find()
       var personal = new Personal({
         nom: req.body.nom,
         cognoms: req.body.cognoms,
-        carrec: req.body.carrec,
+        familia: req.body.familia,
         contrasenya: req.body.contrasenya,
         gmail: req.body.gmail,
+        carrecs: req.body.carrecs,
         _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
       });    
     
@@ -63,11 +71,11 @@ class PersonalController {
         function (err, personalFound) {
           if (err) {
             //return next(err);
-            res.render("personals/update", { personal: personal, error: err.message });
+            res.render("personals/update", { personal: personal, error: err.message , carrec_list: carrec_list});
 
           }          
           //res.redirect('/genres/update/'+ genreFound._id);
-          res.render("personals/update", { personal: personal, message: 'Personal Updated'});
+          res.render("personals/update", { personal: personal, message: 'Personal Updated', carrec_list: carrec_list});
         }
       );
   }

@@ -35,11 +35,19 @@
                 <input type="text" name="gmail" class="form-control">
            </div>
            <div class="form-group">
-            <label for="Carrec">Carrec</label>
-            <input type="text" name="carrec" class="form-control">
+            <label for="familia">Familia</label>
+            <input type="text" name="familia" class="form-control">
            </div>
-				<button type="submit" class="btn btn-primary">Save
-				</button>
+		   <div class="form-group">
+			<label for="carrecs">Carrecs </label>
+				<% carrec_list.forEach( function(carrec) { %>
+				  <div class="form-check">     
+					<input type="checkbox" name="carrecs" id="carrecs" class="form-check-input" value="<%= carrec._id %>">
+					<label class="form-check-label" for="carrecs"><%= carrec.nom %></label>
+				  </div>
+				<% }); %>	
+			</div>
+				<button type="submit" class="btn btn-primary">Save</button>
 			</form>
 
 			<% if (typeof error !== "undefined") { %>

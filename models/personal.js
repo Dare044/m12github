@@ -10,7 +10,7 @@ var PersonalSchema = new Schema({
   gmail: { type: String},
   contrasenya: {type: String},
   familia: { type: String},
-  carrec: [{ type: Schema.Types.ObjectId, ref: "PersonalCarrec" }]
+  carrecs: [{ type: Schema.ObjectId, ref: "Carrec" }]
   });
 
 

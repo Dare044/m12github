@@ -39,7 +39,12 @@
 					      <td><%= Personal.cognoms %></td>
 					      <td><%= Personal.gmail %></td>
 						  <td><%= Personal.familia %></td>
-						  <td><%= %></td>
+						  <td>
+							<% (Personal.carrecs).forEach(function(personalCarrec) { %>
+								<% carrec_list.forEach( function(carrec) {	if (""+personalCarrec._id == ""+carrec.id) {%>
+									<%= carrec.nom %> <br>
+						  	<% }})}) %>
+						  </td>
 						  <td><%= Personal.contrasenya %></td>
 					      <td>					      	
 					      	<a class="btn btn-secondary" href="/personal/update/<%=Personal._id%>" class="card-link">Edit</a>
