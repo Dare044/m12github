@@ -1,7 +1,6 @@
 var express = require('express');
 var path = require('path');
 var dotenv = require('dotenv');
-
 var session = require('express-session');
 
 var indexRouter = require('./routes/indexRouter');
@@ -39,22 +38,18 @@ app.use(session({
   cookie: {masAge: 1000*60*60}
 }));
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname + '/public')));
-
-
-
 /*
 app.get('/', function(req, res) {  
   res.render('home');  
 });
 */
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname + '/public')));
 
 const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
