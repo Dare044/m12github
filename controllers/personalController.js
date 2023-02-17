@@ -17,7 +17,7 @@ class PersonalController {
 
   static async create_get(req, res, next) {
     var carrec_list = await Carrec.find();
-    res.render('personals/new',{carrec_list:carrec_list});
+    res.render('personals/new',{carrec_list:carrec_list, errors:"", data: { vacio: " " }});
   }
 
   static create_post(req, res) {
@@ -25,7 +25,7 @@ class PersonalController {
     Personal.create(req.body, function (error, newPersonal)  {
         if(error){
             //console.log(error)
-            res.render('personals/new',{error:error.message})
+            res.render('personals/new',{errors:errors.msg})
         }else{             
             res.redirect('/personal')
         }

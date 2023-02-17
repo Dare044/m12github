@@ -14,6 +14,7 @@ var activitatRouter = require('./routes/activitatRouter');
 var llistatProveidorRouter = require('./routes/llistatProveidorRouter');
 var elementRouter = require('./routes/elementRouter');
 
+
 var app = express();
 
 dotenv.config();
@@ -66,6 +67,9 @@ app.use('/activitat', activitatRouter);
 app.use('/llistatProveidor', llistatProveidorRouter);
 app.use('/element',elementRouter);
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 
 module.exports = app;
