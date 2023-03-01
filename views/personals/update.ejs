@@ -20,23 +20,23 @@
 		<form method="POST" action="/personal/update/<%= personal._id %>">
 			<div class="form-group">
 				 <label for="Nom">Nom</label>
-				<input type="text" name="nom" class="form-control" value="<%= personal.nom %>" required>
+				<input type="text" name="nom" class="form-control" value="<%= personal.nom %>">
 			</div>
             <div class="form-group">
                 <label for="Cognoms">Cognoms</label>
-               <input type="text" name="cognoms" class="form-control" value="<%= personal.cognoms %>" required>
+               <input type="text" name="cognoms" class="form-control" value="<%= personal.cognoms %>">
            </div>
            <div class="form-group">
             <label for="familia">Familia</label>
-            <input type="text" name="familia" class="form-control" value="<%= personal.familia%>" required>
+            <input type="text" name="familia" class="form-control" value="<%= personal.familia%>">
            </div>
            <div class="form-group">
             <label for="Gmail">Gmail</label>
-           <input type="text" name="gmail" class="form-control" value="<%= personal.gmail %>" required>
+           <input type="text" name="gmail" class="form-control" value="<%= personal.gmail %>">
            </div>
 		   <div class="form-group">
             <label for="contrasenya">Contrasenya</label>
-           <input type="text" name="contrasenya" class="form-control" value="<%= personal.contrasenya %>" required>
+           <input type="text" name="contrasenya" class="form-control" value="<%= personal.contrasenya %>">
            </div>
 			<div class="form-group">
 				<label for="carrecs">Carrecs </label>
@@ -58,7 +58,7 @@
 									<input type="checkbox" name="carrecs[]" id="carrecs" class="form-check-input" value="<%= carrec._id %>">
 									<label class="form-check-label" for="carrecs"><%= carrec.nom %></label>
 								  </div>				
-					<%}}); %>	
+					<%}}); %>
 				</div>
 			<button type="submit" class="btn btn-primary">Save
 			</button>

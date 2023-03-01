@@ -15,14 +15,14 @@ class LlistaCategoriaController {
   }
 
   static create_get(req, res, next) {
-    res.render('llistaCategories/new',{tipusProposta: "normal"});
+    res.render('llistaCategories/new',{tipusProposta: "normal", errors:""});
   }
 
   static create_post(req, res) {
     // console.log(req.body)
     LlistaCategoria.create(req.body, function (error, newLlistaCategoria)  {
         if(error){
-            //console.log(error)
+            console.log(error)
             res.render('llistaCategories/new',{error:error.message})
         }else{             
             res.redirect('/llistaCategoria')
@@ -31,7 +31,7 @@ class LlistaCategoriaController {
   }
 
   static create_getPropostaPressupost (req, res, next ) {
-    res.render('llistaCategories/new',{tipusProposta: "pressupost"});
+    res.render('llistaCategories/new',{tipusProposta: "pressupost", errors:""});
   }
 
   static create_postPropostaPressupost (req, res, next) {
@@ -48,7 +48,7 @@ class LlistaCategoriaController {
   }
 
   static create_getPropostaNecessitat (req, res, next ) {
-    res.render('llistaCategories/new',{tipusProposta: "necessitat"});
+    res.render('llistaCategories/new',{tipusProposta: "necessitat", errors:""});
   }
 
   static create_postPropostaNecessitat (req, res, next) {

@@ -17,8 +17,8 @@ class LlistatProveidorController {
 
   static async create_get(req, res, next) {
     try {
-      var list_Activitat = await Activitat.find();
-      res.render('llistatProveidors/new',{activitat_list:list_Activitat});   
+      var activitat_list = await Activitat.find();
+      res.render('llistatProveidors/new',{activitat_list:activitat_list, errors:""});   
     }
     catch(e) {
       res.send('Error!');
@@ -27,14 +27,15 @@ class LlistatProveidorController {
 
   static create_post(req, res) {
     // console.log(req.body)
-    LlistatProveidor.create(req.body, function (error, newLlistatProveidor)  {
-        if(error){
-            //console.log(error)
-            res.render('llistatProveidors/new',{error:error.message})
-        }else{             
-            res.redirect('/llistatProveidor')
-        }
-    })    
+    LlistatProveidor.create(req.body, async function (error, newLlistatProveidor)  {
+      if(error){
+          console.log(error)
+          var activitat_list = await Activitat.find();
+          res.render('llistatProveidors/new',{activitat_list:activitat_list})
+      }else{             
+          res.redirect('/llistatProveidor')
+      }
+  })    
   }
 
   static async delete_get(req, res, next) {

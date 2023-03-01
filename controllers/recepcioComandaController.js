@@ -17,7 +17,7 @@ class RecepcioComandaController {
   static async create_get(req, res, next) {
     try {
       var list_Personal = await Personal.find();
-      res.render('recepcioComandes/new',{personal_list:list_Personal});   
+      res.render('recepcioComandes/new',{personal_list:list_Personal, errors:""});   
     }
     catch(e) {
       res.send('Error!');

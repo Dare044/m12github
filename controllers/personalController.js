@@ -17,18 +17,18 @@ class PersonalController {
 
   static async create_get(req, res, next) {
     var carrec_list = await Carrec.find();
-    res.render('personals/new',{carrec_list:carrec_list, errors:"", data: { vacio: " " }});
+    res.render('personals/new',{carrec_list:carrec_list, errors:""});
   }
 
   static create_post(req, res) {
     // console.log(req.body)
     Personal.create(req.body, function (error, newPersonal)  {
-        if(error){
-            //console.log(error)
-            res.render('personals/new',{errors:errors.msg})
-        }else{             
-            res.redirect('/personal')
-        }
+      if(error){
+          console.log(error)
+          res.render('personals/new',{carrec_list:carrec_list})
+      }else{             
+          res.redirect('/personal')
+      }
     })    
   }
 
@@ -46,7 +46,7 @@ class PersonalController {
         }
         // Success.
         var carrec_list = await Carrec.find()
-        res.render("personals/update", { personal: personal, carrec_list:carrec_list});
+        res.render("personals/update", { personal: personal, carrec_list:carrec_list, errors:""});
     });
     } catch (error){
     console.log("Error");
