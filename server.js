@@ -2,6 +2,9 @@ var express = require('express');
 var path = require('path');
 var dotenv = require('dotenv');
 var session = require('express-session');
+var bodyParser = require('body-parser');
+
+// configure the app to use bodyParser()
 
 var indexRouter = require('./routes/indexRouter');
 var personalRouter = require('./routes/personalRouter');
@@ -16,6 +19,10 @@ var elementRouter = require('./routes/elementRouter');
 
 
 var app = express();
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 
 dotenv.config();
 
@@ -56,6 +63,8 @@ const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
+
+
 app.use('/', indexRouter);
 app.use('/personal', personalRouter);
 app.use('/recepcioComanda', recepcioComandaRouter);
@@ -66,10 +75,6 @@ app.use('/propostaNecessitat', propostaNecessitatRouter);
 app.use('/activitat', activitatRouter);
 app.use('/llistatProveidor', llistatProveidorRouter);
 app.use('/element',elementRouter);
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
 
 module.exports = app;
