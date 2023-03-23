@@ -4,6 +4,8 @@ var dotenv = require('dotenv');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 
+const cors = require('cors')
+const corsOptions = require('./config/corsOptions')
 // configure the app to use bodyParser()
 
 var indexRouter = require('./routes/indexRouter');
@@ -17,8 +19,9 @@ var activitatRouter = require('./routes/activitatRouter');
 var llistatProveidorRouter = require('./routes/llistatProveidorRouter');
 var elementRouter = require('./routes/elementRouter');
 
-
 var app = express();
+
+app.use(cors(corsOptions))
 app.use(bodyParser.urlencoded({
   extended: true
 }));
