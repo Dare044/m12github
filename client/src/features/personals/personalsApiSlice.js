@@ -4,7 +4,7 @@ import {
 } from "@reduxjs/toolkit";
 import { apiSlice } from "../../app/api/apiSlice"
 
-const personalsAdapter = createEntityAdapter({})
+const personalsAdapter = createEntityAdapter({}) // Con esto puedes hacer que se ordene por algo
 
 const initialState = personalsAdapter.getInitialState()
 
@@ -15,7 +15,6 @@ export const personalsApiSlice = apiSlice.injectEndpoints({
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError
             },
-            keepUnusedDataFor: 5, // Este valor suele ser 60
             transformResponse: responseData => {
                 const loadedPersonals = responseData.map(personal => {
                     personal.id = personal._id
@@ -32,11 +31,48 @@ export const personalsApiSlice = apiSlice.injectEndpoints({
                 } else return [{ type: 'Personal', id: 'LIST' }]
             }
         }),
+        addNewPersonal: builder.mutation({
+            query: initialPersonalData => ({
+                url: '/personal/create', // Esto lo tienes que cambiar
+                method: 'POST',  // Esto lo tienes que cambiar
+                body: {
+                    ...initialPersonalData,
+                }
+            }),
+            invalidatesTags: [
+                { type: 'Personal', id: "LIST" }
+            ]
+        }),
+        updatePersonal: builder.mutation({
+            query: initialPersonalData => ({
+                url: '/personal/update/${initialPersonalData.id}',  // Esto lo tienes que cambiar
+                method: 'POST',  // Esto lo tienes que cambiar
+                body: {
+                    ...initialPersonalData,
+                }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Personal', id: arg.id }
+            ]
+        }),
+        deletePersonal: builder.mutation({
+            query: ({ id }) => ({
+                url: '/personal/delete/${id}',  // Esto lo tienes que cambiar
+                method: 'DELETE',  // Esto lo tienes que cambiar
+                body: { id }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Personal', id: arg.id }
+            ]
+        }),
     }),
 })
 
 export const {
     useGetPersonalsQuery,
+    useAddNewPersonalMutation,
+    useUpdatePersonalMutation,
+    useDeletePersonalMutation,
 } = personalsApiSlice
 
 // returns the query result object

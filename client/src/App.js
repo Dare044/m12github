@@ -7,6 +7,9 @@ import Welcome from './features/auth/Welcome'
 import NotesList from './features/notes/NotesList'
 import UsersList from './features/users/UsersList'
 import PersonalsList from './features/personals/PersonalsList'
+import EditPersonal from './features/personals/EditPersonal'
+import EditPersonalList from './features/personals/EditPersonalForm'
+import NewPersonalForm from './features/personals/NewPersonalForm'
 
 function App() {
   return (
@@ -25,6 +28,8 @@ function App() {
           </Route>
           <Route path="personals">
             <Route index element={<PersonalsList />} />
+            <Route path=":id" element={<EditPersonal />} />
+            <Route path="new" element={<NewPersonalForm />} />
           </Route>
           </Route> {/* End Dash */}
       </Route>
