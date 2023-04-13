@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave } from "@fortawesome/free-solid-svg-icons"
 import { CARRECS } from "../../config/carrecs"
+import React, { Component }  from 'react';
 
-const PERSOnal_REGEX = /^[A-z]{3,20}$/
+const PERSONAL_REGEX = /^[A-z]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
 
 const NewPersonalForm = () => {
@@ -19,15 +20,19 @@ const NewPersonalForm = () => {
 
     const navigate = useNavigate()
 
-    const [personalnom, setPersonalnom] = useState('')
-    const [validPersonalnom, setValidPersonalnom] = useState(false)
+    const [nom, setNom] = useState('')
     const [contrasenya, setContrasenya] = useState('')
+    const [cognoms, setCognoms] = useState('')
+    const [gmail, setGmail] = useState('')
+    const [familia, setFamilia] = useState('')
+    const [carrecs, setCarrecs] = useState(['63ec8d75de8c903cec362f46'])
+
+    const [validNom, setValidNom] = useState(false)
     const [validContrasenya, setValidContrasenya] = useState(false)
-    const [carrecs, setCarrecs] = useState(["Employee"])
 
     useEffect(() => {
-        setValidPersonalnom(PERSOnal_REGEX.test(personalnom))
-    }, [personalnom])
+        setValidNom(PERSONAL_REGEX.test(nom))
+    }, [nom])
 
     useEffect(() => {
         setValidContrasenya(PWD_REGEX.test(contrasenya))
@@ -35,15 +40,22 @@ const NewPersonalForm = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            setPersonalnom('')
+            setNom('')
             setContrasenya('')
-            setCarrecs([])
+            setCognoms('')
+            setGmail('')
+            setFamilia('')
+            setCarrecs('')
             navigate('/dash/personals')
         }
     }, [isSuccess, navigate])
 
-    const onPersonalnomChanged = e => setPersonalnom(e.target.value)
+    const onNomChanged = e => setNom(e.target.value)
+    const onCognomsChanged = e => setCognoms(e.target.value)
+    const onGmailChanged = e => setGmail(e.target.value)
+    const onFamiliaChanged = e => setFamilia(e.target.value)
     const onContrasenyaChanged = e => setContrasenya(e.target.value)
+    
 
     const onCarrecsChanged = e => {
         const values = Array.from(
@@ -53,15 +65,16 @@ const NewPersonalForm = () => {
         setCarrecs(values)
     }
 
-    const canSave = [carrecs.length, validPersonalnom, validContrasenya].every(Boolean) && !isLoading
+    const canSave = [validNom, validContrasenya].every(Boolean) && !isLoading
 
     const onSavePersonalClicked = async (e) => {
         e.preventDefault()
         if (canSave) {
-            await addNewPersonal({ personalnom, contrasenya, carrecs })
+            await addNewPersonal({ nom, cognoms, gmail, contrasenya, familia, carrecs })
         }
     }
 
+    // Cambia esto
     const options = Object.values(CARRECS).map(carrec => {
         return (
             <option
@@ -72,22 +85,23 @@ const NewPersonalForm = () => {
         )
     })
 
+    // Esto son clases que se ponen
     const errClass = isError ? "errmsg" : "offscreen"
-    const validPersonalClass = !validPersonalnom ? 'form__input--incomplete' : ''
+    const validPersonalClass = !validNom ? 'form__input--incomplete' : ''
     const validPwdClass = !validContrasenya ? 'form__input--incomplete' : ''
-    const validCarrecsClass = !Boolean(carrecs.length) ? 'form__input--incomplete' : ''
+    // const validCarrecsClass = !Boolean(carrecs.length) ? 'form__input--incomplete' : ''
 
 
     const content = (
         <>
-            <p classNom={errClass}>{error?.data?.message}</p>
+            <p className={errClass}>{error?.data?.message}</p>
 
-            <form classNom="form" onSubmit={onSavePersonalClicked}>
-                <div classNom="form__title-row">
+            <form className="form" onSubmit={onSavePersonalClicked}>
+                <div className="form__title-row">
                     <h2>New Personal</h2>
-                    <div classNom="form__action-buttons">
+                    <div className="form__action-buttons">
                         <button
-                            classNom="icon-button"
+                            className="icon-button"
                             title="Save"
                             disabled={!canSave}
                         >
@@ -95,35 +109,66 @@ const NewPersonalForm = () => {
                         </button>
                     </div>
                 </div>
-                <label classNom="form__label" htmlFor="personalnom">
-                    Personalnom: <span classNom="nowrap">[3-20 letters]</span></label>
+                <label className="form__label" htmlFor="nom">
+                    Nom: <span className="nowrap">[3-20 letters]</span></label>
                 <input
-                    classNom={`form__input ${validPersonalClass}`}
-                    id="personalnom"
-                    nom="personalnom"
+                    className={``}
+                    id="nom"
+                    nom="nom"
                     type="text"
                     autoComplete="off"
-                    value={personalnom}
-                    onChange={onPersonalnomChanged}
+                    value={nom}
+                    onChange={onNomChanged}
+                />
+                <label className="form__label" htmlFor="cognoms"> Cognoms: </label>
+                <input
+                    className={``}
+                    id="cognoms"
+                    nom="cognoms"
+                    type="text"
+                    autoComplete="off"
+                    value={cognoms}
+                    onChange={onCognomsChanged}
+                />
+                <label className="form__label" htmlFor="gmail"> Gmail: </label>
+                <input
+                    className={``}
+                    id="gmail"
+                    nom="gmail"
+                    type="text"
+                    autoComplete="off"
+                    value={gmail}
+                    onChange={onGmailChanged}
                 />
 
-                <label classNom="form__label" htmlFor="contrasenya">
-                    Contrasenya: <span classNom="nowrap">[4-12 chars incl. !@#$%]</span></label>
+                <label className="form__label" htmlFor="contrasenya">
+                    Contrasenya: <span className="nowrap">[4-12 chars incl. !@#$%]</span></label>
                 <input
-                    classNom={`form__input ${validPwdClass}`}
+                    className={`form__input ${validPwdClass}`}
                     id="contrasenya"
                     nom="contrasenya"
-                    type="contrasenya"
+                    type="password"
                     value={contrasenya}
                     onChange={onContrasenyaChanged}
                 />
 
-                <label classNom="form__label" htmlFor="carrecs">
+                <label className="form__label" htmlFor="familia"> Familia: </label>
+                <input
+                    className={``}
+                    id="familia"
+                    nom="familia"
+                    type="text"
+                    autoComplete="off"
+                    value={familia}
+                    onChange={onFamiliaChanged}
+                />
+
+                <label className="form__label" htmlFor="carrecs">
                     ASSIGNED CARRECS:</label>
                 <select
                     id="carrecs"
                     nom="carrecs"
-                    classNom={`form__select ${validCarrecsClass}`}
+                    className={`form__select`}
                     multiple={true}
                     size="3"
                     value={carrecs}

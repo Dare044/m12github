@@ -10,8 +10,9 @@ const Personal = ({ personalId }) => {
     const navigate = useNavigate()
 
     if (personal) {
-        const handleEdit = () => navigate('/dash/personals/${personalId}')
-        
+        const handleEdit = (personalId) => {
+        navigate(`/dash/personals/${personalId}`);
+        }        
         const stringCarrecs = personal.carrecs.join(', ');
 
         return (
@@ -23,8 +24,8 @@ const Personal = ({ personalId }) => {
                 <td className="">{stringCarrecs}</td>
                 <td className="">
                     <button
-                        className="icon-button table__button"
-                        onClick={handleEdit}
+                    className="icon-button table__button"
+                    onClick={() => handleEdit(personal.id)}
                     >
                         <FontAwesomeIcon icon={faPenToSquare} />
                     </button>

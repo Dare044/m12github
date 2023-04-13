@@ -1,5 +1,6 @@
 import { useGetPersonalsQuery } from "./personalsApiSlice"
 import Personal from './Personal'
+import React, { Component }  from 'react';
 
 const PersonalsList = () => {
 
@@ -9,7 +10,11 @@ const PersonalsList = () => {
         isSuccess,
         isError,
         error
-    } = useGetPersonalsQuery()
+    } = useGetPersonalsQuery(undefined, {
+        pollingInterval: 60000,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true
+    })
 
     let content
 

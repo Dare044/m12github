@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center my-5">Login</h1>
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <form action="/auth/login" method="post">
+          <div class="mb-3">
+            <label for="inputGmail" class="form-label">Gmail</label>
+            <input type="gmail" class="form-control" id="inputGmail" name="gmail" required>
+          </div>
+          <div class="mb-3">
+            <label for="inputContrasenya" class="form-label">Contrasenya</label>
+            <input type="contrasenya" class="form-control" id="inputContrasenya" name="contrasenya" required>
+          </div>
+          <div class="mb-3">
+            <button type="submit" class="btn btn-primary w-100">Sign in</button>
+          </div>
+        </form>
+        <% if (typeof error !== 'undefined') {%>
+            <% if (error) { %>
+                <div class="alert alert-danger"><%= error %></div>
+            <% } %>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

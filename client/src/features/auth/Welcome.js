@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import React, { Component }  from 'react';
 
 const Welcome = () => {
 
@@ -17,6 +18,8 @@ const Welcome = () => {
             <p><Link to="/dash/users">View User Settings</Link></p>
 
             <p><Link to="/dash/personals">View Personal</Link></p>
+        
+            <p><Link to="/dash/personals/new">Add New Personal</Link></p>
         </section>
     )
 

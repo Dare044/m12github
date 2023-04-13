@@ -45,7 +45,7 @@ export const personalsApiSlice = apiSlice.injectEndpoints({
         }),
         updatePersonal: builder.mutation({
             query: initialPersonalData => ({
-                url: '/personal/update/${initialPersonalData.id}',  // Esto lo tienes que cambiar
+                url: `/personal/update/${initialPersonalData.id}`,  // Esto lo tienes que cambiar
                 method: 'POST',  // Esto lo tienes que cambiar
                 body: {
                     ...initialPersonalData,
@@ -58,7 +58,7 @@ export const personalsApiSlice = apiSlice.injectEndpoints({
         deletePersonal: builder.mutation({
             query: ({ id }) => ({
                 url: '/personal/delete/${id}',  // Esto lo tienes que cambiar
-                method: 'DELETE',  // Esto lo tienes que cambiar
+                method: 'POST',  // Esto lo tienes que cambiar
                 body: { id }
             }),
             invalidatesTags: (result, error, arg) => [

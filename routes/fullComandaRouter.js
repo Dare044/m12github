@@ -1,19 +1,20 @@
 var express = require("express");
 var router = express.Router();
+const checkAuth = require("../middlewares/auth");
 
 const fullComanda_controller = require("../controllers/fullComandaController");
 
 
 
-router.get("/", fullComanda_controller.list);
+router.get("/", checkAuth, fullComanda_controller.list);
 
 // router.get("/create", fullComanda_controller.create_get);
 // router.post("/create", fullComanda_controller.create_post);
 
-router.get("/delete/:id", fullComanda_controller.delete_get);
-router.post("/delete/:id", fullComanda_controller.delete_post);
+router.get("/delete/:id", checkAuth, fullComanda_controller.delete_get);
+router.post("/delete/:id", checkAuth, fullComanda_controller.delete_post);
 
-router.get("/show/:id", fullComanda_controller.show_get);
+router.get("/show/:id", checkAuth, fullComanda_controller.show_get);
 
 
 module.exports = router;

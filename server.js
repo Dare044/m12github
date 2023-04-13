@@ -18,6 +18,8 @@ var propostaNecessitatRouter = require ('./routes/propostaNecessitatRouter');
 var activitatRouter = require('./routes/activitatRouter');
 var llistatProveidorRouter = require('./routes/llistatProveidorRouter');
 var elementRouter = require('./routes/elementRouter');
+var authRouter = require('./routes/authRouter');
+var loginRouter = require('./routes/loginRouter');
 
 var app = express();
 
@@ -42,11 +44,9 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // Set up session
 app.use(session({
-  secret: process.env.SECRET,
-  resave: false,
-  name: 'M12',
-  saveUninitialized: true,
-  cookie: {masAge: 1000*60*60}
+  secret: '1234', // una clave secreta para firmar la cookie de sesión
+  resave: false, // no guarde la sesión si no ha cambiado
+  saveUninitialized: true // guarde la sesión aunque todavía no se haya inicializado
 }));
 
 /*
@@ -78,6 +78,16 @@ app.use('/propostaNecessitat', propostaNecessitatRouter);
 app.use('/activitat', activitatRouter);
 app.use('/llistatProveidor', llistatProveidorRouter);
 app.use('/element',elementRouter);
+app.use('/auth',authRouter)
+app.use('/login',loginRouter);
+
+app.get('/borrar-sesion', (req, res) => {
+  // Eliminar todas las variables de la sesión
+  req.session.destroy();
+
+  res.send('La sesión ha sido eliminada');
+});
+
 
 
 module.exports = app;

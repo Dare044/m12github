@@ -10,6 +10,7 @@ import PersonalsList from './features/personals/PersonalsList'
 import EditPersonal from './features/personals/EditPersonal'
 import EditPersonalList from './features/personals/EditPersonalForm'
 import NewPersonalForm from './features/personals/NewPersonalForm'
+import React, { Component }  from 'react';
 
 function App() {
   return (

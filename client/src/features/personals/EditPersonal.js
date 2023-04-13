@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectPersonalById } from './personalsApiSlice'
 import EditPersonalForm from './EditPersonalForm.js'
+import React, { Component }  from 'react';
 
 const EditPersonal = () => {
     const { id } = useParams()
