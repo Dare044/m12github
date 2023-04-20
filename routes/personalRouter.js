@@ -5,9 +5,11 @@ const express = require('express');
 var router = express.Router();
 const { check, validationResult } = require('express-validator');
 // const { validateCreate } = require("../validators/personals");
+const checkAuth = require("../middlewares/auth");
+const checkCarrecAuth = require("../middlewares/roleCheck");
 
 const personal_controller = require("../controllers/personalController");
-
+// checkCarrecAuth(['Admin'])
 router.get("/", personal_controller.list);
 
 router.get("/create", personal_controller.create_get);

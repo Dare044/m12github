@@ -25,7 +25,7 @@ const NewPersonalForm = () => {
     const [cognoms, setCognoms] = useState('')
     const [gmail, setGmail] = useState('')
     const [familia, setFamilia] = useState('')
-    const [carrecs, setCarrecs] = useState(['63ec8d75de8c903cec362f46'])
+    const [carrecs, setCarrecs] = useState(['643bd9ee7f3b35c976672ca8'])
 
     const [validNom, setValidNom] = useState(false)
     const [validContrasenya, setValidContrasenya] = useState(false)

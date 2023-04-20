@@ -10,8 +10,7 @@ const loginCtrl = async (req, res) => {
         const personal = await personalModel.findOne({ gmail })
 
         if (!personal) {
-            res.status(404)
-            res.send({ error: 'Personal not found' })
+            res.render('login/singin', { error: 'El compte no existeix!' });
         }
 
         const checkContrasenya = await compare(contrasenya, personal.contrasenya) //TODO: Contraseña!
@@ -26,11 +25,7 @@ const loginCtrl = async (req, res) => {
         }
 
         if (!checkContrasenya) {
-            res.status(409)
-            res.send({
-                error: 'Invalid contrasenya'
-            })
-            return
+            res.render('login/singin', { error: 'Contrasenya invalida!' });
         }
 
     } catch (e) {

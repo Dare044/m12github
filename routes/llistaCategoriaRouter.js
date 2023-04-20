@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const checkAuth = require("../middlewares/auth");
+const checkCarrecAuth = require("../middlewares/roleCheck");
 
 const llistaCategoria_controller = require("../controllers/llistaCategoriaController.js");
 var router = express.Router();

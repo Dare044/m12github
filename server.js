@@ -3,7 +3,6 @@ var path = require('path');
 var dotenv = require('dotenv');
 var session = require('express-session');
 var bodyParser = require('body-parser');
-
 const cors = require('cors')
 const corsOptions = require('./config/corsOptions')
 // configure the app to use bodyParser()
@@ -20,6 +19,7 @@ var llistatProveidorRouter = require('./routes/llistatProveidorRouter');
 var elementRouter = require('./routes/elementRouter');
 var authRouter = require('./routes/authRouter');
 var loginRouter = require('./routes/loginRouter');
+var devolucioRouter = require('./routes/devolucioRouter');
 
 var app = express();
 
@@ -80,6 +80,7 @@ app.use('/llistatProveidor', llistatProveidorRouter);
 app.use('/element',elementRouter);
 app.use('/auth',authRouter)
 app.use('/login',loginRouter);
+app.use('/devolucio', devolucioRouter);
 
 app.get('/borrar-sesion', (req, res) => {
   // Eliminar todas las variables de la sesión

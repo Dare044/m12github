@@ -3,7 +3,7 @@ var dotenv = require('dotenv');
 dotenv.config();
 
 const port = process.env.PORT || 8000;
-
+const bcrypt = require('bcrypt');
 // Set up mongoose connection
 var mongoose = require('mongoose');
 var mongoDB = process.env.MONGODB_URI;
@@ -12,7 +12,7 @@ mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const Personal = require('./models/personal');
 const Carrec = require('./models/carrec');
-const PropostaPressupost = require('./models/propostaPressupost');
+// const PropostaPressupost = require('./models/propostaPressupost');
 
 const llistaPersonal = [
     {
@@ -92,6 +92,18 @@ const llistaPersonal = [
     },
 ];
 
+const saltRounds = 10;
+
+// Recorrer el objeto llistaPersonal y encriptar las contraseñas
+for (let i = 0; i < llistaPersonal.length; i++) {
+  // Generar el salt
+  const salt = bcrypt.genSaltSync(saltRounds);
+  // Encriptar la contraseña
+  const hash = bcrypt.hashSync(llistaPersonal[i].contrasenya, salt);
+  // Reemplazar la contraseña original con la encriptada
+  llistaPersonal[i].contrasenya = hash;
+}
+
 const llistaCarrecs = [
     {
         nom: 'Professor'
@@ -100,55 +112,61 @@ const llistaCarrecs = [
         nom: 'Director'
     },
     {
-        nom: 'Cap de departament'
+        nom: 'CapDeDepartament'
     },
     {
         nom: 'Responsable'
     },
+    {
+        nom: 'Conserge'
+    },
+    {
+        nom: 'Admin'
+    },
 ];
 
-const llistaPropostesPressupost = [
-    {
-        id_: 1,
-        idPersonal: '63ec8d75de8c903cec362f2b',
-        idFullComanda: 1,
-        prioritat: 1,
-        costTotal: '1000',
-        estat: "EnProces"
-    },
-    {
-        id_: 2,
-        idPersonal: '63ec8d75de8c903cec362f2b',
-        idFullComanda: 2,
-        prioritat: '1',
-        costTotal: '1000',
-        estat: "Aprovada"
-    },
-    {
-        id_: 3,
-        idPersonal: '63ec8d75de8c903cec362f2b',
-        idFullComanda: 3,
-        prioritat: '1',
-        costTotal: '1000',
-        estat: "EnProces"
-    },
-    {
-        id_: 4,
-        idPersonal: '63ec8d75de8c903cec362f2b',
-        idFullComanda: 4,
-        prioritat: '1',
-        costTotal: '1000',
-        estat: "EnProces"
-    },
-    {
-        id_: 5,
-        idPersonal: '63ec8d75de8c903cec362f2b',
-        idFullComanda: 5,
-        prioritat: '1',
-        costTotal: '1000',
-        estat: "Aprovada"
-    },
-];
+// const llistaPropostesPressupost = [
+//     {
+//         id_: 1,
+//         idPersonal: '63ec8d75de8c903cec362f2b',
+//         idFullComanda: 1,
+//         prioritat: 1,
+//         costTotal: '1000',
+//         estat: "EnProces"
+//     },
+//     {
+//         id_: 2,
+//         idPersonal: '63ec8d75de8c903cec362f2b',
+//         idFullComanda: 2,
+//         prioritat: '1',
+//         costTotal: '1000',
+//         estat: "Aprovada"
+//     },
+//     {
+//         id_: 3,
+//         idPersonal: '63ec8d75de8c903cec362f2b',
+//         idFullComanda: 3,
+//         prioritat: '1',
+//         costTotal: '1000',
+//         estat: "EnProces"
+//     },
+//     {
+//         id_: 4,
+//         idPersonal: '63ec8d75de8c903cec362f2b',
+//         idFullComanda: 4,
+//         prioritat: '1',
+//         costTotal: '1000',
+//         estat: "EnProces"
+//     },
+//     {
+//         id_: 5,
+//         idPersonal: '63ec8d75de8c903cec362f2b',
+//         idFullComanda: 5,
+//         prioritat: '1',
+//         costTotal: '1000',
+//         estat: "Aprovada"
+//     },
+// ];
 
 const seedDB = async () => {
     await Personal.deleteMany({});
@@ -157,8 +175,8 @@ const seedDB = async () => {
     await Carrec.deleteMany({});
     await Carrec.insertMany(llistaCarrecs);
 
-    await PropostaPressupost.deleteMany({});
-    await PropostaPressupost.insertMany(llistaPropostesPressupost);
+    // await PropostaPressupost.deleteMany({});
+    // await PropostaPressupost.insertMany(llistaPropostesPressupost);
 };
 
 seedDB().then(() => {
