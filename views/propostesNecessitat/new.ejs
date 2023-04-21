@@ -21,11 +21,11 @@
 				
             <div class="form-group">
                 <label for="material">Material</label>
-                <input type="text" name="material" class="form-control">
+                <input type="text" name="material" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="quantitat">Quantitat</label>
-                <input type="text" name="quantitat" class="form-control">
+                <input type="text" name="quantitat" class="form-control" required>
             </div>
             <div class="form-group">
               <label for="idProveidor">Proveidor</label>
@@ -37,7 +37,7 @@
              </div>
             <div class="form-group">
                 <label for="preu">Preu</label>
-                <input type="text" name="preu" class="form-control">
+                <input type="text" name="preu" class="form-control" required>
            </div>
            <input type="hidden" name="estat" value="EnProces">
            <button type="submit" formaction="/propostaNecessitat/create" class="btn btn-primary">Guardar & finalitzar
