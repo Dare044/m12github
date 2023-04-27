@@ -5,6 +5,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 const cors = require('cors')
 const corsOptions = require('./config/corsOptions')
+const cookieParser = require('cookie-parser');
 // configure the app to use bodyParser()
 
 var indexRouter = require('./routes/indexRouter');
@@ -41,7 +42,7 @@ mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 //mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
+app.use(cookieParser());
 // Set up session
 app.use(session({
   secret: '1234', // una clave secreta para firmar la cookie de sesión
@@ -81,6 +82,12 @@ app.use('/element',elementRouter);
 app.use('/auth',authRouter)
 app.use('/login',loginRouter);
 app.use('/devolucio', devolucioRouter);
+
+app.get('/back', (req, res) => {
+  const backURL = req.cookies.lastPage || '/';
+  res.clearCookie('lastPage');
+  res.redirect(backURL);
+});
 
 app.get('/borrar-sesion', (req, res) => {
   // Eliminar todas las variables de la sesión

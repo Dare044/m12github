@@ -3,8 +3,10 @@ var FullComanda = require("../models/fullComanda");
 var LlistatProveidor = require("../models/llistatProveidor");
 var Personal = require("../models/personal");
 var Element = require("../models/element");
+var LlistaCategoria = require("../models/llistaCategoria");
 var idFullComandaGuardat = null;
 var FullComandaCostFinal = 0;
+const _ = require('lodash');
 
 class PropostaNecessitatController {
 
@@ -190,7 +192,24 @@ class PropostaNecessitatController {
   static async show_get(req, res, next) {
     var list_propostaNecessitat = await PropostaNecessitat.find();
     var list_ProveidorsLlista = await LlistatProveidor.find();
-    var list_Element = await Element.find();
+
+    var list_Element;
+
+    // Buscar elementos con idPropostaNecessitat igual a req.params.id
+    var elementos_con_idPropostaNecessitat = await Element.find({ idPropostaNecessitat: req.params.id });
+
+    // Si se encontraron elementos, asignar el resultado a la variable list_Element y salir del bucle
+    if (!_.isEmpty(elementos_con_idPropostaNecessitat)) {
+      list_Element = elementos_con_idPropostaNecessitat;
+    } else {
+      // Si no se encontraron elementos, buscar elementos con idPropostaPresuppost igual a req.params.id
+      var elementos_con_idPropostaPresuppost = await Element.find({ idPropostaPresuppost: req.params.id });
+
+      // Asignar el resultado a la variable list_Element, incluso si es un objeto vacío
+      list_Element = elementos_con_idPropostaPresuppost;
+    }
+
+    var list_LlistaCategoria = await LlistaCategoria.find();
     var tipusProposta = "";
     list_propostaNecessitat.forEach(function(propostaNecessitat) {
       if (propostaNecessitat.idFullComanda == req.params.id) {
@@ -200,8 +219,7 @@ class PropostaNecessitatController {
       }
     });
 
-    var list_LlistaCategoria = await LlistaCategoria.find();
-    res.render('fullComandes/show',{id: req.params.id, 
+    res.render('propostesNecessitat/show',{id: req.params.id, 
                                     list_propostaNecessitat:list_propostaNecessitat, 
                                     list_LlistaCategoria:list_LlistaCategoria,
                                     list_Element:list_Element,
