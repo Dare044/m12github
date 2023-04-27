@@ -21,5 +21,7 @@ router.post("/update/:id", checkAuth, checkCarrecAuth(['Responsable','CapDeDepar
 router.get("/updateEstat/:id", checkAuth, checkCarrecAuth(['Responsable','CapDeDepartament','Admin']), propostaPressupost_controller.updateEstat_get);
 router.post("/updateEstat/:id", checkAuth, checkCarrecAuth(['Responsable','CapDeDepartament','Admin']), propostaPressupost_controller.updateEstat_post);
 
+router.get("/show/:id",  checkAuth, checkCarrecAuth(['Responsable','CapDeDepartament','Admin']), propostaPressupost_controller.show_get);
+
 
 module.exports = router;

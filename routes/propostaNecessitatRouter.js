@@ -18,6 +18,7 @@ router.post("/delete/:id", checkAuth, checkCarrecAuth(['Responsable','CapDeDepar
 router.get("/updateEstat/:id", checkAuth, checkCarrecAuth(['Responsable','CapDeDepartament','Admin']), propostaNecessitat_controller.updateEstat_get);
 router.post("/updateEstat/:id", checkAuth, checkCarrecAuth(['Responsable','CapDeDepartament','Admin']), propostaNecessitat_controller.updateEstat_post);
 
+router.get("/show/:id",  checkAuth, checkCarrecAuth(['Responsable','CapDeDepartament','Admin']), propostaNecessitat_controller.show_get);
 // router.get("/update/:id", propostaPressupost_controller.update_get);
 // router.post("/update/:id", propostaPressupost_controller.update_post);
 

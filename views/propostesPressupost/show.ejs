@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+
+	<div class="card mt-6">
+	  <div class="card-header">
+	     <h5 class="card-title">Full de comanda: <%= id %></h5>
+	  </div>
+
+	  <div class="card-body">				   
+      <table class="table table-striped">
+        <% if (tipusProposta == "PropostaDePressupost") { %>
+        <thead>
+          <tr>		      
+            <th scope="col">ID Personal</th>
+            <th scope="col">ID Full comanda</th>
+            <th scope="col">Cost total</th>
+            <th scope="col">Prioritat</th>
+            <th scope="col">Estat</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% list_propostaPressupost.forEach( function(propostaPressupost) { %>
+            <% if (propostaPressupost.idFullComanda == id) { %>
+            <tr>
+                <td><%= propostaPressupost.idPersonal %></td>
+                <td><%= propostaPressupost.idFullComanda %></td>
+                <td><%= propostaPressupost.costTotal %></td> 
+              </td>
+                  <% if (propostaPressupost.prioritat != 0 ) { %>
+                <td><%= propostaPressupost.prioritat %> </td>
+                  <% } else { %>
+                <td> Denegada </td>	
+                  <% }; %>
+                <td><%= propostaPressupost.estat %> 
+            </tr>
+          <% }}); %>
+        </tbody> 
+        <% } else if (tipusProposta == "PropostaDeNecessitat") { %>
+          <thead>
+				    <tr>		      
+              <th scope="col">ID Personal</th>
+              <th scope="col">ID Full comanda</th>
+              <th scope="col">Cost total</th>
+              <th scope="col">Estat</th>
+				    </tr>
+		  		</thead>
+			  	<tbody>
+			  		<% list_propostaNecessitat.forEach(function(propostaNecessitat) {%>
+              <% if (propostaNecessitat.idFullComanda == id) { %>
+					    <tr>		
+                <td><%= propostaNecessitat.idPersonal %></td>
+                <td><%= propostaNecessitat.idFullComanda %></td>
+                <td><%= propostaNecessitat.costTotal%></td>
+                <td><%= propostaNecessitat.estat %> </td>
+					    </tr>
+			   		<% }; %>	     
+			    </tbody>
+          <% })}; %>                
+        </table>
+
+	<% if (typeof error !== "undefined") { %>
+		<div class="alert alert-primary mt-2" role="alert">
+		    <p>Form could not be submitted due to the following error:</p>
+		    <p><%= error %></p>
+		</div>
+	<% }; %>
+
+	</div>
+		
+	</div>
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

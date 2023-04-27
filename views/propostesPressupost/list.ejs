@@ -22,20 +22,25 @@
 			<table class="table table-striped">
 		  		<thead>
 				    <tr>		      
-                        <th scope="col">ID Personal</th>
+                        <th scope="col">Personal</th>
                         <th scope="col">ID Full comanda</th>
 						<th scope="col">Cost total</th>
 						<th scope="col">Prioritat</th>
                         <th scope="col">Estat</th>
 				      	<th scope="col">
-				      		<a href="/propostaPressupost/create" class="btn btn-primary">New</a>
+				      		<!-- <a href="/propostaPressupost/create" class="btn btn-primary">New</a> -->
 				      	</th>
 				    </tr>
 		  		</thead>
 			  	<tbody>
 			  		<% list.forEach( function(propostaPressupost) { %>
 						<tr>		
-                          <td><%= propostaPressupost.idPersonal %></td>
+							<% list_Personal.forEach(function(Personal) { if ( Personal.id == propostaPressupost.idPersonal) { %>
+								<td><%= Personal.nom %></td>
+								<% }}); %>
+								<% if (propostaPressupost.idPersonal == null) { %>
+									<td> Anònim </td>
+									<% }; %>
                           <td><%= propostaPressupost.idFullComanda %></td>
 						  <td><%= propostaPressupost.costTotal %>€</td> 
 						  <% if (propostaPressupost.prioritat != 0 ) { %>
@@ -51,6 +56,7 @@
 						</td>
 					      <td>					      	
 					      	<a class="btn btn-info" href="/propostaPressupost/update/<%=propostaPressupost._id%>" class="card-link">Update</a>
+							<a class="btn btn-info" href="/propostaPressupost/Show/<%=propostaPressupost._id%>" class="card-link">Show</a>
 					      </td>		      
 					    </tr>
 			   		<% }); %>	     

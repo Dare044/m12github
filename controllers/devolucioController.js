@@ -1,13 +1,22 @@
+var LlistatProveidor = require("../models/llistatProveidor");
+var Element = require("../models/element");
+
 const PDFDocument = require('pdfkit');
 
 class DevolucioController {
 
-  static create_get(req, res, next) {
-    res.render('devolucions/devolucioForm');
+  static async create_get(req, res, next) {
+    try {
+      var list_proveidor = await LlistatProveidor.find();
+      var list_element = await Element.find();
+      res.render('devolucions/devolucioForm',{list_proveidor:list_proveidor, list_element:list_element});
+    } catch(e) {
+      res.send('Error!');
+    } 
   }
 
   static create_post(req, res) {
-    const { proveidor, rao, producte } = req.body;
+    const { proveidor, rao, element } = req.body;
 
     const doc = new PDFDocument();
   
@@ -17,7 +26,7 @@ class DevolucioController {
     doc.moveDown();
     doc.fontSize(14).text(`Rao per retornar: ${rao}`);
     doc.moveDown();
-    doc.fontSize(14).text(`Producte amb problema: ${producte}`);
+    doc.fontSize(14).text(`Producte amb problema: ${element}`);
     doc.moveDown();
     doc.fontSize(14).text(`Retira la mercaderia objecte de devolució, i signa el present formulari, posant de manifest haver-la rebut correctament.`)
     doc.moveDown();

@@ -1,6 +1,8 @@
 var PropostaNecessitat = require("../models/propostaNecessitat");
 var FullComanda = require("../models/fullComanda");
 var LlistatProveidor = require("../models/llistatProveidor");
+var Personal = require("../models/personal");
+var Element = require("../models/element");
 var idFullComandaGuardat = null;
 var FullComandaCostFinal = 0;
 
@@ -10,7 +12,8 @@ class PropostaNecessitatController {
         try {
           var list_propostesNecessitat = await PropostaNecessitat.find();
           var list_ProveidorsLlista = await LlistatProveidor.find();
-          res.render('propostesNecessitat/list',{list:list_propostesNecessitat,list_ProveidorsLlista:list_ProveidorsLlista})   
+          var list_Personal = await Personal.find();
+          res.render('propostesNecessitat/list',{list:list_propostesNecessitat,list_ProveidorsLlista:list_ProveidorsLlista, list_Personal:list_Personal})   
         }
         catch(e) {
           res.send('Error!');
@@ -183,6 +186,29 @@ class PropostaNecessitatController {
         }
       );
   }
+
+  static async show_get(req, res, next) {
+    var list_propostaNecessitat = await PropostaNecessitat.find();
+    var list_ProveidorsLlista = await LlistatProveidor.find();
+    var list_Element = await Element.find();
+    var tipusProposta = "";
+    list_propostaNecessitat.forEach(function(propostaNecessitat) {
+      if (propostaNecessitat.idFullComanda == req.params.id) {
+        tipusProposta = "PropostaDeNecessitat";
+      } else {
+        tipusProposta = "PropostaDePressupost";
+      }
+    });
+
+    var list_LlistaCategoria = await LlistaCategoria.find();
+    res.render('fullComandes/show',{id: req.params.id, 
+                                    list_propostaNecessitat:list_propostaNecessitat, 
+                                    list_LlistaCategoria:list_LlistaCategoria,
+                                    list_Element:list_Element,
+                                    list_ProveidorsLlista:list_ProveidorsLlista,
+                                    tipusProposta:tipusProposta})
+    
+ }
 
   
 }

@@ -2,6 +2,8 @@ var PropostaPressupost = require("../models/propostaPressupost");
 var LlistaCategoria = require("../models/llistaCategoria");
 var FullComanda = require("../models/fullComanda");
 var LlistatProveidor = require("../models/llistatProveidor");
+var Personal = require("../models/personal");
+
 var idFullComandaGuardat = null;
 var FullComandaCostFinal = 0;
 
@@ -13,7 +15,8 @@ class PropostaPressupostController {
       var list_PropostesPressupost = await PropostaPressupost.find().sort('prioritat');
       var list_LlistaCategoria = await LlistaCategoria.find();
       var list_ProveidorsLlista = await LlistatProveidor.find();
-      res.render('propostesPressupost/list',{list:list_PropostesPressupost, list_LlistaCategoria:list_LlistaCategoria, list_ProveidorsLlista:list_ProveidorsLlista})      
+                var list_Personal = await Personal.find();
+      res.render('propostesPressupost/list',{list:list_PropostesPressupost, list_LlistaCategoria:list_LlistaCategoria, list_ProveidorsLlista:list_ProveidorsLlista, list_Personal:list_Personal})      
     }
     catch(e) {
       res.send('Error!');
@@ -295,9 +298,29 @@ class PropostaPressupostController {
       );
   }
 
+  static async show_get(req, res, next) {
+    var list_propostaNecessitat = await PropostaNecessitat.find();
+    var list_Element = await Element.find(req.params.id == this.idPropostaPressupost);
+    var list_ProveidorsLlista = await LlistatProveidor.find();
+    var tipusProposta = "";
+    list_propostaNecessitat.forEach(function(propostaNecessitat) {
+      if (propostaNecessitat.idFullComanda == req.params.id) {
+        tipusProposta = "PropostaDeNecessitat";
+      } else {
+        tipusProposta = "PropostaDePressupost";
+      }
+    });
 
+    var list_LlistaCategoria = await LlistaCategoria.find();
+    res.render('fullComandes/show',{id: req.params.id, 
+                                    list_propostaNecessitat:list_propostaNecessitat, 
+                                    list_LlistaCategoria:list_LlistaCategoria,
+                                    list_Element:list_Element,
+                                    list_ProveidorsLlista:list_ProveidorsLlista,
+                                    tipusProposta:tipusProposta})
+    
+ }
 
-  
 }
 
 module.exports = PropostaPressupostController;

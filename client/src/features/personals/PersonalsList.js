@@ -33,6 +33,9 @@ const PersonalsList = () => {
             : null
 
         content = (
+            <div class="container">
+            <div class="row justify-content-center">
+            <div class="col-md-8">
             <table className="table">
                 <thead>
                     <tr>
@@ -49,6 +52,7 @@ const PersonalsList = () => {
                     {tableContent}
                 </tbody>
             </table>
+            </div></div></div>
         )
     }
 

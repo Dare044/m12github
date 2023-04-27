@@ -19,10 +19,10 @@ const loginCtrl = async (req, res) => {
 
         if (checkContrasenya) { //TODO Contraseña es correcta!
             req.session.token = tokenSession // guardar el token en la sesión
-
             res.redirect('/');
             return
         }
+
 
         if (!checkContrasenya) {
             res.render('login/singin', { error: 'Contrasenya invalida!' });

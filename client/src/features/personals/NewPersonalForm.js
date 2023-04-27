@@ -92,94 +92,116 @@ const NewPersonalForm = () => {
     // const validCarrecsClass = !Boolean(carrecs.length) ? 'form__input--incomplete' : ''
 
 
-    const content = (
-        <>
-            <p className={errClass}>{error?.data?.message}</p>
-
-            <form className="form" onSubmit={onSavePersonalClicked}>
-                <div className="form__title-row">
-                    <h2>New Personal</h2>
-                    <div className="form__action-buttons">
-                        <button
-                            className="icon-button"
-                            title="Save"
-                            disabled={!canSave}
-                        >
-                            <FontAwesomeIcon icon={faSave} />
-                        </button>
-                    </div>
-                </div>
-                <label className="form__label" htmlFor="nom">
-                    Nom: <span className="nowrap">[3-20 letters]</span></label>
-                <input
-                    className={``}
-                    id="nom"
-                    nom="nom"
-                    type="text"
-                    autoComplete="off"
-                    value={nom}
-                    onChange={onNomChanged}
-                />
-                <label className="form__label" htmlFor="cognoms"> Cognoms: </label>
-                <input
-                    className={``}
-                    id="cognoms"
-                    nom="cognoms"
-                    type="text"
-                    autoComplete="off"
-                    value={cognoms}
-                    onChange={onCognomsChanged}
-                />
-                <label className="form__label" htmlFor="gmail"> Gmail: </label>
-                <input
-                    className={``}
-                    id="gmail"
-                    nom="gmail"
-                    type="text"
-                    autoComplete="off"
-                    value={gmail}
-                    onChange={onGmailChanged}
-                />
-
-                <label className="form__label" htmlFor="contrasenya">
-                    Contrasenya: <span className="nowrap">[4-12 chars incl. !@#$%]</span></label>
-                <input
-                    className={`form__input ${validPwdClass}`}
-                    id="contrasenya"
-                    nom="contrasenya"
-                    type="password"
-                    value={contrasenya}
-                    onChange={onContrasenyaChanged}
-                />
-
-                <label className="form__label" htmlFor="familia"> Familia: </label>
-                <input
-                    className={``}
-                    id="familia"
-                    nom="familia"
-                    type="text"
-                    autoComplete="off"
-                    value={familia}
-                    onChange={onFamiliaChanged}
-                />
-
-                <label className="form__label" htmlFor="carrecs">
-                    ASSIGNED CARRECS:</label>
-                <select
-                    id="carrecs"
-                    nom="carrecs"
-                    className={`form__select`}
-                    multiple={true}
-                    size="3"
-                    value={carrecs}
-                    onChange={onCarrecsChanged}
-                >
-                    {options}
-                </select>
-
-            </form>
-        </>
-    )
+const content = (
+  <div className="container d-flex justify-content-center">
+    <div className="col-md-8 col-lg-6">
+      <p className={errClass}>{error?.data?.message}</p>
+      <form className="form" onSubmit={onSavePersonalClicked}>
+        <div className="form__title-row">
+          <h2>New Personal</h2>
+          <div className="form__action-buttons">
+            <button
+              className="btn btn-primary"
+              title="Save"
+              disabled={!canSave}
+            >
+              <FontAwesomeIcon icon={faSave} />
+            </button>
+          </div>
+        </div>
+        <div className="form-group">
+          <label className="form__label" htmlFor="nom">
+            Nom: <span className="nowrap">[3-20 letters]</span>
+          </label>
+          <input
+            className={`form-control ${validPersonalClass}`}
+            id="nom"
+            name="nom"
+            type="text"
+            autoComplete="off"
+            value={nom}
+            onChange={onNomChanged}
+          />
+        </div>
+        <div className="form-group">
+          <label className="form__label" htmlFor="cognoms">
+            Cognoms:
+          </label>
+          <input
+            className={`form-control ${validPersonalClass}`}
+            id="cognoms"
+            name="cognoms"
+            type="text"
+            autoComplete="off"
+            value={cognoms}
+            onChange={onCognomsChanged}
+          />
+        </div>
+        <div className="form-group">
+          <label className="form__label" htmlFor="gmail">
+            Gmail:
+          </label>
+          <input
+            className={`form-control ${validPersonalClass}`}
+            id="gmail"
+            name="gmail"
+            type="text"
+            autoComplete="off"
+            value={gmail}
+            onChange={onGmailChanged}
+          />
+        </div>
+        <div className="form-group">
+          <label className="form__label" htmlFor="contrasenya">
+            Contrasenya:{" "}
+            <span className="nowrap">
+              [4-12 chars incl. !@#$%]
+            </span>
+          </label>
+          <input
+            className={`form-control ${validPwdClass}`}
+            id="contrasenya"
+            name="contrasenya"
+            type="password"
+            value={contrasenya}
+            onChange={onContrasenyaChanged}
+          />
+        </div>
+        <div className="form-group">
+          <label className="form__label" htmlFor="familia">
+            Familia:
+          </label>
+          <input
+            className={`form-control ${validPersonalClass}`}
+            id="familia"
+            name="familia"
+            type="text"
+            autoComplete="off"
+            value={familia}
+            onChange={onFamiliaChanged}
+          />
+        </div>
+        <div className="form-group">
+          <label className="form__label" htmlFor="carrecs">
+            ASSIGNED CARRECS:
+          </label>
+          <select
+            id="carrecs"
+            name="carrecs"
+            className={`form-control ${validPersonalClass}`}
+            multiple={true}
+            size="3"
+            value={carrecs}
+            onChange={onCarrecsChanged}
+          >
+            {options}
+          </select>
+        </div>
+      </form>
+    </div>
+  </div>
+);
+      
 
     return content
 }
