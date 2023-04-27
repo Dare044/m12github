@@ -19,8 +19,14 @@ class ElementController {
   // Version 1
   static async list(req,res,next) {
     try {
-      var list_Element = await Element.find();
-      res.render('elements/list',{list_Element:list_Element});      
+      const page = parseInt(req.query.page) || 1;
+      const pageSize = 5;
+      const skip = (page - 1) * pageSize;
+      
+      const totalCount = await Element.countDocuments(); // Obtiene la cantidad total de elementos para calcular la cantidad de páginas
+
+      var list_Element = await Element.find().skip(skip).limit(pageSize).exec();
+      res.render('elements/list',{list_Element:list_Element, page, totalPages: Math.ceil(totalCount / pageSize)});      
     }
 
     catch(e) {

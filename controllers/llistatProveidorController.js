@@ -6,9 +6,14 @@ class LlistatProveidorController {
   // Version 1
   static async list(req,res,next) {
     try {
-      var list_llistatProveidors = await LlistatProveidor.find();
+      const page = parseInt(req.query.page) || 1; // Obtiene el número de página de la URL, por defecto 1
+      const pageSize = 5; // Tamaño de página (cantidad de elementos por página)
+      const skip = (page - 1) * pageSize;
+  
+      var list_llistatProveidors = await LlistatProveidor.find().skip(skip).limit(pageSize).exec();
+      const totalCount = await LlistatProveidor.countDocuments(); // Obtiene la cantidad total de elementos para calcular la cantidad de páginas
       var list_Activitat = await Activitat.find();
-      res.render('llistatProveidors/list',{list:list_llistatProveidors,activitat_list:list_Activitat});   
+      res.render('llistatProveidors/list', { list: list_llistatProveidors, activitat_list: list_Activitat, page, totalPages: Math.ceil(totalCount / pageSize) });
     }
     catch(e) {
       res.send('Error!');

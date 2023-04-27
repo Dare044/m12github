@@ -6,8 +6,13 @@ class LlistaCategoriaController {
   // Version 1
   static async list(req,res,next) {
     try {
-      var list_LlistaCategories = await LlistaCategoria.find();
-      res.render('llistaCategories/list',{list:list_LlistaCategories})      
+      const page = parseInt(req.query.page) || 1; // Obtiene el número de página de la URL, por defecto 1
+      const pageSize = 5; // Tamaño de página (cantidad de elementos por página)
+      const skip = (page - 1) * pageSize;
+  
+      var list_LlistaCategories = await LlistaCategoria.find().skip(skip).limit(pageSize).exec();
+      const totalCount = await LlistaCategoria.countDocuments(); // Obtiene la cantidad total de elementos para calcular la cantidad de páginas
+      res.render('llistaCategories/list', { list: list_LlistaCategories, page, totalPages: Math.ceil(totalCount / pageSize) });  
     }
     catch(e) {
       res.send('Error!');
