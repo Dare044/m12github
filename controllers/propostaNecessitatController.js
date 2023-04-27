@@ -5,15 +5,21 @@ var idFullComandaGuardat = null;
 
 class PropostaNecessitatController {
 
-    static async list(req,res,next) {
-        try {
-          var list_propostesNecessitat = await PropostaNecessitat.find();
-          res.render('propostesNecessitat/list',{list:list_propostesNecessitat})   
-        }
-        catch(e) {
-          res.send('Error!');
-        }          
-      }
+  static async list(req, res, next) {
+    try {
+      const page = parseInt(req.query.page) || 1; // Obtiene el número de página de la URL, por defecto 1
+      const pageSize = 5; // Tamaño de página (cantidad de elementos por página)
+      const skip = (page - 1) * pageSize;
+  
+      var list_propostesNecessitat = await PropostaNecessitat.find().skip(skip).limit(pageSize).exec();
+      const totalCount = await PropostaNecessitat.countDocuments(); // Obtiene la cantidad total de elementos para calcular la cantidad de páginas
+      res.render('propostesNecessitat/list', { list: list_propostesNecessitat, page, totalPages: Math.ceil(totalCount / pageSize) });
+    }
+    catch(e) {
+      res.send('Error!');
+    }          
+  }
+  
 
   static async create_get(req, res, next) {
     try {

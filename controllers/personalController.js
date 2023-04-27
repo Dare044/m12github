@@ -3,15 +3,21 @@ var Personal = require("../models/personal");
 class PersonalController {
 
   // Version 1
-  static async list(req,res,next) {
+  static async list(req, res, next) {
     try {
-      var list_Personals = await Personal.find();
-      res.render('personals/list',{list:list_Personals})   
+      const page = parseInt(req.query.page) || 1; // Obtiene el número de página de la URL, por defecto 1
+      const pageSize = 5; // Tamaño de página (cantidad de elementos por página)
+      const skip = (page - 1) * pageSize;
+  
+      var list_Personals = await Personal.find().skip(skip).limit(pageSize).exec();
+      const totalCount = await Personal.countDocuments(); // Obtiene la cantidad total de elementos para calcular la cantidad de páginas
+      res.render('personals/list', { list: list_Personals, page, totalPages: Math.ceil(totalCount / pageSize) });
     }
     catch(e) {
       res.send('Error!');
     }          
   }
+  
 
   static create_get(req, res, next) {
     res.render('personals/new');

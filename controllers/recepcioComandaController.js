@@ -4,14 +4,25 @@ var Personal = require("../models/personal");
 class RecepcioComandaController {
 
   // Version 1
-  static async list(req,res,next) {
+ 
+  static async list(req, res, next) {
     try {
-      var list_RecepcioComandes = await RecepcioComanda.find();
-      res.render('recepcioComandes/list',{list:list_RecepcioComandes});   
+      const pageSize = 5;
+      const page = parseInt(req.query.page) || 1;
+      const skip = (page - 1) * pageSize;
+
+      var list_RecepcioComandes = await RecepcioComanda.find().skip(skip).limit(pageSize);
+      var totalRecepcioComandes = await RecepcioComanda.countDocuments();
+
+      res.render('recepcioComandes/list', {
+        list: list_RecepcioComandes,
+        page: page,
+        totalPages: Math.ceil(totalRecepcioComandes / pageSize)
+      });
     }
-    catch(e) {
+    catch (e) {
       res.send('Error!');
-    }          
+    }
   }
 
   static async create_get(req, res, next) {
