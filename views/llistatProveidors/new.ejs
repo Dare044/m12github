@@ -18,18 +18,33 @@
 	  <div class="card-body">
 
 	   	<form method="POST" action="/llistatProveidor/create">
+        <% if (typeof data !=='undefined' ) { %>
                 <div class="form-group">
                     <label for="Cif">Cif</label>
-                    <input type="text" name="Cif" class="form-control">
-
+                    <input type="text" name="Cif" class="form-control" value="<%= data.Cif %>">
+                    <% if (errors && errors.find(e=> e.param === 'Cif')) { %>
+                      <p class="alert alert-danger" role="alert">
+                        <%= errors.find(e=> e.param === 'Cif').msg %>
+                      </p>
+                      <% } %>
                </div>
                <div class="form-group">
                 <label for="nom">Nom</label>
-                <input type="text" name="nom" class="form-control">
+                <input type="text" name="nom" class="form-control" value="<%= data.nom %>">
+                <% if (errors && errors.find(e=> e.param === 'nom')) { %>
+                  <p class="alert alert-danger" role="alert">
+                    <%= errors.find(e=> e.param === 'nom').msg %>
+                  </p>
+                  <% } %>
                </div>
                <div class="form-group">
                 <label for="ubicacio">Ubicació</label>
-                <input type="text" name="ubicacio" class="form-control">
+                <input type="text" name="ubicacio" class="form-control" value="<%= data.ubicacio %>">
+                <% if (errors && errors.find(e=> e.param === 'ubicacio')) { %>
+                  <p class="alert alert-danger" role="alert">
+                    <%= errors.find(e=> e.param === 'ubicacio').msg %>
+                  </p>
+                  <% } %>
                </div>
                <div class="form-group">
                     <label for="idActivitat">Activitats </label>
@@ -40,23 +55,128 @@
                           </div>
                            <% }); %>	
                            </select>
+                           <% if (errors && errors.find(e=> e.param === 'idActivitat')) { %>
+                            <p class="alert alert-danger" role="alert">
+                              <%= errors.find(e=> e.param === 'idActivitat').msg %>
+                            </p>
+                            <% } %>
                 </div>
                 <div class="form-group">
                     <label for="contacte">Contacte</label>
-                    <textarea name="contacte" class="form-control"> </textarea>
+                    <input type="text" name="contacte" id="contacte" class="form-control" value="<%= data.contacte %>">
+                    <% if (errors && errors.find(e=> e.param === 'contacte')) { %>
+                      <p class="alert alert-danger" role="alert">
+                        <%= errors.find(e=> e.param === 'contacte').msg %>
+                      </p>
+                      <% } %>
                 </div>
                 <div class="form-group">
                   <label for="email">Correu electronic</label>
-                  <textarea name="email" class="form-control"> </textarea>
+                  <input type="text" name="email" id="email" class="form-control" value="<%= data.email %>">
+                  <% if (errors && errors.find(e=> e.param === 'email')) { %>
+                    <p class="alert alert-danger" role="alert">
+                      <%= errors.find(e=> e.param === 'email').msg %>
+                    </p>
+                    <% } %>
               </div>
               <div class="form-group">
                 <label for="numDeficiencies">Numero de deficiencies</label>
-                <textarea name="numDeficiencies" class="form-control"> </textarea>
+                <input type="text" name="numDeficiencies" id="numDeficiencies" class="form-control"  value="<%= data.numDeficiencies %>">
+                <% if (errors && errors.find(e=> e.param === 'numDeficiencies')) { %>
+                  <p class="alert alert-danger" role="alert">
+                    <%= errors.find(e=> e.param === 'numDeficiencies').msg %>
+                  </p>
+                  <% } %>
             </div>
             <div class="form-group">
               <label for="numIncorreccions">Numero de incorreccions</label>
-              <textarea name="numIncorreccions" class="form-control"> </textarea>
+              <input type="text" name="numIncorreccions" id="numIncorreccions" class="form-control"  value="<%= data.numIncorreccions %>">
+              <% if (errors && errors.find(e=> e.param === 'numIncorreccions')) { %>
+								<p class="alert alert-danger" role="alert">
+									<%= errors.find(e=> e.param === 'numIncorreccions').msg %>
+								</p>
+								<% } %>
           </div>
+        <% } else { %>
+          <div class="form-group">
+            <label for="Cif">Cif</label>
+            <input type="text" name="Cif" class="form-control" value="">
+            <% if (errors && errors.find(e=> e.param === 'Cif')) { %>
+              <p class="alert alert-danger" role="alert">
+                <%= errors.find(e=> e.param === 'Cif').msg %>
+              </p>
+              <% } %>
+       </div>
+       <div class="form-group">
+        <label for="nom">Nom</label>
+        <input type="text" name="nom" class="form-control" value="">
+        <% if (errors && errors.find(e=> e.param === 'nom')) { %>
+          <p class="alert alert-danger" role="alert">
+            <%= errors.find(e=> e.param === 'nom').msg %>
+          </p>
+          <% } %>
+       </div>
+       <div class="form-group">
+        <label for="ubicacio">Ubicació</label>
+        <input type="text" name="ubicacio" class="form-control" value="">
+        <% if (errors && errors.find(e=> e.param === 'ubicacio')) { %>
+          <p class="alert alert-danger" role="alert">
+            <%= errors.find(e=> e.param === 'ubicacio').msg %>
+          </p>
+          <% } %>
+       </div>
+       <div class="form-group">
+            <label for="idActivitat">Activitats </label>
+                <% activitat_list.forEach( function(activitat) { %>
+                  <div class="form-check">     
+                    <input type="checkbox" name="idActivitat" id="idActivitat" class="form-check-input" value="<%= activitat._id %>">
+                    <label class="form-check-label" for="idActivitat"><%= activitat.nom %></label>
+                  </div>
+                   <% }); %>	
+                   </select>
+                   <% if (errors && errors.find(e=> e.param === 'idActivitat')) { %>
+                    <p class="alert alert-danger" role="alert">
+                      <%= errors.find(e=> e.param === 'idActivitat').msg %>
+                    </p>
+                    <% } %>
+        </div>
+        <div class="form-group">
+            <label for="contacte">Contacte</label>
+            <input type="text" name="contacte" id="contacte" class="form-control" value="">
+            <% if (errors && errors.find(e=> e.param === 'contacte')) { %>
+              <p class="alert alert-danger" role="alert">
+                <%= errors.find(e=> e.param === 'contacte').msg %>
+              </p>
+              <% } %>
+        </div>
+        <div class="form-group">
+          <label for="email">Correu electronic</label>
+          <input type="text" name="email" id="email" class="form-control" value="">
+          <% if (errors && errors.find(e=> e.param === 'email')) { %>
+            <p class="alert alert-danger" role="alert">
+              <%= errors.find(e=> e.param === 'email').msg %>
+            </p>
+            <% } %>
+      </div>
+      <div class="form-group">
+        <label for="numDeficiencies">Numero de deficiencies</label>
+        <input type="text" name="numDeficiencies" id="numDeficiencies" class="form-control"  value="">
+        <% if (errors && errors.find(e=> e.param === 'numDeficiencies')) { %>
+          <p class="alert alert-danger" role="alert">
+            <%= errors.find(e=> e.param === 'numDeficiencies').msg %>
+          </p>
+          <% } %>
+    </div>
+    <div class="form-group">
+      <label for="numIncorreccions">Numero de incorreccions</label>
+      <input type="text" name="numIncorreccions" id="numIncorreccions" class="form-control"  value="">
+      <% if (errors && errors.find(e=> e.param === 'numIncorreccions')) { %>
+        <p class="alert alert-danger" role="alert">
+          <%= errors.find(e=> e.param === 'numIncorreccions').msg %>
+        </p>
+        <% } %>
+  </div>
+        <% } %>
 				<button type="submit" class="btn btn-primary">Save
 				</button>
 			</form>

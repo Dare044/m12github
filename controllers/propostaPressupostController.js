@@ -2,6 +2,10 @@ var PropostaPressupost = require("../models/propostaPressupost");
 var LlistaCategoria = require("../models/llistaCategoria");
 var FullComanda = require("../models/fullComanda");
 var LlistatProveidor = require("../models/llistatProveidor");
+var Personal = require("../models/personal");
+var Element = require("../models/element");
+const _ = require('lodash');
+
 var idFullComandaGuardat = null;
 var FullComandaCostFinal = 0;
 
@@ -10,10 +14,16 @@ class PropostaPressupostController {
   // Version 1
   static async list(req,res,next) {
     try {
-      var list_PropostesPressupost = await PropostaPressupost.find().sort('prioritat');
+      const page = parseInt(req.query.page) || 1; // Obtiene el número de página de la URL, por defecto 1
+      const pageSize = 5; // Tamaño de página (cantidad de elementos por página)
+      const skip = (page - 1) * pageSize;
+
+      var list_PropostesPressupost = await PropostaPressupost.find().sort('prioritat').skip(skip).limit(pageSize).exec();
+      const totalCount = await PropostaPressupost.countDocuments(); // Obtiene la cantidad total de elementos para calcular la cantidad de páginas
       var list_LlistaCategoria = await LlistaCategoria.find();
       var list_ProveidorsLlista = await LlistatProveidor.find();
-      res.render('propostesPressupost/list',{list:list_PropostesPressupost, list_LlistaCategoria:list_LlistaCategoria, list_ProveidorsLlista:list_ProveidorsLlista})      
+      var list_Personal = await Personal.find();
+      res.render('propostesPressupost/list',{list:list_PropostesPressupost, list_LlistaCategoria:list_LlistaCategoria, list_ProveidorsLlista:list_ProveidorsLlista, list_Personal:list_Personal, page, totalPages: Math.ceil(totalCount / pageSize)})      
     }
     catch(e) {
       res.send('Error!');
@@ -295,9 +305,33 @@ class PropostaPressupostController {
       );
   }
 
+  static async show_get(req, res, next) {
+    if (req.headers.referer) {
+      res.cookie('lastPage', req.headers.referer);
+    }
+    var list_propostaPressupost = await PropostaPressupost.find();
+    var list_ProveidorsLlista = await LlistatProveidor.find();
+    var list_Element = await Element.find({ idPropostaPressupost: req.params.id });
 
+    var list_LlistaCategoria = await LlistaCategoria.find();
+    var tipusProposta = "";
+    list_propostaPressupost.forEach(function(propostaPressupost) {
+      if (propostaPressupost.idFullComanda == req.params.id) {
+        tipusProposta = "PropostaDePressupost";
+      } else {
+        tipusProposta = "PropostaDeNecessitat";
+      }
+    });
 
-  
+    console.log(list_Element)
+    res.render('propostesPressupost/show',{id: req.params.id, 
+                                    list_propostaPressupost:list_propostaPressupost, 
+                                    list_LlistaCategoria:list_LlistaCategoria,
+                                    list_Element:list_Element,
+                                    list_ProveidorsLlista:list_ProveidorsLlista,
+                                    tipusProposta:tipusProposta})
+ }
+
 }
 
 module.exports = PropostaPressupostController;

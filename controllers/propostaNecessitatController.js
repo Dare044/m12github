@@ -1,16 +1,26 @@
 var PropostaNecessitat = require("../models/propostaNecessitat");
 var FullComanda = require("../models/fullComanda");
 var LlistatProveidor = require("../models/llistatProveidor");
+var Personal = require("../models/personal");
+var Element = require("../models/element");
+var LlistaCategoria = require("../models/llistaCategoria");
 var idFullComandaGuardat = null;
 var FullComandaCostFinal = 0;
+const _ = require('lodash');
 
 class PropostaNecessitatController {
 
     static async list(req,res,next) {
         try {
-          var list_propostesNecessitat = await PropostaNecessitat.find();
+          const page = parseInt(req.query.page) || 1; // Obtiene el número de página de la URL, por defecto 1
+          const pageSize = 5; // Tamaño de página (cantidad de elementos por página)
+          const skip = (page - 1) * pageSize;
+
+          var list_propostesNecessitat = await PropostaNecessitat.find().skip(skip).limit(pageSize).exec();
+          const totalCount = await PropostaNecessitat.countDocuments(); // Obtiene la cantidad total de elementos para calcular la cantidad de páginas
           var list_ProveidorsLlista = await LlistatProveidor.find();
-          res.render('propostesNecessitat/list',{list:list_propostesNecessitat,list_ProveidorsLlista:list_ProveidorsLlista})   
+          var list_Personal = await Personal.find();
+          res.render('propostesNecessitat/list',{list:list_propostesNecessitat,list_ProveidorsLlista:list_ProveidorsLlista, list_Personal:list_Personal, page, totalPages: Math.ceil(totalCount / pageSize) })   
         }
         catch(e) {
           res.send('Error!');
@@ -183,6 +193,45 @@ class PropostaNecessitatController {
         }
       );
   }
+
+  static async show_get(req, res, next) {
+    var list_propostaNecessitat = await PropostaNecessitat.find();
+    var list_ProveidorsLlista = await LlistatProveidor.find();
+
+    var list_Element;
+
+    // Buscar elementos con idPropostaNecessitat igual a req.params.id
+    var elementos_con_idPropostaNecessitat = await Element.find({ idPropostaNecessitat: req.params.id });
+
+    // Si se encontraron elementos, asignar el resultado a la variable list_Element y salir del bucle
+    if (!_.isEmpty(elementos_con_idPropostaNecessitat)) {
+      list_Element = elementos_con_idPropostaNecessitat;
+    } else {
+      // Si no se encontraron elementos, buscar elementos con idPropostaPresuppost igual a req.params.id
+      var elementos_con_idPropostaPresuppost = await Element.find({ idPropostaPresuppost: req.params.id });
+
+      // Asignar el resultado a la variable list_Element, incluso si es un objeto vacío
+      list_Element = elementos_con_idPropostaPresuppost;
+    }
+
+    var list_LlistaCategoria = await LlistaCategoria.find();
+    var tipusProposta = "";
+    list_propostaNecessitat.forEach(function(propostaNecessitat) {
+      if (propostaNecessitat.idFullComanda == req.params.id) {
+        tipusProposta = "PropostaDeNecessitat";
+      } else {
+        tipusProposta = "PropostaDePressupost";
+      }
+    });
+
+    res.render('propostesNecessitat/show',{id: req.params.id, 
+                                    list_propostaNecessitat:list_propostaNecessitat, 
+                                    list_LlistaCategoria:list_LlistaCategoria,
+                                    list_Element:list_Element,
+                                    list_ProveidorsLlista:list_ProveidorsLlista,
+                                    tipusProposta:tipusProposta})
+    
+ }
 
   
 }

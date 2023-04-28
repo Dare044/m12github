@@ -6,8 +6,13 @@ class RecepcioComandaController {
   // Version 1
   static async list(req,res,next) {
     try {
-      var list_RecepcioComandes = await RecepcioComanda.find();
-      res.render('recepcioComandes/list',{list:list_RecepcioComandes});   
+      const page = parseInt(req.query.page) || 1;
+      const pageSize = 5;
+      const skip = (page - 1) * pageSize;
+      
+      var list_RecepcioComandes = await RecepcioComanda.find().skip(skip).limit(pageSize).exec();
+      const totalCount = await RecepcioComanda.countDocuments(); // Obtiene la cantidad total de elementos para calcular la cantidad de páginas
+      res.render('recepcioComandes/list',{list:list_RecepcioComandes, page, totalPages: Math.ceil(totalCount / pageSize) });   
     }
     catch(e) {
       res.send('Error!');
@@ -17,7 +22,7 @@ class RecepcioComandaController {
   static async create_get(req, res, next) {
     try {
       var list_Personal = await Personal.find();
-      res.render('recepcioComandes/new',{personal_list:list_Personal});   
+      res.render('recepcioComandes/new',{personal_list:list_Personal, errors:""});   
     }
     catch(e) {
       res.send('Error!');

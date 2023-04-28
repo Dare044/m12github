@@ -17,20 +17,36 @@
 	  </div>
 	  <div class="card-body">
     
+    <% if (typeof data !=='undefined' ) { %> 
       <% if (tipusProposta == "normal") { %>
 	   	<form method="POST" action="/llistaCategoria/create">
 				
                <div class="form-group">
                     <label for="concepte">Concepte</label>
-                    <input type="text" name="concepte" class="form-control">
+                    <input type="text" name="concepte" class="form-control" value="<%= data.concepte %>">
+                    <% if (errors && errors.find(e=> e.param === 'concepte')) { %>
+                      <p class="alert alert-danger" role="alert">
+                        <%= errors.find(e=> e.param === 'concepte').msg %>
+                      </p>
+                      <% } %>
                </div>
                <div class="form-group">
                     <label for="nom">Nom</label>
-                    <input type="text" name="nom" class="form-control">
+                    <input type="text" name="nom" class="form-control" value="<%= data.nom %>">
+                    <% if (errors && errors.find(e=> e.param === 'nom')) { %>
+                      <p class="alert alert-danger" role="alert">
+                        <%= errors.find(e=> e.param === 'nom').msg %>
+                      </p>
+                      <% } %>
                </div>
                <div class="form-group">
                     <label for="descripcio">Descripció</label>
-                    <input type="text" name="descripcio" class="form-control">
+                    <input type="text" name="descripcio" class="form-control" value="<%= data.descripcio %>" >
+                    <% if (errors && errors.find(e=> e.param === 'descripcio')) { %>
+                      <p class="alert alert-danger" role="alert">
+                        <%= errors.find(e=> e.param === 'descripcio').msg %>
+                      </p>
+                      <% } %>
                </div>
 
 				<button type="submit" class="btn btn-primary">Save</button>
@@ -42,15 +58,30 @@
 				
           <div class="form-group">
                <label for="concepte">Concepte</label>
-               <input type="text" name="concepte" class="form-control">
+               <input type="text" name="concepte" class="form-control" value="<%= data.concepte %>">
+               <% if (errors && errors.find(e=> e.param === 'concepte')) { %>
+								<p class="alert alert-danger" role="alert">
+									<%= errors.find(e=> e.param === 'concepte').msg %>
+								</p>
+								<% } %>
           </div>
           <div class="form-group">
                <label for="nom">Nom</label>
-               <input type="text" name="nom" class="form-control">
+               <input type="text" name="nom" class="form-control" value="<%= data.nom %>">
+               <% if (errors && errors.find(e=> e.param === 'nom')) { %>
+								<p class="alert alert-danger" role="alert">
+									<%= errors.find(e=> e.param === 'nom').msg %>
+								</p>
+								<% } %>
           </div>
           <div class="form-group">
                <label for="descripcio">Descripció</label>
-               <input type="text" name="descripcio" class="form-control">
+               <input type="text" name="descripcio" class="form-control" value="<%= data.descripcio %>">
+               <% if (errors && errors.find(e=> e.param === 'descripcio')) { %>
+								<p class="alert alert-danger" role="alert">
+									<%= errors.find(e=> e.param === 'descripcio').msg %>
+								</p>
+								<% } %>
           </div>
 
         <button type="submit" class="btn btn-primary">Save</button>
@@ -62,20 +93,140 @@
 				
           <div class="form-group">
                <label for="concepte">Concepte</label>
-               <input type="text" name="concepte" class="form-control">
+               <input type="text" name="concepte" class="form-control" value="<%= data.concepte %>">
+               <% if (errors && errors.find(e=> e.param === 'concepte')) { %>
+								<p class="alert alert-danger" role="alert">
+									<%= errors.find(e=> e.param === 'concepte').msg %>
+								</p>
+								<% } %>
           </div>
           <div class="form-group">
                <label for="nom">Nom</label>
-               <input type="text" name="nom" class="form-control">
+               <input type="text" name="nom" class="form-control" value="<%= data.nom %>">
+               <% if (errors && errors.find(e=> e.param === 'nom')) { %>
+								<p class="alert alert-danger" role="alert">
+									<%= errors.find(e=> e.param === 'nom').msg %>
+								</p>
+								<% } %>
           </div>
           <div class="form-group">
                <label for="descripcio">Descripció</label>
-               <input type="text" name="descripcio" class="form-control">
+               <input type="text" name="descripcio" class="form-control" value="<%= data.descripcio %>">
+               <% if (errors && errors.find(e=> e.param === 'descripcio')) { %>
+								<p class="alert alert-danger" role="alert">
+									<%= errors.find(e=> e.param === 'descripcio').msg %>
+								</p>
+								<% } %>
           </div>
 
         <button type="submit" class="btn btn-primary">Save</button>
       </form>
-
+      <% } %>
+      <% } else { %>
+        <% if (tipusProposta == "normal") { %>
+          <form method="POST" action="/llistaCategoria/create">
+           
+                  <div class="form-group">
+                       <label for="concepte">Concepte</label>
+                       <input type="text" name="concepte" class="form-control" value="">
+                       <% if (errors && errors.find(e=> e.param === 'concepte')) { %>
+                        <p class="alert alert-danger" role="alert">
+                          <%= errors.find(e=> e.param === 'concepte').msg %>
+                        </p>
+                        <% } %>
+                  </div>
+                  <div class="form-group">
+                       <label for="nom">Nom</label>
+                       <input type="text" name="nom" class="form-control" value="">
+                       <% if (errors && errors.find(e=> e.param === 'nom')) { %>
+                        <p class="alert alert-danger" role="alert">
+                          <%= errors.find(e=> e.param === 'nom').msg %>
+                        </p>
+                        <% } %>
+                  </div>
+                  <div class="form-group">
+                       <label for="descripcio">Descripció</label>
+                       <input type="text" name="descripcio" class="form-control" value="">
+                       <% if (errors && errors.find(e=> e.param === 'descripcio')) { %>
+                        <p class="alert alert-danger" role="alert">
+                          <%= errors.find(e=> e.param === 'descripcio').msg %>
+                        </p>
+                        <% } %>
+                  </div>
+   
+           <button type="submit" class="btn btn-primary">Save</button>
+         </form>
+   
+         <% } else if (tipusProposta == "pressupost") { %>
+   
+           <form method="POST" action="/llistaCategoria/createPropostaPressupost">
+           
+             <div class="form-group">
+                  <label for="concepte">Concepte</label>
+                  <input type="text" name="concepte" class="form-control" value="">
+                  <% if (errors && errors.find(e=> e.param === 'concepte')) { %>
+                    <p class="alert alert-danger" role="alert">
+                      <%= errors.find(e=> e.param === 'concepte').msg %>
+                    </p>
+                    <% } %>
+             </div>
+             <div class="form-group">
+                  <label for="nom">Nom</label>
+                  <input type="text" name="nom" class="form-control" value="">
+                  <% if (errors && errors.find(e=> e.param === 'nom')) { %>
+                    <p class="alert alert-danger" role="alert">
+                      <%= errors.find(e=> e.param === 'nom').msg %>
+                    </p>
+                    <% } %>
+             </div>
+             <div class="form-group">
+                  <label for="descripcio">Descripció</label>
+                  <input type="text" name="descripcio" class="form-control" value="">
+                  <% if (errors && errors.find(e=> e.param === 'descripcio')) { %>
+                    <p class="alert alert-danger" role="alert">
+                      <%= errors.find(e=> e.param === 'descripcio').msg %>
+                    </p>
+                    <% } %>
+             </div>
+   
+           <button type="submit" class="btn btn-primary">Save</button>
+         </form>
+   
+         <% } else if (tipusProposta == "necessitat") { %>
+   
+           <form method="POST" action="/llistaCategoria/createPropostaNecessitat">
+           
+             <div class="form-group">
+                  <label for="concepte">Concepte</label>
+                  <input type="text" name="concepte" class="form-control" value="">
+                  <% if (errors && errors.find(e=> e.param === 'concepte')) { %>
+                    <p class="alert alert-danger" role="alert">
+                      <%= errors.find(e=> e.param === 'concepte').msg %>
+                    </p>
+                    <% } %>
+             </div>
+             <div class="form-group">
+                  <label for="nom">Nom</label>
+                  <input type="text" name="nom" class="form-control" value="">
+                  <% if (errors && errors.find(e=> e.param === 'nom')) { %>
+                    <p class="alert alert-danger" role="alert">
+                      <%= errors.find(e=> e.param === 'nom').msg %>
+                    </p>
+                    <% } %>
+             </div>
+             <div class="form-group">
+                  <label for="descripcio">Descripció</label>
+                  <input type="text" name="descripcio" class="form-control" value="">
+                  <% if (errors && errors.find(e=> e.param === 'descripcio')) { %>
+                    <p class="alert alert-danger" role="alert">
+                      <%= errors.find(e=> e.param === 'descripcio').msg %>
+                    </p>
+                    <% } %>
+             </div>
+   
+           <button type="submit" class="btn btn-primary">Save</button>
+         </form>
+      <% } %>
       <% } %>
 			<% if (typeof error !== "undefined") { %>
 				<div class="alert alert-primary mt-2" role="alert">   <p><%= error %></p>

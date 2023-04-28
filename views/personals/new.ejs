@@ -1,61 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <%- include('../partials/head'); %>
+	<%- include('../partials/head'); %>
 </head>
+
 <body class="container">
 
-<header>
-  <%- include('../partials/header'); %>
-</header>
+	<header>
+		<%- include('../partials/header'); %>
+	</header>
 
-<main>
+	<main>
 
-	<div class="card mt-4">
-	  <div class="card-header">
-	     <h5 class="card-title">Nou personal</h5>
-	  </div>
-	  <div class="card-body">
+		<div class="card mt-4">
+			<div class="card-header">
+				<h5 class="card-title">Nou personal</h5>
+			</div>
+			<div class="card-body">
 
-	   	<form method="POST" action="/personal/create">
-				<div class="form-group">
-					 <label for="Nom">Nom</label>
-					 <input type="text" name="nom" class="form-control">
-				</div>
-                <div class="form-group">
-                    <label for="Cognoms">Cognoms</label>
-                    <input type="text" name="cognoms" class="form-control">
-               </div>
-			   <div class="form-group">
-				<label for="contrasenya">Contrasenya</label>
-				<input type="text" name="contrasenya" class="form-control">
-		   	   </div>
-               <div class="form-group">
-                <label for="Gmail">Gmail</label>
-                <input type="text" name="gmail" class="form-control">
-           </div>
-           <div class="form-group">
-            <label for="Carrec">Carrec</label>
-            <input type="text" name="carrec" class="form-control">
-           </div>
-				<button type="submit" class="btn btn-primary">Save
-				</button>
-			</form>
+				<form method="POST" action="/personal/create">
+					<% if (typeof data !=='undefined' ) { %>
+						<div class="form-group">
+							<label for="Nom">Nom</label>
+							<input type="text" name="nom" class="form-control" value="<%= data.nom %>" />
+							<% if (errors && errors.find(e=> e.param === 'nom')) { %>
+								<p class="alert alert-danger" role="alert">
+									<%= errors.find(e=> e.param === 'nom').msg %>
+								</p>
+								<% } %>
+						</div>
+						<div class="form-group">
+							<label for="Cognoms">Cognoms</label>
+							<input type="text" name="cognoms" class="form-control" value="<%= data.cognoms %>" />
+							<% if (errors && errors.find(e=> e.param === 'cognoms')) { %>
+								<p class="alert alert-danger" role="alert">
+									<%= errors.find(e=> e.param === 'cognoms').msg %>
+								</p>
+								<% } %>
+						</div>
+						<div class="form-group">
+							<label for="contrasenya">Contrasenya</label>
+							<input type="text" name="contrasenya" class="form-control"
+								value="<%= data.contrasenya %>" />
+							<% if (errors && errors.find(e=> e.param === 'contrasenya')) { %>
+								<p class="alert alert-danger" role="alert">
+									<%= errors.find(e=> e.param === 'contrasenya').msg %>
+								</p>
+								<% } %>
 
-			<% if (typeof error !== "undefined") { %>
-				<div class="alert alert-primary mt-2" role="alert">   <p><%= error %></p>
-				</div>
-			<% } %>
+						</div>
+						<div class="form-group">
+							<label for="Gmail">Gmail</label>
+							<input type="text" name="gmail" class="form-control" value="<%= data.gmail %>" />
+							<% if (errors && errors.find(e=> e.param === 'gmail')) { %>
+								<p class="alert alert-danger" role="alert">
+									<%= errors.find(e=> e.param === 'gmail').msg %>
+								</p>
+								<% } %>
+						</div>
+						<div class="form-group">
+							<label for="familia">Familia</label>
+							<input type="text" name="familia" class="form-control" value="<%= data.familia%>">
+							<% if (errors && errors.find(e=> e.param === 'familia')) { %>
+								<p class="alert alert-danger" role="alert">
+									<%= errors.find(e=> e.param === 'familia').msg %>
+								</p>
+								<% } %>
+						</div>
+						<%} else { %>
+							<div class="form-group">
+								<label for="Nom">Nom</label>
+								<input type="text" name="nom" class="form-control" value="" />
+								<% if (errors && errors.find(e=> e.param === 'nom')) { %>
+									<p class="alert alert-danger" role="alert">
+										<%= errors.find(e=> e.param === 'nom').msg %>
+									</p>
+									<% } %>
+							</div>
+							<div class="form-group">
+								<label for="Cognoms">Cognoms</label>
+								<input type="text" name="cognoms" class="form-control" value="" />
+								<% if (errors && errors.find(e=> e.param === 'cognoms')) { %>
+									<p class="alert alert-danger" role="alert">
+										<%= errors.find(e=> e.param === 'cognoms').msg %>
+									</p>
+									<% } %>
+							</div>
+							<div class="form-group">
+								<label for="contrasenya">Contrasenya</label>
+								<input type="text" name="contrasenya" class="form-control" value="" />
+								<% if (errors && errors.find(e=> e.param === 'contrasenya')) { %>
+									<p class="alert alert-danger" role="alert">
+										<%= errors.find(e=> e.param === 'contrasenya').msg %>
+									</p>
+									<% } %>
 
-	  </div>
-	</div>
-	
+							</div>
+							<div class="form-group">
+								<label for="Gmail">Gmail</label>
+								<input type="text" name="gmail" class="form-control" value="" />
+								<% if (errors && errors.find(e=> e.param === 'gmail')) { %>
+									<p class="alert alert-danger" role="alert">
+										<%= errors.find(e=> e.param === 'gmail').msg %>
+									</p>
+									<% } %>
+							</div>
+							<div class="form-group">
+								<label for="familia">Familia</label>
+								<input type="text" name="familia" class="form-control" value="">
+								<% if (errors && errors.find(e=> e.param === 'familia')) { %>
+									<p class="alert alert-danger" role="alert">
+										<%= errors.find(e=> e.param === 'familia').msg %>
+									</p>
+									<% } %>
+							</div>
+							<%}%>
 
-</main>
+								<div class="form-group">
+									<label for="carrecs">Carrecs </label>
+										<% carrec_list.forEach( function(carrec) { %>
+													<div class="form-check">
+														<input type="checkbox" name="carrecs" id="carrecs"
+															class="form-check-input" value="<%= carrec._id %>">
+														<label class="form-check-label" for="carrecs">
+															<%= carrec.nom %>
+														</label>
+													</div>
+													<%})%>
+													<% if (errors && errors.find(e=> e.param === 'carrecs')) { %>
+														<p class="alert alert-danger" role="alert">
+															<%= errors.find(e=> e.param === 'carrecs').msg %>
+														</p>
+														<% } %>
+												</div>
+								<button type="submit" class="btn btn-primary">Save</button>
+				</form>
 
-<footer>
-  <%- include('../partials/footer'); %>
-</footer>
+				<% if (typeof error !=="undefined" ) { %>
+					<div class="alert alert-primary mt-2" role="alert">
+						<p>
+							<%= error %>
+						</p>
+					</div>
+					<% } %>
+
+			</div>
+		</div>
+
+
+	</main>
+
+	<footer>
+		<%- include('../partials/footer'); %>
+	</footer>
 
 </body>
+
 </html>

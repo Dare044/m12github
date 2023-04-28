@@ -4,6 +4,7 @@ var LlistaCategoria = require("../models/llistaCategoria");
 var FullComanda = require("../models/fullComanda");
 var LlistatProveidor = require("../models/llistatProveidor");
 var Element = require("../models/element");
+const { verifyToken } = require('../helpers/generateToken')
 
 var idFullComandaGuardat = null;
 var idPropostaPressupostGuardat = null;
@@ -14,11 +15,18 @@ var PropostaNecessitatCostFinal = 0;
 
 class ElementController {
 
+  
   // Version 1
   static async list(req,res,next) {
     try {
-      var list_Element = await Element.find();
-      res.render('elements/list',{list_Element:list_Element});      
+      const page = parseInt(req.query.page) || 1;
+      const pageSize = 5;
+      const skip = (page - 1) * pageSize;
+      
+      const totalCount = await Element.countDocuments(); // Obtiene la cantidad total de elementos para calcular la cantidad de páginas
+
+      var list_Element = await Element.find().skip(skip).limit(pageSize).exec();
+      res.render('elements/list',{list_Element:list_Element, page, totalPages: Math.ceil(totalCount / pageSize)});      
     }
 
     catch(e) {
@@ -51,6 +59,8 @@ class ElementController {
     }};
 
   static async create_postPropostaPressupost (req, res) {
+    const token = req.session.token.split(' ').pop() //TODO: 231231321
+    const tokenData = await verifyToken(token)
     // Cas on només creas 1 proposta i la guardes
     if (idPropostaPressupostGuardat == null) {
       var FullComandaCreat = await FullComanda.create(req.body);
@@ -80,12 +90,13 @@ class ElementController {
           var FullComandaCreatActualitzat = new FullComanda ({
             dataGeneracio: date,
             costFinal: PropostaPressupostCostFinal,
-            _id: idFullComandaGuardat
+            _id: idFullComandaGuardat,
           });
 
           await FullComanda.findByIdAndUpdate(idFullComandaGuardat, FullComandaCreatActualitzat);
 
           var PropostaPressupostPerTransferir = await new PropostaPressupost ({
+            idPersonal: tokenData._id,
             idFullComanda: idFullComandaGuardat,
             costTotal: PropostaPressupostCostFinal,
             _id: idPropostaPressupostGuardat,  // Necessari per a que sobreescrigui el mateix objecte!
@@ -142,6 +153,7 @@ class ElementController {
             await FullComanda.findByIdAndUpdate(idFullComandaGuardat, FullComandaCreatActualitzat);
 
             var PropostaPressupostPerTransferir = new PropostaPressupost ({
+            idPersonal: tokenData._id,
             idFullComanda: idFullComandaGuardat,
             costTotal: PropostaPressupostCostFinal,
             _id: idPropostaPressupostGuardat,  // Necessari per a que sobreescrigui el mateix objecte!
@@ -170,6 +182,8 @@ class ElementController {
   };
 
   static async create_postPropostaNecessitat(req, res) {
+    const token = req.session.token.split(' ').pop() //TODO: 231231321
+    const tokenData = await verifyToken(token)
     // Cas on només creas 1 proposta i la guardes
       if (idPropostaNecessitatGuardat == null) {
         var FullComandaCreat = await FullComanda.create(req.body);
@@ -205,6 +219,7 @@ class ElementController {
             await FullComanda.findByIdAndUpdate(idFullComandaGuardat, FullComandaCreatActualitzat);
   
             var PropostaNecessitatPerTransferir = new PropostaNecessitat ({
+              idPersonal: tokenData._id,
               idFullComanda: idFullComandaGuardat,
               costTotal: PropostaNecessitatCostFinal,
               _id: idPropostaNecessitatGuardat,  // Necessari per a que sobreescrigui el mateix objecte!
@@ -262,6 +277,7 @@ class ElementController {
               await FullComanda.findByIdAndUpdate(idFullComandaGuardat, FullComandaCreatActualitzat);  
 
               var PropostaNecessitatPerTransferir = await new PropostaNecessitat ({
+                idPersonal: tokenData._id,
                 idFullComanda: idFullComandaGuardat,
                 costTotal: PropostaNecessitatCostFinal,
                 _id: idPropostaNecessitatGuardat,  // Necessari per a que sobreescrigui el mateix objecte!
@@ -289,6 +305,8 @@ class ElementController {
             }})}};
   
   static async create_postMorePropostaPressupost (req, res) {
+    const token = req.session.token.split(' ').pop() //TODO: 231231321
+    const tokenData = await verifyToken(token)
     // Es la primera de muchas
     if (idPropostaPressupostGuardat == null) {
       var PropostaPressupostCreat = await PropostaPressupost.create(req.body);
@@ -367,7 +385,9 @@ class ElementController {
     }};
 
   static async create_postMorePropostaNecessitat(req, res) {
-      
+    const token = req.session.token.split(' ').pop() //TODO: 231231321
+    const tokenData = await verifyToken(token)
+          
       // Es la primera de muchas
         if (idPropostaNecessitatGuardat == null) {
           var PropostaNecessitatCreat = await PropostaNecessitat.create(req.body);
@@ -465,6 +485,7 @@ class ElementController {
   static update_post(req, res, next) {
       var propostaPressupost = new PropostaPressupost ({
         prioritat: req.body.prioritat,
+        idPersonal: tokenData._id,
         _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
       });    
     
@@ -504,6 +525,7 @@ class ElementController {
   static updateEstat_post(req, res, next) {
       var propostaPressupost = new PropostaPressupost ({
         estat: req.body.estat,
+        idPersonal: tokenData._id,
         _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
       });    
     
