@@ -92,8 +92,7 @@ app.get('/back', (req, res) => {
 app.get('/borrar-sesion', (req, res) => {
   // Eliminar todas las variables de la sesión
   req.session.destroy();
-
-  res.send('La sesión ha sido eliminada');
+  res.render('login/singin');
 });
 
 

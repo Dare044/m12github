@@ -8,19 +8,28 @@ const Welcome = () => {
 
     const content = (
         <section className="welcome">
-
-            <p>{today}</p>
-
-            <h1>Welcome!</h1>
-
-            <p><Link to="/dash/notes">View techNotes</Link></p>
-
-            <p><Link to="/dash/users">View User Settings</Link></p>
-
-            <p><Link to="/dash/personals">View Personal</Link></p>
-        
-            <p><Link to="/dash/personals/new">Add New Personal</Link></p>
-        </section>
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <p>{today}</p>
+  
+              <h1 className="display-4">Benvingut!</h1>
+  
+              <p>
+                <Link to="/dash/personals" className="btn btn-primary">
+                  View Personal
+                </Link>
+              </p>
+  
+              <p>
+                <Link to="/dash/personals/new" className="btn btn-secondary">
+                  Add New Personal
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     )
 
     return content

@@ -4,9 +4,10 @@ const carrecModel = require('../models/carrec');
 
 const checkCarrecAuth = (carrec) => async (req, res, next) => {
     try {
-        const token = req.session.token.split(' ').pop() //TODO: 231231321
+        const token = req.session.token.split(' ').pop()
         const tokenData = await verifyToken(token)
-        const personalData = await personalModel.findById(tokenData._id) //TODO: 696966
+        const personalData = await personalModel.findById(tokenData._id)
+
         const carrecsPersonal = await carrecModel.find({ _id: { $in: personalData.carrecs } });
         var check = false;
 

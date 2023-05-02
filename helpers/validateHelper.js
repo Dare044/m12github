@@ -12,5 +12,3 @@ const validateResult = (req, res, next) => {
 }
 
 module.exports = { validateResult }
-
-// Si no es compleix una validació ens avisa

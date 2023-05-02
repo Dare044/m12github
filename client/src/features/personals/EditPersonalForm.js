@@ -3,8 +3,9 @@ import { useUpdatePersonalMutation, useDeletePersonalMutation } from "./personal
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons"
-import { CARRECS } from "../../config/carrecs"
+import { CARRECS, getCarrecList } from "../../config/carrecsGetList";
 import React, { Component }  from 'react';
+import { Link } from 'react-router-dom'
 
 const PERSONAL_REGEX = /^[A-z]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
@@ -84,15 +85,12 @@ const EditPersonalForm = ({ personal }) => {
         await deletePersonal({ id: personal.id })
     }
 
-    const options = Object.values(CARRECS).map(carrec => {
-        return (
-            <option
-                key={carrec}
-                value={carrec}
-
-            > {carrec}</option >
-        )
-    })
+    const carrecList = getCarrecList();
+    const options = carrecList.map(carrec => (
+      <option key={carrec.id} value={carrec.id}>
+        {carrec.name}
+      </option>
+    ));
 
     let canSave
     if (contrasenya) {
@@ -110,85 +108,89 @@ const EditPersonalForm = ({ personal }) => {
 
 
     const content = (
-        <>
-        <div className="container d-flex justify-content-center">
-        <div className="col-md-8 col-lg-6">
-            <p className={errClass}>{errContent}</p>
-    
-            <form className="form" onSubmit={e => e.preventDefault()}>
-                <div className="form-group form__title-row">
-                    <h2>Edit Personal</h2>
-                    <div className="form__action-buttons">
-                        <button
-                            className="btn btn-primary icon-button"
-                            title="Save"
-                            onClick={onSavePersonalClicked}
-                            disabled={!canSave}
-                        >
-                            <FontAwesomeIcon icon={faSave} />
-                        </button>
-                        <button
-                            className="btn btn-danger icon-button"
-                            title="Delete"
-                            onClick={onDeletePersonalClicked}
-                        >
-                            <FontAwesomeIcon icon={faTrashCan} />
-                        </button>
-                    </div>
-                </div>
-                <label className="form__label" htmlFor="nom">
-                    Nom: <span className="nowrap">[3-20 letters]</span>
-                </label>
-                <input
-                    className="form-control"
-                    id="nom"
-                    name="nom"
-                    type="text"
-                    autoComplete="off"
-                    value={nom}
-                    onChange={onNomChanged}
-                />
-    
-                <label className="form__label" htmlFor="cognoms">
-                    Cognom:
-                </label>
-                <input
-                    className="form-control"
-                    id="cognoms"
-                    name="cognoms"
-                    type="text"
-                    autoComplete="off"
-                    value={cognoms}
-                    onChange={onCognomsChanged}
-                />
-    
-                <label className="form__label" htmlFor="gmail">
-                    Gmail:
-                </label>
-                <input
-                    className="form-control"
-                    id="gmail"
-                    name="gmail"
-                    type="text"
-                    autoComplete="off"
-                    value={gmail}
-                    onChange={onGmailChanged}
-                />
-    
-                <label className="form__label" htmlFor="contrasenya">
-                    Contrasenya:{" "}
-                    <span className="nowrap">[empty = no change]</span>{" "}
-                    <span className="nowrap">[4-12 chars incl. !@#$%]</span>
-                </label>
-                <input
-                    className={`form-control ${validPwdClass}`}
-                    id="contrasenya"
-                    name="contrasenya"
-                    type="password"
-                    value={contrasenya}
-                    onChange={onContrasenyaChanged}
-                />
-    
+<>
+  <div className="container d-flex justify-content-center">
+    <div className="col-md-8 col-lg-6 bg-light rounded p-4">
+      <p className={errClass}>{errContent}</p>
+      <form className="form" onSubmit={e => e.preventDefault()}>
+        <div className="form-group form__title-row d-flex justify-content-between align-items-center">
+          <h2 className="m-0">Edit personal</h2>
+          <div className="form__action-buttons">
+            <button
+              className="btn btn-primary icon-button mr-2"
+              title="Save"
+              onClick={onSavePersonalClicked}
+              disabled={!canSave}
+            >
+              <FontAwesomeIcon icon={faSave} />
+            </button>
+            <button
+              className="btn btn-danger icon-button"
+              title="Delete"
+              onClick={onDeletePersonalClicked}
+            >
+              <FontAwesomeIcon icon={faTrashCan} />
+            </button>
+          </div>
+        </div>
+        <div className="form-group mt-3">
+          <label className="form__label" htmlFor="nom">
+            Nom: <span className="nowrap">[3-20 caràcters]</span>
+          </label>
+          <input
+            className="form-control"
+            id="nom"
+            name="nom"
+            type="text"
+            autoComplete="off"
+            value={nom}
+            onChange={onNomChanged}
+          />
+        </div>
+        <div className="form-group mt-3">
+          <label className="form__label" htmlFor="cognoms">
+            Cognom:
+          </label>
+          <input
+            className="form-control"
+            id="cognoms"
+            name="cognoms"
+            type="text"
+            autoComplete="off"
+            value={cognoms}
+            onChange={onCognomsChanged}
+          />
+        </div>
+        <div className="form-group mt-3">
+          <label className="form__label" htmlFor="gmail">
+            Gmail:
+          </label>
+          <input
+            className="form-control"
+            id="gmail"
+            name="gmail"
+            type="text"
+            autoComplete="off"
+            value={gmail}
+            onChange={onGmailChanged}
+          />
+        </div>
+        <div className="form-group mt-3">
+          <label className="form__label" htmlFor="contrasenya">
+            Contrasenya:{" "}
+            <span className="nowrap">[buit = no canvi]</span>{" "}
+            <span className="nowrap">[4-12 caràcters incl. !@#$%]</span>
+          </label>
+          <input
+            className={`form-control ${validPwdClass}`}
+            id="contrasenya"
+            name="contrasenya"
+            type="password"
+            value={contrasenya}
+            onChange={onContrasenyaChanged}
+          />
+        </div>
+        <div className="form-group mt-3">
                 <label className="form__label" htmlFor="familia">
                     Familia:
                 </label>
@@ -201,23 +203,29 @@ const EditPersonalForm = ({ personal }) => {
                     value={familia}
                     onChange={onFamiliaChanged}
                 />
-    
-                <label className="form__label" htmlFor="carrecs">
-                    ASSIGNED CARRECS:
-                </label>
-                <select
-                    id="carrecs"
-                    name="carrecs"
-                    className="form-control"
-                    multiple={true}
-                    size="3"
-                    value={carrecs}
-                    onChange={onCarrecsChanged}
-                >
-                    {options}
-                </select>
+        </div>
+        <div className="form-group mt-3">
+            <label className="form__label" htmlFor="carrecs">
+                ASSIGNED CARRECS:
+            </label>
+            <select
+                id="carrecs"
+                name="carrecs"
+                className="form-control"
+                multiple={true}
+                size="3"
+                value={carrecs}
+                onChange={onCarrecsChanged}
+            >
+                {options}
+            </select>
+        </div>
             </form>
-            </div></div>
+            <Link to="/dash/personals" class="btn btn-primary mt-3">
+            Tornar
+            </Link>
+            </div>
+        </div>
         </>
     );
     return content

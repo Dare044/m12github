@@ -3,8 +3,10 @@ import { useAddNewPersonalMutation } from "./personalsApiSlice"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave } from "@fortawesome/free-solid-svg-icons"
-import { CARRECS } from "../../config/carrecs"
 import React, { Component }  from 'react';
+import { Link } from 'react-router-dom'
+import { CARRECS, getCarrecList } from "../../config/carrecsGetList";
+
 
 const PERSONAL_REGEX = /^[A-z]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
@@ -74,17 +76,13 @@ const NewPersonalForm = () => {
         }
     }
 
-    // Cambia esto
-    const options = Object.values(CARRECS).map(carrec => {
-        return (
-            <option
-                key={carrec}
-                value={carrec}
 
-            > {carrec}</option >
-        )
-    })
-
+    const carrecList = getCarrecList();
+    const options = carrecList.map(carrec => (
+      <option key={carrec.id} value={carrec.id}>
+        {carrec.name}
+      </option>
+    ));
     // Esto son clases que se ponen
     const errClass = isError ? "errmsg" : "offscreen"
     const validPersonalClass = !validNom ? 'form__input--incomplete' : ''
@@ -93,25 +91,24 @@ const NewPersonalForm = () => {
 
 
 const content = (
-  <div className="container d-flex justify-content-center">
+<div className="container d-flex justify-content-center py-5">
     <div className="col-md-8 col-lg-6">
+    <div className="bg-light p-4 rounded">
       <p className={errClass}>{error?.data?.message}</p>
       <form className="form" onSubmit={onSavePersonalClicked}>
-        <div className="form__title-row">
-          <h2>New Personal</h2>
-          <div className="form__action-buttons">
-            <button
-              className="btn btn-primary"
-              title="Save"
-              disabled={!canSave}
-            >
-              <FontAwesomeIcon icon={faSave} />
-            </button>
-          </div>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h2>Nou personal</h2>
+          <button
+            className="btn btn-primary"
+            title="Save"
+            disabled={!canSave}
+          >
+            <FontAwesomeIcon icon={faSave} />
+          </button>
         </div>
-        <div className="form-group">
+        <div className="form-group mt-3">
           <label className="form__label" htmlFor="nom">
-            Nom: <span className="nowrap">[3-20 letters]</span>
+            Nom: <span className="nowrap">[3-20 lletres]</span>
           </label>
           <input
             className={`form-control ${validPersonalClass}`}
@@ -123,7 +120,7 @@ const content = (
             onChange={onNomChanged}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group mt-3">
           <label className="form__label" htmlFor="cognoms">
             Cognoms:
           </label>
@@ -137,7 +134,7 @@ const content = (
             onChange={onCognomsChanged}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group mt-3">
           <label className="form__label" htmlFor="gmail">
             Gmail:
           </label>
@@ -151,11 +148,11 @@ const content = (
             onChange={onGmailChanged}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group mt-3">
           <label className="form__label" htmlFor="contrasenya">
             Contrasenya:{" "}
             <span className="nowrap">
-              [4-12 chars incl. !@#$%]
+              [4-12 caràcters incl. !@#$%]
             </span>
           </label>
           <input
@@ -167,7 +164,7 @@ const content = (
             onChange={onContrasenyaChanged}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group mt-3">
           <label className="form__label" htmlFor="familia">
             Familia:
           </label>
@@ -181,7 +178,7 @@ const content = (
             onChange={onFamiliaChanged}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group mt-3">
           <label className="form__label" htmlFor="carrecs">
             ASSIGNED CARRECS:
           </label>
@@ -197,9 +194,14 @@ const content = (
             {options}
           </select>
         </div>
+        <Link to="/dash/personals" class="btn btn-primary mt-3">
+            Tornar
+        </Link>
       </form>
     </div>
+    </div>
   </div>
+
 );
       
 

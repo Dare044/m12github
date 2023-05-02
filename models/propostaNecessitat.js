@@ -1,5 +1,3 @@
-// Model serveix per accedir a la base de dades
-
 var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;

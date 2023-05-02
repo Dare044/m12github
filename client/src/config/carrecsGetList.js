@@ -1,4 +1,4 @@
-export const CARRECS = {
+const CARRECS = {
     Professor: '643bd9ee7f3b35c976672ca3',
     Director: '643bd9ee7f3b35c976672ca4',
     CapDeDepartament: '643bd9ee7f3b35c976672ca5',
@@ -6,3 +6,8 @@ export const CARRECS = {
     Conserge: '643bd9ee7f3b35c976672ca7',
     Admin: '643bd9ee7f3b35c976672ca8'
 }
+
+export const getCarrecList = () => {
+    return Object.entries(CARRECS).map(([key, value]) => ({ name: key, id: value }));
+  };
+  
