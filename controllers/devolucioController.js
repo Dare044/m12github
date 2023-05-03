@@ -1,10 +1,15 @@
+// Aquesta línia importa el model de MongoDB per al llistat de proveïdors.
 var LlistatProveidor = require("../models/llistatProveidor");
+
+// Aquesta línia importa el model de MongoDB per als elements del llistat.
 var Element = require("../models/element");
 
+// Aquesta línia importa el mòdul PDFKit per generar un document PDF.
 const PDFDocument = require('pdfkit');
 
 class DevolucioController {
 
+  // Aquesta funció controladora és responsable de mostrar el formulari per a crear una nova devolució.
   static async create_get(req, res, next) {
     try {
       var list_proveidor = await LlistatProveidor.find();
@@ -15,11 +20,14 @@ class DevolucioController {
     } 
   }
 
+  // Aquesta funció controladora és responsable de crear un nou formulari de devolució i generar un document PDF.
   static create_post(req, res) {
     const { proveidor, rao, element } = req.body;
 
+    // S'inicialitza un nou document PDF.
     const doc = new PDFDocument();
   
+    // Es defineix el títol del document i es posa el contingut del formulari en el PDF.
     doc.fontSize(20).text('Devolució de producte', { align: 'center' });
     doc.moveDown();
     doc.fontSize(14).text(`Proveidor: ${proveidor}`);
@@ -32,10 +40,11 @@ class DevolucioController {
     doc.moveDown();
     doc.fontSize(14).text(`Signa proveïdor:`)
 
-  
+    // Es defineix el nom del fitxer PDF i el seu tipus MIME.
     res.setHeader('Content-Disposition', 'attachment; filename=devolucio.pdf');
     res.setHeader('Content-Type', 'application/pdf');
     
+    // Es vincula el document PDF amb la resposta HTTP i s'envia a l'usuari.
     doc.pipe(res);
     doc.end();
   }
