@@ -13,7 +13,6 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<DashLayout />} />
-
         <Route path="dash" element={<DashLayout />}>
           <Route index element={<Welcome />} />
           <Route path="personals">
@@ -21,7 +20,7 @@ function App() {
             <Route path=":id" element={<EditPersonal />} />
             <Route path="new" element={<NewPersonalForm />} />
           </Route>
-          </Route> {/* End Dash */}
+          </Route>
       </Route>
     </Routes>
   );

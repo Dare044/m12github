@@ -33,8 +33,8 @@ export const personalsApiSlice = apiSlice.injectEndpoints({
         }),
         addNewPersonal: builder.mutation({
             query: initialPersonalData => ({
-                url: '/personal/create', // Esto lo tienes que cambiar
-                method: 'POST',  // Esto lo tienes que cambiar
+                url: '/personal/create', 
+                method: 'POST', 
                 body: {
                     ...initialPersonalData,
                 }

@@ -8,11 +8,11 @@ const checkAuth = async (req, res, next) => {
         if (tokenData._id) {
             next()
         } else {
-            res.render('login/singin', { error: 'No has iniciado sesión!' });
+            res.render('login/singin', { error: 'No has iniciat sessió!' });
         }
 
     } catch (e) {
-        res.render('login/singin', { error: 'No has iniciado sesión!' });
+        res.render('login/singin', { error: 'No has iniciat sessió!' });
     }
 
 }

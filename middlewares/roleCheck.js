@@ -21,15 +21,8 @@ const checkCarrecAuth = (carrec) => async (req, res, next) => {
             next()
             console.log(personalData.carrecs)
         } else {
-            res.render('home', { error: 'No tienes permisos suficientes para entrar ahí' });
+            res.render('home', { error: 'No tens permisos suficients per entrar' });
         }
-
-        // if (personalData.carrecs.includes(carrec)) { //TODO:
-        //     next()
-        //     console.log(personalData.carrecs)
-        // } else {
-        //     res.render('home', { error: 'No tienes permisos suficientes para entrar ahí' });
-        // }
 
     } catch (e) {
         console.log(e)

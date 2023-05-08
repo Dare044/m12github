@@ -90,11 +90,14 @@ app.get('/back', (req, res) => {
 });
 
 app.get('/borrar-sesion', (req, res) => {
-  // Eliminar todas las variables de la sesión
+  // Elimina totes les variables de la sessió
   req.session.destroy();
   res.render('login/singin');
 });
 
+const carrecController = require("./controllers/carrecController");
+
+app.get("/carrecs", carrecController.getAllCarrecs);
 
 
 module.exports = app;

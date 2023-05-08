@@ -6,15 +6,17 @@ var LlistatProveidor = require("../models/llistatProveidor");
 
 class FullComandaController {
 
-  // Version 1
+
   static async list(req,res,next) {
     try {
-      const page = parseInt(req.query.page) || 1; // Obtiene el número de página de la URL, por defecto 1
-      const pageSize = 5; // Tamaño de página (cantidad de elementos por página)
+      // Obtiene el número de página de la URL, por defecto 1
+      const page = parseInt(req.query.page) || 1; 
+      // Tamaño de página (cantidad de elementos por página)
+      const pageSize = 5;
       const skip = (page - 1) * pageSize;
-
       var list_fullComandes = await FullComanda.find().skip(skip).limit(pageSize).exec();
-      const totalCount = await FullComanda.countDocuments(); // Obtiene la cantidad total de elementos para calcular la cantidad de páginas
+      // Obtiene la cantidad total de elementos para calcular la cantidad de páginas
+      const totalCount = await FullComanda.countDocuments(); 
       var list_ProveidorsLlista = await LlistatProveidor.find();
       res.render('fullComandes/list',{list: list_fullComandes, list_ProveidorsLlista: list_ProveidorsLlista, page, totalPages: Math.ceil(totalCount / pageSize)});   
     } 
@@ -28,7 +30,6 @@ class FullComandaController {
   }
 
   static async delete_post(req, res, next) {
-    
     FullComanda.findByIdAndRemove(req.params.id, function (error) {
       if(error){
         res.redirect('/fullComanda')
