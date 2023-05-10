@@ -189,7 +189,7 @@ class PropostaNecessitatController {
 
           }          
           //res.redirect('/genres/update/'+ genreFound._id);
-          res.render("propostesNecessitat/updateEstat", { propostaNecessitat: propostaNecessitat, message: 'Personal Updated'});
+          res.render("propostesNecessitat/updateEstat", { propostaNecessitat: propostaNecessitat, message: 'Proposta de necessitat actualitzada'});
         }
       );
   }

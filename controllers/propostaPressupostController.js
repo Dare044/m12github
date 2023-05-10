@@ -261,7 +261,7 @@ class PropostaPressupostController {
 
           }          
           //res.redirect('/genres/update/'+ genreFound._id);
-          res.render("propostesPressupost/update", { propostaPressupost: propostaPressupost, message: 'Personal Updated'});
+          res.render("propostesPressupost/update", { propostaPressupost: propostaPressupost, message: 'Prioritat canviada'});
         }
       );
   }
@@ -300,7 +300,7 @@ class PropostaPressupostController {
 
           }          
           //res.redirect('/genres/update/'+ genreFound._id);
-          res.render("propostesPressupost/updateEstat", { propostaPressupost: propostaPressupost, message: 'Personal Updated'});
+          res.render("propostesPressupost/updateEstat", { propostaPressupost: propostaPressupost, message: 'Proposta pressupost'});
         }
       );
   }
