@@ -1,5 +1,6 @@
 var LlistaCategoria = require("../models/llistaCategoria");
 var LlistatProveidor = require("../models/llistatProveidor");
+var Element = require("../models/element");
 
 class LlistaCategoriaController {
 
@@ -45,9 +46,10 @@ class LlistaCategoriaController {
           //console.log(error)
           res.render('llistaCategories/new',{error:error.message})
       }else{             
-        var list_LlistaCategoria = await LlistaCategoria.find();
+        var list_Element = await Element.find();
+        var list_LlistaCategoria = await LlistaCategoria.find()
         var list_LlistaProveidor = await LlistatProveidor.find();
-        res.render('propostesPressupost/new',{list_LlistaCategoria:list_LlistaCategoria, list_LlistaProveidor:list_LlistaProveidor}); 
+        res.render('elements/newPressupost',{list_Element:list_Element, list_LlistaCategoria:list_LlistaCategoria, list_LlistaProveidor:list_LlistaProveidor}); 
       }
   })  
   }
@@ -57,12 +59,15 @@ class LlistaCategoriaController {
   }
 
   static create_postPropostaNecessitat (req, res, next) {
-    LlistaCategoria.create(req.body, function (error, newLlistaCategoria)  {
+    LlistaCategoria.create(req.body, async function (error, newLlistaCategoria)  {
       if(error){
           //console.log(error)
           res.render('llistaCategories/new',{error:error.message})
-      }else{             
-          res.render('propostesNecessitat/new')
+      }else{          
+          var list_Element = await Element.find();
+          var list_LlistaCategoria = await LlistaCategoria.find()
+          var list_LlistaProveidor = await LlistatProveidor.find();   
+          res.render('elements/newNecessitat',{list_Element:list_Element, list_LlistaCategoria:list_LlistaCategoria, list_LlistaProveidor:list_LlistaProveidor})
       }
   })  
   }

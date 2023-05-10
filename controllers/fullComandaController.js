@@ -51,7 +51,7 @@ class FullComandaController {
         tipusProposta = "PropostaDePressupost";
       }
     });
-
+    console.log("Tipus de proposta" + tipusProposta);
     var list_LlistaCategoria = await LlistaCategoria.find();
     res.render('fullComandes/show',{id: req.params.id, 
                                     list_propostaNecessitat:list_propostaNecessitat, 

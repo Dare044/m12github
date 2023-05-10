@@ -22,7 +22,11 @@ router.post("/create", checkAuth, [
     if (!errors.isEmpty()) {
         res.render('llistaCategories/new',{tipusProposta: "normal",  errors: errors.array(), data: req.body});
     } else {
-        llistaCategoria_controller.create_post
+        try {
+            await llistaCategoria_controller.create_post(req, res);
+        } catch (error) {
+            console.log(error);
+        }   
     }});
 
 router.get("/delete/:id", checkAuth, llistaCategoria_controller.delete_get);
@@ -38,7 +42,11 @@ router.post("/createPropostaPressupost", checkAuth, [
     if (!errors.isEmpty()) {
         res.render('llistaCategories/new',{tipusProposta: "pressupost",  errors: errors.array(), data: req.body});
     } else {
-        llistaCategoria_controller.create_postPropostaPressupost
+        try {
+            await llistaCategoria_controller.create_postPropostaPressupost(req, res);
+        } catch (error) {
+            console.log(error);
+        }
     }});
 
 router.get("/createPropostaNecessitat", checkAuth, llistaCategoria_controller.create_getPropostaNecessitat);
@@ -51,7 +59,11 @@ router.post("/createPropostaNecessitat", checkAuth, [
     if (!errors.isEmpty()) {
         res.render('llistaCategories/new',{tipusProposta: "necessitat",  errors: errors.array(), data: req.body});
     } else {
-        llistaCategoria_controller.create_postPropostaNecessitat
+        try {
+            await llistaCategoria_controller.create_postPropostaNecessitat(req, res);
+        } catch (error) {
+            console.log(error);
+        }
     }});
 
 // router.get("/update/:id", llistaCategoria_controller.update_get);

@@ -26,6 +26,7 @@
             <th scope="col">Cost total</th>
             <th scope="col">Prioritat</th>
             <th scope="col">Estat</th>
+            <th scope="col">Operacions</th>
           </tr>
         </thead>
         <tbody>
@@ -42,6 +43,10 @@
                 <td> Denegada </td>	
                   <% }; %>
                 <td><%= propostaPressupost.estat %> 
+                <td>					      	
+                  <a class="btn btn-info" href="/propostaPressupost/update/<%=propostaPressupost._id%>" class="card-link">Update</a>
+                  <a class="btn btn-info" href="/propostaPressupost/Show/<%=propostaPressupost._id%>" class="card-link">Show</a>
+                </td>	
             </tr>
           <% }}); %>
         </tbody> 
@@ -52,6 +57,7 @@
               <th scope="col">ID Full comanda</th>
               <th scope="col">Cost total</th>
               <th scope="col">Estat</th>
+              <th scope="col">Operacions</th>
 				    </tr>
 		  		</thead>
 			  	<tbody>
@@ -62,6 +68,10 @@
                 <td><%= propostaNecessitat.idFullComanda %></td>
                 <td><%= propostaNecessitat.costTotal%></td>
                 <td><%= propostaNecessitat.estat %> </td>
+                <td>					      	
+					      	<a class="btn btn-danger" href="/propostaNecessitat/delete/<%=propostaNecessitat._id%>" class="card-link">Delete</a>
+							    <a class="btn btn-info" href="/propostaNecessitat/Show/<%=propostaNecessitat._id%>" class="card-link">Show</a>
+					      </td>		   
 					    </tr>
 			   		<% }; %>	     
 			    </tbody>

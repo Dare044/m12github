@@ -41,9 +41,9 @@ router.post("/create", checkAuth, checkCarrecAuth(['Conserge','Admin']), [
 router.get("/delete/:id", checkAuth, checkCarrecAuth(['Conserge','Admin']), llistatProveidor_controller.delete_get);
 router.post("/delete/:id", checkAuth, checkCarrecAuth(['Conserge','Admin']), llistatProveidor_controller.delete_post);
 
-/*
-router.get("/update/:id", llistatProveidor_controller.update_get);
-router.post("/update/:id", llistatProveidor_controller.update_post);
-*/
+
+router.get("/update/:id", checkAuth, checkCarrecAuth(['Conserge','Admin']), llistatProveidor_controller.update_get);
+router.post("/update/:id", checkAuth, checkCarrecAuth(['Conserge','Admin']), llistatProveidor_controller.update_post);
+
 
 module.exports = router;

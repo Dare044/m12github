@@ -22,7 +22,11 @@ router.post("/create", checkAuth, checkCarrecAuth(['Conserge','Admin']), [
         var list_Personal = await Personal.find();
         res.render('recepcioComandes/new', { personal_list:list_Personal, errors: errors.array(), data: req.body });
     } else {
-        recepcioComanda_controller.create_post
+        try {
+            await recepcioComanda_controller.create_post(req, res);
+        } catch (error) {
+            console.log(error);
+        }   
     }});
 
 router.get("/delete/:id", checkAuth, checkCarrecAuth(['Conserge','Admin']), recepcioComanda_controller.delete_get);

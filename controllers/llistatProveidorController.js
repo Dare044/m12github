@@ -58,54 +58,40 @@ class LlistatProveidorController {
    }) 
   }
 
-  /*
   static update_get(req, res, next) {
-    RecepcioComanda.findById(req.params.id, function (err, recepcioComanda) {
+    LlistatProveidor.findById(req.params.id, function (err, llistatProveidor) {
         if (err) {
           return next(err);
         }
-        if (recepcioComanda == null) {
+        if (llistatProveidor == null) {
           // No results.
-          var err = new Error("RecepcioComanda not found");
+          var err = new Error("Proveïdor not found");
           err.status = 404;
           return next(err);
         }
         // Success.
-        res.render("recepcioComandes/update", { recepcioComanda: recepcioComanda });
+        res.render("llistatProveidors/update", { data: llistatProveidor , errors:""});
     });
-      
   }  
 
   static update_post(req, res, next) {
-      var recepcioComanda = new RecepcioComanda({
-        estatRecepcio: req.body.estatRecepcio,
-        dateRecepcio: req.body.dateRecepcio,
-        llocRecepcio: req.body.llocRecepcio,
-        idPersonalRecepcio: req.body.idPersonalRecepcio,
-        tempsRebuda: req.params.tempsRebuda,
-        valoracio: req.params.valoracio,
-        observacio: req.params.observacio,
-        _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
-      });    
+    LlistatProveidor.findById(req.params.id, function (err, llistatProveidorFound) {
+      if (err) {
+        return next(err);
+      }
     
-      RecepcioComanda.findByIdAndUpdate(
-        req.params.id,
-        recepcioComanda,
-        {runValidators: true}, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
-        function (err, recepcioComandaFound) {
-          if (err) {
-            //return next(err);
-            res.render("recepcioComandes/update", { recepcioComanda: recepcioComanda, error: err.message });
-
-          }          
-          //res.redirect('/genres/update/'+ genreFound._id);
-          res.render("recepcioComandes/update", { recepcioComanda: recepcioComanda, message: 'RecepcioComanda Updated'});
+      llistatProveidorFound.numDeficiencies = req.body.numDeficiencies;
+      llistatProveidorFound.numIncorreccions = req.body.numIncorreccions;
+    
+      llistatProveidorFound.save(function (err) {
+        if (err) {
+          return next(err);
         }
-      );
+    
+        res.redirect("/llistatProveidor");
+      });
+    });
   }
-
-  
-*/
 }
 
 module.exports = LlistatProveidorController;
