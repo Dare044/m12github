@@ -1,11 +1,9 @@
-// Model serveix per accedir a la base de dades
-
 var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
 var LlistatProveidorSchema = new Schema({
-  Cif: { type: Number},
+  Cif: { type: String},
   nom: { type: String},
   idActivitat: [{type: Schema.ObjectId, ref:"Activitat"}],
   ubicacio: { type: String},

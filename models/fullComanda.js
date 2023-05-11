@@ -7,6 +7,5 @@ var FullComandaSchema = new Schema({
   costFinal: { type: Number}
 });
 
-
 // Export model.
 module.exports = mongoose.model("FullComanda", FullComandaSchema);

@@ -13,7 +13,7 @@
 	<div class="card mt-2">
 		
 		<div class="card-header">
-	     <h5 class="card-title">Llista de Proveidor</h5>
+	     <h5 class="card-title">Proveïdors</h5>
 	  </div>
 
     <div class="card-body">
@@ -50,11 +50,26 @@
                           <td><%= llistatProveidor.numIncorreccions %></td>
 					      <td>					      	
 					      	<a class="btn btn-danger" href="/llistatProveidor/delete/<%= llistatProveidor._id %>" class="card-link">Delete</a>
+							<a class="btn btn-info" href="/llistatProveidor/update/<%= llistatProveidor._id%>" class="card-link">Update</a>
 					      </td>		      
 					    </tr>
 			   		<% }); %>	     
 			    </tbody>
-		  </table>	     
+		  </table>	  
+	<!-- Paginación -->
+	  <ul class="pagination justify-content-center">
+		<li class="page-item disabled">
+			<a class="page-link" href="#" tabindex="-1">Previous</a>
+		  </li>
+		<% for (let i = 1; i <= totalPages; i++) { %>
+            <li class="page-item <%= i === page ? 'active' : '' %>"><a class="page-link" href="?page=<%= i %>"><%= i %></a></li>
+          <% } %>
+		<li class="page-item">
+		  <a class="page-link" href="#">Next</a>
+		</li>
+	  </ul>
+	</nav>
+	<!-- Fin Paginación -->   
 	    
 		</div>
 		

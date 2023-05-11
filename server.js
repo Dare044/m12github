@@ -1,8 +1,12 @@
 var express = require('express');
 var path = require('path');
 var dotenv = require('dotenv');
-
 var session = require('express-session');
+var bodyParser = require('body-parser');
+const cors = require('cors')
+const corsOptions = require('./config/corsOptions')
+const cookieParser = require('cookie-parser');
+// configure the app to use bodyParser()
 
 var indexRouter = require('./routes/indexRouter');
 var personalRouter = require('./routes/personalRouter');
@@ -14,8 +18,17 @@ var propostaNecessitatRouter = require ('./routes/propostaNecessitatRouter');
 var activitatRouter = require('./routes/activitatRouter');
 var llistatProveidorRouter = require('./routes/llistatProveidorRouter');
 var elementRouter = require('./routes/elementRouter');
+var authRouter = require('./routes/authRouter');
+var loginRouter = require('./routes/loginRouter');
+var devolucioRouter = require('./routes/devolucioRouter');
 
 var app = express();
+
+app.use(cors(corsOptions))
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 
 dotenv.config();
 
@@ -29,15 +42,19 @@ mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 //mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
+app.use(cookieParser());
 // Set up session
 app.use(session({
-  secret: process.env.SECRET,
-  resave: false,
-  name: 'M12',
-  saveUninitialized: true,
-  cookie: {masAge: 1000*60*60}
+  secret: '1234', // una clave secreta para firmar la cookie de sesión
+  resave: false, // no guarde la sesión si no ha cambiado
+  saveUninitialized: true // guarde la sesión aunque todavía no se haya inicializado
 }));
+
+/*
+app.get('/', function(req, res) {  
+  res.render('home');  
+});
+*/
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -46,19 +63,11 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + '/public')));
 
-
-
-/*
-app.get('/', function(req, res) {  
-  res.render('home');  
-});
-*/
-
-
-
 const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
+
 
 app.use('/', indexRouter);
 app.use('/personal', personalRouter);
@@ -70,7 +79,25 @@ app.use('/propostaNecessitat', propostaNecessitatRouter);
 app.use('/activitat', activitatRouter);
 app.use('/llistatProveidor', llistatProveidorRouter);
 app.use('/element',elementRouter);
+app.use('/auth',authRouter)
+app.use('/login',loginRouter);
+app.use('/devolucio', devolucioRouter);
 
+app.get('/back', (req, res) => {
+  const backURL = req.cookies.lastPage || '/';
+  res.clearCookie('lastPage');
+  res.redirect(backURL);
+});
+
+app.get('/borrar-sesion', (req, res) => {
+  // Elimina totes les variables de la sessió
+  req.session.destroy();
+  res.render('login/singin');
+});
+
+const carrecController = require("./controllers/carrecController");
+
+app.get("/carrecs", carrecController.getAllCarrecs);
 
 
 module.exports = app;

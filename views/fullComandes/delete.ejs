@@ -13,7 +13,7 @@
 
 	<div class="card mt-4">
 	  <div class="card-header">
-	     <h5 class="card-title">Confirm Full Comanda</h5>
+	     <h5 class="card-title">Confirmació eliminació full de comanda</h5>
 	  </div>
 	  <div class="card-body">
 
@@ -21,7 +21,7 @@
 				<form method="POST" action="/fullcomanda/delete/<%= id %>">		
 					
 					<div class="alert alert-danger" role="alert">
-  					Do you really want to delete this Comanda?
+  					Segur que vols eliminar aquest full de comanda?
 					</div>	
 					<button type="submit" class="btn btn-danger">
 						Delete
@@ -31,7 +31,7 @@
 
 	<% if (typeof error !== "undefined") { %>
 		<div class="alert alert-primary mt-2" role="alert">
-		    <p>Form could not be submitted due to the following error:</p>
+		    <p>Hi ha hagut un error:</p>
 		    <p><%= error %></p>
 		</div>
 	<% } %>

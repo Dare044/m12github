@@ -1,3 +1,4 @@
+// Aquesta funció middleware comprova si l'usuari ha iniciat sessió. Si la variable de sessió "data" no existeix, es redirigeix a la pàgina de login. Si la variable existeix, la funció next() s'executa per passar el control a la següent funció middleware.
 exports.isAuth = function (req, res, next) {
     
     // Comprova si existeix la variable data en la session
@@ -9,6 +10,9 @@ exports.isAuth = function (req, res, next) {
     }   
 }
 
+// Aquesta funció retorna una funció middleware que comprova si l'usuari té el rol especificat per a accedir a una ruta. 
+// Si l'usuari té el rol, s'executa la funció next() per passar el control a la següent funció middleware.
+// Si l'usuari no té el rol o si el rol no és una cadena o un array, es genera un error 401.
 exports.hasRole = function  (role)  {
     return function (req, res, next)  {
 
@@ -32,4 +36,5 @@ exports.hasRole = function  (role)  {
     }
 }
 
-// module.exports = isAuth;
+// Aquesta línia no és necessària i és un error, ja que està sobrescrivint la funció isAuth que ja s'ha definit a l'inici del fitxer. Aquesta línia es pot eliminar.
+module.exports = isAuth;

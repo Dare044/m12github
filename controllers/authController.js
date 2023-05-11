@@ -98,9 +98,7 @@ class authController {
                 
     }); 
 
-  }
-    
-    
+  } 
     
   }
 
@@ -113,8 +111,6 @@ class authController {
     res.render('users/register',{user:user});
       
   }
-
-  
 
   static async register_post(req, res, next) {
       

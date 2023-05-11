@@ -6,9 +6,14 @@ class LlistatProveidorController {
   // Version 1
   static async list(req,res,next) {
     try {
-      var list_llistatProveidors = await LlistatProveidor.find();
+      const page = parseInt(req.query.page) || 1; // Obtiene el número de página de la URL, por defecto 1
+      const pageSize = 5; // Tamaño de página (cantidad de elementos por página)
+      const skip = (page - 1) * pageSize;
+  
+      var list_llistatProveidors = await LlistatProveidor.find().skip(skip).limit(pageSize).exec();
+      const totalCount = await LlistatProveidor.countDocuments(); // Obtiene la cantidad total de elementos para calcular la cantidad de páginas
       var list_Activitat = await Activitat.find();
-      res.render('llistatProveidors/list',{list:list_llistatProveidors,activitat_list:list_Activitat});   
+      res.render('llistatProveidors/list', { list: list_llistatProveidors, activitat_list: list_Activitat, page, totalPages: Math.ceil(totalCount / pageSize) });
     }
     catch(e) {
       res.send('Error!');
@@ -17,8 +22,8 @@ class LlistatProveidorController {
 
   static async create_get(req, res, next) {
     try {
-      var list_Activitat = await Activitat.find();
-      res.render('llistatProveidors/new',{activitat_list:list_Activitat});   
+      var activitat_list = await Activitat.find();
+      res.render('llistatProveidors/new',{activitat_list:activitat_list, errors:""});   
     }
     catch(e) {
       res.send('Error!');
@@ -27,14 +32,15 @@ class LlistatProveidorController {
 
   static create_post(req, res) {
     // console.log(req.body)
-    LlistatProveidor.create(req.body, function (error, newLlistatProveidor)  {
-        if(error){
-            //console.log(error)
-            res.render('llistatProveidors/new',{error:error.message})
-        }else{             
-            res.redirect('/llistatProveidor')
-        }
-    })    
+    LlistatProveidor.create(req.body, async function (error, newLlistatProveidor)  {
+      if(error){
+          console.log(error)
+          var activitat_list = await Activitat.find();
+          res.render('llistatProveidors/new',{activitat_list:activitat_list})
+      }else{             
+          res.redirect('/llistatProveidor')
+      }
+  })    
   }
 
   static async delete_get(req, res, next) {
@@ -52,54 +58,40 @@ class LlistatProveidorController {
    }) 
   }
 
-  /*
   static update_get(req, res, next) {
-    RecepcioComanda.findById(req.params.id, function (err, recepcioComanda) {
+    LlistatProveidor.findById(req.params.id, function (err, llistatProveidor) {
         if (err) {
           return next(err);
         }
-        if (recepcioComanda == null) {
+        if (llistatProveidor == null) {
           // No results.
-          var err = new Error("RecepcioComanda not found");
+          var err = new Error("Proveïdor not found");
           err.status = 404;
           return next(err);
         }
         // Success.
-        res.render("recepcioComandes/update", { recepcioComanda: recepcioComanda });
+        res.render("llistatProveidors/update", { data: llistatProveidor , errors:""});
     });
-      
   }  
 
   static update_post(req, res, next) {
-      var recepcioComanda = new RecepcioComanda({
-        estatRecepcio: req.body.estatRecepcio,
-        dateRecepcio: req.body.dateRecepcio,
-        llocRecepcio: req.body.llocRecepcio,
-        idPersonalRecepcio: req.body.idPersonalRecepcio,
-        tempsRebuda: req.params.tempsRebuda,
-        valoracio: req.params.valoracio,
-        observacio: req.params.observacio,
-        _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
-      });    
+    LlistatProveidor.findById(req.params.id, function (err, llistatProveidorFound) {
+      if (err) {
+        return next(err);
+      }
     
-      RecepcioComanda.findByIdAndUpdate(
-        req.params.id,
-        recepcioComanda,
-        {runValidators: true}, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
-        function (err, recepcioComandaFound) {
-          if (err) {
-            //return next(err);
-            res.render("recepcioComandes/update", { recepcioComanda: recepcioComanda, error: err.message });
-
-          }          
-          //res.redirect('/genres/update/'+ genreFound._id);
-          res.render("recepcioComandes/update", { recepcioComanda: recepcioComanda, message: 'RecepcioComanda Updated'});
+      llistatProveidorFound.numDeficiencies = req.body.numDeficiencies;
+      llistatProveidorFound.numIncorreccions = req.body.numIncorreccions;
+    
+      llistatProveidorFound.save(function (err) {
+        if (err) {
+          return next(err);
         }
-      );
+    
+        res.redirect("/llistatProveidor");
+      });
+    });
   }
-
-  
-*/
 }
 
 module.exports = LlistatProveidorController;

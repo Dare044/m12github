@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body class="container">
+  <header>
+    <%- include('../partials/header'); %>
+  </header>
+<body>
+  <div class="card mt-2">
+    <div class="card-header">
+      <form class="container" method="POST" action="/devolucio/create">
+        
+        <div class="form-group">
+          <label for="proveidor">Proveïdor:</label>
+          <select name="proveidor" id="proveidor" class="form-control">
+            <% list_proveidor.forEach( function(proveidor) { %>
+              <option value="<%= proveidor.nom %>"> <%= proveidor.nom %> </option>
+            <% }); %>	
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="rao">Raó per tornar:</label>
+          <textarea class="form-control" id="rao" name="rao" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="element">Producte amb problema:</label>
+          <select name="element" id="element" class="form-control">
+            <% list_element.forEach( function(element) { %>
+              <option value="<%= element.nom %>"> <%= element.nom %> </option>
+            <% }); %>	
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+    </div>
+  </div>
+</body>
+    
+  
+</html>

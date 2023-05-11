@@ -1,8 +1,10 @@
 var Activitat = require("../models/activitat");
 
+// Aquesta és una classe que conté diferents mètodes per a la gestió d'activitats. Aquesta classe s'utilitza com a controlador en el nostre servidor Node.js.
+
 class ActivitatController {
 
-  // Version 1
+  // Aquest mètode llista totes les activitats i les mostra a la pàgina activitats/list
   static async list(req,res,next) {
     try {
       var list_Activitats = await Activitat.find();
@@ -13,10 +15,12 @@ class ActivitatController {
     }          
   }
 
+  // Aquest mètode mostra el formulari per crear una nova activitat a la pàgina activitats/new
   static create_get(req, res, next) {
     res.render('activitats/new');
   }
 
+  // Aquest mètode crea una nova activitat i la redirigeix a la pàgina activitats/list
   static create_post(req, res) {
     // console.log(req.body)
     Activitat.create(req.body, function (error, newActivitat)  {
@@ -29,6 +33,7 @@ class ActivitatController {
     })    
   }
 
+  // Aquest mètode mostra el formulari per actualitzar una activitat específica a la pàgina activitats/update
   static update_get(req, res, next) {
     Activitat.findById(req.params.id, function (err, activitat) {
         if (err) {
@@ -46,6 +51,7 @@ class ActivitatController {
       
   }  
 
+  // Aquest mètode actualitza una activitat específica i la redirigeix a la pàgina activitats/update amb un missatge de confirmació
   static update_post(req, res, next) {
       var activitat = new Activitat({
         Nom: req.body.Nom,
@@ -69,10 +75,12 @@ class ActivitatController {
       );
   }
 
+  // Aquest mètode mostra el formulari per eliminar una activitat específica a la pàgina activitats/delete
   static async delete_get(req, res, next) {
     res.render('activitats/delete',{id: req.params.id})
  }
 
+  // Aquest mètode elimina una activitat específica i la redirigeix a la pàgina activitats
  static async delete_post(req, res, next) {
    
    Activitat.findByIdAndRemove(req.params.id, function (error) {
@@ -83,8 +91,6 @@ class ActivitatController {
      }
    }) 
  }
-
-  
 
 }
 
